@@ -3,133 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parallax | Void</title>
+    <title>Parallax // Void</title>
     <style>
-        /* --- RESET & HIGH-END EDITORIAL STYLE --- */
+        /* --- CORE MINIMALIST CONFIG --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none; /* Custom premium cursor layout */
+            cursor: none; /* Hide default cursor for high-end feel */
         }
 
         body, html {
             width: 100%;
             height: 100%;
-            background-color: #080808;
+            background-color: #030303;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            overflow: hidden;
+            letter-spacing: 0.1em;
         }
 
-        /* --- ATMOSPHERIC BACKDROP --- */
-        #spaceCanvas {
+        /* --- THE EMISSIVE GALAXY INTERACTION MATRIX --- */
+        #nebulaCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             z-index: 1;
-            opacity: 0.8;
         }
 
-        /* --- THE GRID LAYOUT --- */
-        .container {
+        /* --- IMMERSIVE LAYOUT INTERFACE --- */
+        .viewport-frame {
             position: relative;
             z-index: 2;
             width: 100%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 50px;
+            height: 100%;
+            display: grid;
+            grid-template-rows: 1fr auto 1fr;
+            padding: 60px;
+            pointer-events: none; /* Let calculations flow directly down to canvas */
         }
 
-        /* --- TOP NAV --- */
+        .interactive-node {
+            pointer-events: auto; /* Re-engage interactions on UI text */
+        }
+
+        /* --- UPPER BRAND HUD --- */
         header {
-            width: 100%;
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
+            align-items: flex-start;
         }
 
-        .brand-name {
-            font-family: "Didot", "Bodoni MT", "Cinzel", serif; /* Premium Serif */
-            font-size: 2.2rem;
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            text-decoration: none;
-            color: #fff;
-            transition: opacity 0.3s;
+        .system-status {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            opacity: 0.3;
         }
 
-        .brand-name:hover {
-            opacity: 0.6;
-        }
-
-        .store-anchor {
+        .store-pill {
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.25em;
+            letter-spacing: 0.2em;
             text-decoration: none;
+            color: #000;
+            background: #fff;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 1px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .store-pill:hover {
+            background: transparent;
             color: #fff;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            padding-bottom: 4px;
-            transition: border-color 0.3s;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
         }
 
-        .store-anchor:hover {
-            border-color: rgba(255,255,255,1);
+        /* --- CENTRAL BRAND & CONVERSION GRID --- */
+        .center-core {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 600px;
         }
 
-        /* --- MAIN HERO SECTON --- */
-        main {
-            max-width: 500px;
-            margin-top: auto;
-            margin-bottom: auto;
-            align-self: flex-start;
+        .artist-title {
+            font-family: "Times New Roman", Times, serif;
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 400;
+            letter-spacing: -0.03em;
+            line-height: 0.9;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            text-shadow: 0 0 40px rgba(255,255,255,0.05);
         }
 
-        .hero-tag {
-            font-size: 0.7rem;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            opacity: 0.3;
-            margin-bottom: 15px;
-        }
-
-        /* --- MINIMALIST EMAIL SUBSCRIPTION --- */
-        .email-form {
+        /* --- ULTRA-MINIMAL EMAIL MATRIX --- */
+        .email-capture {
             position: relative;
-            margin-top: 25px;
             width: 100%;
+            max-width: 380px;
         }
 
         .email-input {
             width: 100%;
             background: transparent;
             border: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 40px 12px 0px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 14px 0;
             color: #fff;
-            font-size: 0.95rem;
-            font-family: inherit;
+            font-size: 0.85rem;
             outline: none;
             transition: border-color 0.4s;
         }
 
         .email-input::placeholder {
-            color: rgba(255,255,255,0.25);
-            font-weight: 300;
-            letter-spacing: 0.05em;
+            color: rgba(255,255,255,0.2);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
         }
 
         .email-input:focus {
             border-color: rgba(255,255,255,0.8);
         }
 
-        .submit-btn {
+        .email-submit {
             position: absolute;
             right: 0;
             top: 50%;
@@ -137,199 +139,235 @@
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 1.2rem;
-            transition: transform 0.3s;
+            font-size: 1rem;
+            opacity: 0.4;
+            transition: all 0.3s;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-50%) translateX(4px);
+        .email-capture:hover .email-submit,
+        .email-input:focus + .email-submit {
+            opacity: 1;
+            transform: translateY(-50%) translateX(5px);
         }
 
-        /* --- ASYMMETRIC FOOTER --- */
+        /* --- FOOTER SOCIAL STRUCTURING --- */
         footer {
-            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-top: auto;
         }
 
-        .copyright {
-            font-size: 0.65rem;
-            letter-spacing: 0.1em;
-            opacity: 0.2;
-            text-transform: uppercase;
-        }
-
-        .social-matrix {
+        .network-grid {
             display: grid;
-            grid-template-columns: repeat(3, auto);
-            gap: 15px 40px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px 60px;
             list-style: none;
         }
 
-        .social-matrix a {
+        .network-grid li {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .index-num {
+            font-size: 0.55rem;
+            opacity: 0.2;
+            font-family: monospace;
+        }
+
+        .network-grid a {
             font-size: 0.75rem;
+            text-transform: uppercase;
             text-decoration: none;
             color: #fff;
             opacity: 0.4;
-            transition: opacity 0.3s;
+            transition: opacity 0.2s;
         }
 
-        .social-matrix a:hover {
+        .network-grid a:hover {
             opacity: 1;
         }
 
-        /* --- THE CUSTOM RETICLE CURSOR --- */
-        #ringCursor {
-            width: 30px;
-            height: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 50%;
-            position: fixed;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 999;
-            transition: width 0.2s, height 0.2s, border-color 0.2s;
-        }
-
-        #dotCursor {
-            width: 4px;
-            height: 4px;
+        /* --- RETICLE CUSTOM CURSOR --- */
+        #reticleCursor {
+            width: 6px;
+            height: 6px;
             background: #fff;
             border-radius: 50%;
             position: fixed;
             transform: translate(-50%, -50%);
             pointer-events: none;
-            z-index: 1000;
+            z-index: 9999;
+            mix-blend-mode: difference;
         }
 
-        /* Hover states for premium custom cursor expansion */
-        .expand-cursor:hover ~ #ringCursor {
-            width: 50px;
-            height: 50px;
-            border-color: rgba(255, 255, 255, 0.8);
-            background: rgba(255,255,255,0.03);
+        #reticleRing {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9998;
+            transition: width 0.3s, height 0.3s, background 0.3s;
         }
 
-        /* --- RESPONSIVE CONTROLS --- */
-        @media (max-width: 768px) {
-            .container { padding: 30px; }
-            header { flex-direction: column; gap: 15px; }
+        /* Dynamic interaction responses for custom pointer */
+        .interactive-node:hover ~ #reticleRing {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        /* --- SCALE RULES --- */
+        @media (max-width: 900px) {
+            .viewport-frame { padding: 30px; grid-template-rows: auto 1fr auto; gap: 40px; }
             footer { flex-direction: column-reverse; align-items: flex-start; gap: 40px; }
-            .social-matrix { grid-template-columns: repeat(2, auto); gap: 15px 30px; }
-            * { cursor: auto !important; } #ringCursor, #dotCursor { display: none; }
+            .network-grid { grid-template-columns: repeat(2, 1fr); gap: 15px 40px; }
+            * { cursor: auto !important; } #reticleCursor, #reticleRing { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Target Interaction Nodes -->
-    <div id="ringCursor"></div>
-    <div id="dotCursor"></div>
+    <!-- Target Interaction Rings -->
+    <div id="reticleCursor"></div>
+    <div id="reticleRing"></div>
 
-    <!-- Cosmic Space Canvas Canvas -->
-    <canvas id="spaceCanvas"></canvas>
+    <!-- The Emissive Interaction Canvas -->
+    <canvas id="nebulaCanvas"></canvas>
 
-    <div class="container">
+    <div class="viewport-frame">
         
         <header>
-            <a href="#" class="brand-name expand-cursor">Parallax</a>
-            <a href="https://boundless-official-store.printify.me/" target="_blank" class="store-anchor expand-cursor">Shop Hub</a>
+            <div class="system-status">Sub_Layer // Active</div>
+            <a href="https://boundless-official-store.printify.me/" target="_blank" class="interactive-node store-pill">Shop Store</a>
         </header>
 
-        <main>
-            <div class="hero-tag">Transmission // Echoes</div>
+        <div class="center-core">
+            <h1 class="artist-title">Parallax</h1>
             
-            <!-- Dynamic Minimalist Newsletter Capture -->
-            <form class="email-form expand-cursor" onsubmit="event.preventDefault(); alert('Subscribed to the Parallax network.');">
-                <input type="email" class="email-input" placeholder="Join the inner circle (Email)" required autocomplete="off">
-                <button type="submit" class="submit-btn">→</button>
+            <form class="interactive-node email-capture" onsubmit="event.preventDefault(); alert('Identity logged.');">
+                <input type="email" class="email-input" placeholder="Subscribe for updates" required autocomplete="off">
+                <button type="submit" class="email-submit">→</button>
             </form>
-        </main>
+        </div>
 
         <footer>
-            <div class="copyright">© 2026 Parallax. All Rights Reserved.</div>
-            
-            <ul class="social-matrix">
-                <li><a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="expand-cursor">Instagram</a></li>
-                <li><a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="expand-cursor">YouTube</a></li>
-                <li><a href="https://x.com/Parallax_x_x" target="_blank" class="expand-cursor">X.com</a></li>
-                <li><a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="expand-cursor">Facebook</a></li>
-                <li><a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="expand-cursor">TikTok</a></li>
-                <li><a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="expand-cursor">Discord</a></li>
+            <ul class="interactive-node network-grid">
+                <li><span class="index-num">01</span><a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank">Instagram</a></li>
+                <li><span class="index-num">02</span><a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank">YouTube</a></li>
+                <li><span class="index-num">03</span><a href="https://x.com/Parallax_x_x" target="_blank">X.com</a></li>
+                <li><span class="index-num">04</span><a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank">Facebook</a></li>
+                <li><span class="index-num">05</span><a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank">TikTok</a></li>
+                <li><span class="index-num">06</span><a href="https://discord.com/invite/rhXuzGvM6" target="_blank">Discord</a></li>
             </ul>
         </footer>
 
     </div>
 
-    <!-- HYPNOTIC ATMOSPHERIC SYSTEM -->
+    <!-- GRAPHICSENGINE: EMISSIVE NEBULA VECTOR FIELDS -->
     <script>
-        const canvas = document.getElementById('spaceCanvas');
+        const canvas = document.getElementById('nebulaCanvas');
         const ctx = canvas.getContext('2d');
-        const ring = document.getElementById('ringCursor');
-        const dot = document.getElementById('dotCursor');
+        const rDot = document.getElementById('reticleCursor');
+        const rRing = document.getElementById('reticleRing');
 
         let w = canvas.width = window.innerWidth;
         let h = canvas.height = window.innerHeight;
 
-        let mouse = { x: w / 2, y: h / 2, tx: w / 2, ty: h / 2 };
+        let mouse = { x: w/2, y: h/2, tx: w/2, ty: h/2 };
 
         window.addEventListener('resize', () => {
             w = canvas.width = window.innerWidth;
             h = canvas.height = window.innerHeight;
+            buildGrid();
         });
 
-        // Dual tracking for mouse coordinates & cursor aesthetics
         window.addEventListener('mousemove', (e) => {
             mouse.tx = e.clientX;
             mouse.ty = e.clientY;
-            dot.style.left = e.clientX + 'px';
-            dot.style.top = e.clientY + 'px';
+            
+            // Instantly track raw coordinate point
+            rDot.style.left = e.clientX + 'px';
+            rDot.style.top = e.clientY + 'px';
         });
 
-        // Generate Ambient Dust Fields
-        const stars = [];
-        for (let i = 0; i < 120; i++) {
-            stars.push({
-                x: Math.random() * w,
-                y: Math.random() * h,
-                size: Math.random() * 1.5 + 0.3,
-                baseAlpha: Math.random() * 0.4 + 0.1,
-                speed: Math.random() * 0.2 + 0.05
-            });
+        // Construct high-density coordinate grid maps for smooth visual distortions
+        let nodes = [];
+        const spacing = 25; 
+
+        function buildGrid() {
+            nodes = [];
+            for (let x = 0; x < w; x += spacing) {
+                for (let y = 0; y < h; y += spacing) {
+                    nodes.push({
+                        baseX: x + Math.random() * 10,
+                        baseY: y + Math.random() * 10,
+                        x: x,
+                        y: y,
+                        size: Math.random() * 1.2 + 0.4,
+                        opacity: Math.random() * 0.25 + 0.05
+                    });
+                }
+            }
         }
 
-        function runSystem() {
-            // Smooth easing for the premium trailing ring cursor
-            mouse.x += (mouse.tx - mouse.x) * 0.12;
-            mouse.y += (mouse.ty - mouse.y) * 0.12;
-            ring.style.left = mouse.x + 'px';
-            ring.style.top = mouse.y + 'px';
+        function engine() {
+            // Eased delay positioning for the main visual tracker circle
+            mouse.x += (mouse.tx - mouse.x) * 0.1;
+            mouse.y += (mouse.ty - mouse.y) * 0.1;
+            rRing.style.left = mouse.x + 'px';
+            rRing.style.top = mouse.y + 'px';
 
-            // Velvet void frame cleanup
-            ctx.fillStyle = '#080808';
+            ctx.fillStyle = '#030303';
             ctx.fillRect(0, 0, w, h);
 
-            // Render drifting cosmic dust
-            stars.forEach(s => {
-                s.y -= s.speed;
-                if (s.y < 0) s.y = h;
+            nodes.forEach(n => {
+                // Determine distances from mouse beam coordinate
+                let dx = mouse.tx - n.x;
+                let dy = mouse.ty - n.y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
 
-                // Gentle drift based on mouse coordinate offset
-                let parallaxX = (mouse.tx - w / 2) * 0.015;
-                let parallaxY = (mouse.ty - h / 2) * 0.015;
+                // Cosmic field drift calculations
+                let speedMod = Date.now() * 0.0003 + (n.baseX * 0.05);
+                let ambientX = Math.sin(speedMod) * 4;
+                let ambientY = Math.cos(speedMod) * 4;
 
-                ctx.fillStyle = `rgba(255, 255, 255, ${s.baseAlpha})`;
+                let targetX = n.baseX + ambientX;
+                let targetY = n.baseY + ambientY;
+
+                let currentOpacity = n.opacity;
+
+                // If within proximity of the mouse "flashlight", illuminate the monochrome galaxy grid
+                if (dist < 220) {
+                    let factor = (220 - dist) / 220;
+                    currentOpacity += factor * 0.65;
+                    
+                    // Soft structural warp
+                    targetX += (dx / dist) * factor * -15;
+                    targetY += (dy / dist) * factor * -15;
+                }
+
+                // Smooth coordinate mapping step
+                n.x += (targetX - n.x) * 0.1;
+                n.y += (targetY - n.y) * 0.1;
+
+                // Render vector star nodes
+                ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity})`;
                 ctx.beginPath();
-                ctx.arc(s.x + parallaxX, s.y + parallaxY, s.size, 0, Math.PI * 2);
+                ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
                 ctx.fill();
             });
 
-            requestAnimationFrame(runSystem);
+            requestAnimationFrame(engine);
         }
 
-        runSystem();
+        buildGrid();
+        engine();
     </script>
 </body>
 </html>
