@@ -62,10 +62,9 @@
             letter-spacing: 0.5rem;
             text-transform: uppercase;
             text-shadow: 0 0 10px rgba(255,255,255,0.3);
-            text-decoration: none;
-            color: var(--text-main);
         }
 
+        /* CHANGED: Configured as a link button for the external store */
         .cart-status {
             font-family: var(--font-mono);
             font-size: 0.9rem;
@@ -74,6 +73,9 @@
             border: 1px solid var(--border-color);
             padding: 0.5rem 1rem;
             transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-main);
+            display: inline-block;
         }
 
         .cart-status:hover {
@@ -188,8 +190,6 @@
             cursor: pointer;
             letter-spacing: 1px;
             transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
         }
 
         .buy-btn:hover {
@@ -270,8 +270,8 @@
     <canvas id="space-canvas"></canvas>
 
     <header>
-        <a href="https://home1x.github.io/Store/" class="logo">PARALLAX</a>
-        <a href="https://home1x.github.io/Store/" class="cart-status" id="cart-counter">BAG [0]</a>
+        <div class="logo">PARALLAX</div>
+        <a href="https://home1x.github.io/Store/" target="_blank" class="cart-status" id="cart-counter">STORE ↗</a>
     </header>
 
     <main>
@@ -287,7 +287,7 @@
                         <div class="title">Ecliptic LP</div>
                         <div class="price">Digital FLAC // $12.00</div>
                     </div>
-                    <a href="https://home1x.github.io/Store/" class="buy-btn">VIEW</a>
+                    <button class="buy-btn" onclick="addToBag()">ADD</button>
                 </div>
             </div>
 
@@ -300,7 +300,7 @@
                         <div class="title">Singularity</div>
                         <div class="price">Maxi-Single // $4.00</div>
                     </div>
-                    <a href="https://home1x.github.io/Store/" class="buy-btn">VIEW</a>
+                    <button class="buy-btn" onclick="addToBag()">ADD</button>
                 </div>
             </div>
         </div>
@@ -316,7 +316,7 @@
                         <div class="title">Monochrome Hoodie</div>
                         <div class="price">Heavyweight // $65.00</div>
                     </div>
-                    <a href="https://home1x.github.io/Store/" class="buy-btn">VIEW</a>
+                    <button class="buy-btn" onclick="addToBag()">ADD</button>
                 </div>
             </div>
 
@@ -329,7 +329,7 @@
                         <div class="title">Parallax Cap</div>
                         <div class="price">Low Profile // $30.00</div>
                     </div>
-                    <a href="https://home1x.github.io/Store/" class="buy-btn">VIEW</a>
+                    <button class="buy-btn" onclick="addToBag()">ADD</button>
                 </div>
             </div>
 
@@ -342,7 +342,7 @@
                         <div class="title">Limited Vinyl</div>
                         <div class="price">180g Clear Smoke // $40.00</div>
                     </div>
-                    <a href="https://home1x.github.io/Store/" class="buy-btn">VIEW</a>
+                    <button class="buy-btn" onclick="addToBag()">ADD</button>
                 </div>
             </div>
         </div>
@@ -356,9 +356,14 @@
                 <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="social-link">Facebook</a>
             </div>
             
-            <a href="https://home1x.github.io/Store/" class="network-banner">ENTER OFFICIAL STORE</a>
+            <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="network-banner">JOIN THE COMMUNITY</a>
         </footer>
     </main>
 
+    <script>
+        function addToBag() {
+            console.log("Redirecting user to target external storefront for checkout.");
+        }
+    </script>
 </body>
 </html>
