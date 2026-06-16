@@ -3,649 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PARALLAX | Official Platform</title>
+    <title>PARALLAX | Official Website</title>
     <style>
-        /* --- Core Reset & Ultra-Premium Theme --- */
+        /* --- RESET & BASE STYLES --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             user-select: none;
-            -webkit-user-select: none;
         }
 
-        body {
-            background-color: #000000;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            flex-direction: column;
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            background-color: #000;
+            font-family: 'Courier New', Courier, monospace; /* Clean, minimalist aesthetic */
+            color: #fff;
         }
 
-        /* --- Global Interactive Background Matrix --- */
-        #galaxy-canvas {
+        /* --- INTERACTIVE BACKGROUND --- */
+        #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 1;
-            pointer-events: none;
+            pointer-events: none; /* Allows clicks to pass through to links */
         }
 
-        /* --- Shell Architecture --- */
-        .app-shell {
-            display: flex;
-            flex: 1;
-            width: 100%;
-            height: calc(100vh - 90px); /* Leave room for persistent audio player */
+        /* --- LAYOUT CONTAINER --- */
+        .wrapper {
             position: relative;
             z-index: 2;
-        }
-
-        /* --- Luxury Sidebar Component --- */
-        aside {
-            width: 320px;
-            height: 100%;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            padding: 50px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            flex-shrink: 0;
+            align-items: center;
+            padding: 40px 20px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
         }
 
-        .brand h1 {
-            font-size: 2rem;
-            font-weight: 200;
-            letter-spacing: 0.7rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: tracking 0.4s ease;
-        }
-
-        .brand h1:hover {
-            letter-spacing: 0.8rem;
-        }
-
-        .brand p {
-            font-size: 0.6rem;
-            letter-spacing: 0.25rem;
-            text-transform: uppercase;
-            color: #555555;
-            margin-top: 6px;
-        }
-
-        nav {
+        /* --- NAVIGATION / HEADER --- */
+        header {
+            width: 100%;
+            max-width: 1200px;
             display: flex;
-            flex-direction: column;
-            gap: 28px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            letter-spacing: 0.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #fff;
+            transition: opacity 0.3s;
+        }
+
+        .brand:hover {
+            opacity: 0.5;
+        }
+
+        .store-btn {
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #fff;
+            padding: 8px 20px;
+            font-size: 0.8rem;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+        }
+
+        .store-btn:hover {
+            background-color: #fff;
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        /* --- MAIN HERO --- */
+        main {
+            text-align: center;
             margin: auto 0;
         }
 
-        .nav-link {
-            font-size: 0.8rem;
+        .hero-title {
+            font-size: 12vw;
+            font-weight: 900;
+            letter-spacing: 2rem;
             text-transform: uppercase;
-            letter-spacing: 0.35rem;
-            color: #555555;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: #ffffff;
-            padding-left: 10px;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
-
-        .sidebar-footer {
-            font-size: 0.55rem;
-            letter-spacing: 0.2rem;
-            color: #333333;
-            text-transform: uppercase;
-        }
-
-        /* --- Dynamic Stage Viewports --- */
-        main {
-            flex: 1;
-            height: 100%;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            padding: 80px;
-            position: relative;
-        }
-
-        .page {
-            display: none;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .page.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        h2 {
-            font-size: 2.2rem;
-            font-weight: 100;
-            letter-spacing: 0.5rem;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-            color: #ffffff;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 20px;
-        }
-
-        /* --- Section View: Home Cinematic Teaser --- */
-        #home {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .cinematic-hero-banner {
-            width: 100%;
-            height: 380px;
-            background: linear-gradient(135deg, #111 0%, #000 100%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cinematic-hero-banner::before {
-            content: "MEDIA MATRIX PREVIEW";
-            font-size: 0.7rem;
-            letter-spacing: 0.4rem;
-            color: #444;
-        }
-
-        #home h2 {
-            border: none;
-            font-size: 4rem;
-            letter-spacing: 1.2rem;
-            margin-bottom: 12px;
-            padding-bottom: 0;
+            margin-right: -2rem; /* Offsets the last letter's spacing */
             line-height: 1;
+            animation: fadeIn 2.5s ease-out;
+            opacity: 0.95;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
         .hero-subtitle {
-            font-size: 0.85rem;
-            letter-spacing: 0.5rem;
-            text-transform: uppercase;
-            color: #666666;
-        }
-
-        /* --- Section View: High-Fashion Merch Lookbook --- */
-        .store-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 40px;
-        }
-
-        .product-card {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 16px;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .product-card:hover {
-            border-color: rgba(255, 255, 255, 0.4);
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .product-thumb {
-            width: 100%;
-            aspect-ratio: 3/4;
-            background: rgba(255, 255, 255, 0.02);
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.65rem;
-            letter-spacing: 0.3rem;
-            color: #333;
-            text-transform: uppercase;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            transition: border-color 0.5s ease;
-        }
-
-        .product-card:hover .product-thumb {
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .product-title {
-            font-size: 0.85rem;
-            letter-spacing: 0.2rem;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            font-weight: 300;
-        }
-
-        .product-price {
-            font-size: 0.8rem;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .buy-btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #ffffff;
-            background: transparent;
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 0.7rem;
-            letter-spacing: 0.25rem;
-            text-transform: uppercase;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .buy-btn:hover {
-            background: #ffffff;
-            color: #000000;
-        }
-
-        /* --- Section View: Discography Archival System --- */
-        .media-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .media-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            cursor: pointer;
-            transition: background 0.3s ease, padding-left 0.3s ease;
-        }
-
-        .media-item:hover {
-            background: rgba(255, 255, 255, 0.02);
-            padding-left: 24px;
-        }
-
-        .track-info {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .track-num {
-            font-size: 0.7rem;
-            color: #333333;
-            font-family: monospace;
-        }
-
-        .track-title {
             font-size: 0.9rem;
-            letter-spacing: 0.2rem;
+            letter-spacing: 0.6rem;
             text-transform: uppercase;
-            font-weight: 300;
+            margin-top: 20px;
+            opacity: 0.4;
+            animation: fadeIn 4s ease-out;
         }
 
-        .listen-btn {
-            font-size: 0.65rem;
-            letter-spacing: 0.2rem;
-            text-transform: uppercase;
-            color: #555555;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .media-item:hover .listen-btn {
-            color: #ffffff;
-        }
-
-        /* --- Section View: Global Node Network --- */
-        .network-container {
-            max-width: 700px;
-        }
-
-        .network-lead {
-            font-size: 0.95rem;
-            line-height: 1.8;
-            color: #666666;
-            margin-bottom: 50px;
-            letter-spacing: 0.05rem;
-        }
-
-        .network-links {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .net-btn {
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            background: rgba(255, 255, 255, 0.01);
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 0.75rem;
-            letter-spacing: 0.2rem;
-            text-transform: uppercase;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .net-btn:hover {
-            border-color: #ffffff;
-            background: #ffffff;
-            color: #000000;
-            transform: translateY(-2px);
-        }
-
-        /* --- Global Persistent Media Architecture Bar --- */
-        .global-audio-deck {
-            height: 90px;
+        /* --- SOCIAL LINKS / FOOTER --- */
+        footer {
             width: 100%;
-            background: rgba(5, 5, 5, 0.95);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            z-index: 3;
+            max-width: 800px;
+        }
+
+        .social-grid {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 50px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-
-        .deck-track-details {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            width: 250px;
-        }
-
-        .deck-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .deck-artist {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-            color: #444444;
-        }
-
-        .deck-controls {
-            display: flex;
-            align-items: center;
+            justify-content: center;
             gap: 30px;
+            flex-wrap: wrap;
+            list-style: none;
         }
 
-        .control-trigger {
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 0.7rem;
-            letter-spacing: 0.2rem;
+        .social-grid a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.15rem;
             text-transform: uppercase;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-
-        .control-trigger:hover {
-            color: #888888;
-        }
-
-        .deck-timeline-wrapper {
-            flex: 1;
-            max-width: 500px;
-            margin: 0 40px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .time-stamp {
-            font-size: 0.65rem;
-            font-family: monospace;
-            color: #333333;
-        }
-
-        .timeline-rail {
-            flex: 1;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.1);
+            opacity: 0.5;
+            transition: all 0.3s ease;
             position: relative;
-            cursor: pointer;
+            padding: 5px 0;
         }
 
-        .timeline-fill {
+        .social-grid a:hover {
+            opacity: 1;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        /* Subtle underline animation */
+        .social-grid a::after {
+            content: '';
             position: absolute;
-            top: 0;
+            width: 0;
+            height: 1px;
+            bottom: 0;
             left: 0;
-            height: 100%;
-            width: 22%; /* Simulated tracking position */
-            background: #ffffff;
+            background-color: #fff;
+            transition: width 0.3s ease;
         }
 
-        /* --- Adaptive System Breakpoints --- */
-        @media (max-width: 900px) {
-            body {
-                overflow-y: auto;
-                height: auto;
-            }
-            .app-shell {
-                flex-direction: column;
-                height: auto;
-            }
-            aside {
-                width: 100%;
-                height: auto;
-                padding: 40px 30px;
-                border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
-            nav {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                margin: 40px 0 0 0;
-                gap: 16px;
-            }
-            .nav-link {
-                font-size: 0.7rem;
-                letter-spacing: 0.2rem;
-            }
-            .nav-link:hover, .nav-link.active {
-                padding-left: 0;
-            }
-            main {
-                padding: 50px 30px;
-                height: auto;
-                overflow: visible;
-            }
-            #home h2 {
-                font-size: 2.8rem;
-                letter-spacing: 0.8rem;
-            }
-            .network-links {
-                grid-template-columns: 1fr;
-            }
-            .global-audio-deck {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                padding: 0 24px;
-            }
-            .deck-timeline-wrapper {
-                display: none;
-            }
+        .social-grid a:hover::after {
+            width: 100%;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive scaling */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 14vw; letter-spacing: 1rem; margin-right: -1rem;}
+            .social-grid { gap: 15px 25px; }
+            header { flex-direction: column; gap: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="galaxy-canvas"></canvas>
-
-    <div class="app-shell">
-        
-        <aside>
-            <div class="brand" onclick="switchPage('home')">
-                <h1>Parallax</h1>
-                <p>Official HQ Terminal</p>
-            </div>
-            
-            <nav>
-                <div class="nav-link active" onclick="switchPage('home', this)">Home</div>
-                <div class="nav-link" onclick="switchPage('media', this)">Media</div>
-                <div class="nav-link" onclick="switchPage('store', this)">Store</div>
-                <div class="nav-link" onclick="switchPage('network', this)">Network</div>
-            </nav>
-
-            <div class="sidebar-footer">
-                &copy; 2026 Parallax Enterprise
-            </div>
-        </aside>
-
-        <main>
-            <section id="home" class="page active">
-                <div class="cinematic-hero-banner"></div>
-                <h2>Parallax</h2>
-                <p class="hero-subtitle">Global Broadcast Node</p>
-            </section>
-
-            <section id="media" class="page">
-                <h2>Audio-Visual Archives</h2>
-                <div class="media-list">
-                    <div class="media-item" onclick="loadTrack('YouTube Broadcast Stream', 'PARALLAX')">
-                        <div class="track-info">
-                            <span class="track-num">01</span>
-                            <span class="track-title">YouTube Main Station</span>
-                        </div>
-                        <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="listen-btn" onclick="event.stopPropagation();">Launch Stream</a>
-                    </div>
-                    <div class="media-item">
-                        <div class="track-info">
-                            <span class="track-num">02</span>
-                            <span class="track-title">Unreleased Prototype Feed</span>
-                        </div>
-                        <span class="listen-btn">[Encrypted]</span>
-                    </div>
-                </div>
-            </section>
-
-            <section id="store" class="page">
-                <h2>Boundless Storefront Terminal</h2>
-                <div class="store-grid">
-                    <div class="product-card">
-                        <div class="product-thumb">[Lookbook Asset A]</div>
-                        <div class="product-title">Official Apparel Drop</div>
-                        <div class="product-price">Printify Supply Line</div>
-                        <a href="https://boundless-official-store.printify.me/" target="_blank" class="buy-btn">Acquire</a>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-thumb">[Lookbook Asset B]</div>
-                        <div class="product-title">Limited System Merch</div>
-                        <div class="product-price">Printify Supply Line</div>
-                        <a href="https://boundless-official-store.printify.me/" target="_blank" class="buy-btn">Acquire</a>
-                    </div>
-                </div>
-            </section>
-
-            <section id="network" class="page">
-                <h2>Operational Grid Nodes</h2>
-                <div class="network-container">
-                    <p class="network-lead">Direct connections into the primary core infrastructures. Tap an entry point node below to interface directly with external channels.</p>
-                    <div class="network-links">
-                        <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="net-btn">Discord Ecosystem</a>
-                        <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="net-btn">Instagram Node</a>
-                        <a href="https://x.com/Parallax_x_x" target="_blank" class="net-btn">X / Twitter Stream</a>
-                        <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="net-btn">TikTok Loop</a>
-                        <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="net-btn">Facebook Link</a>
-                    </div>
-                </div>
-            </section>
-        </main>
+    <div id="canvas-container">
+        <canvas id="galaxyCanvas"></canvas>
     </div>
 
-    <div class="global-audio-deck">
-        <div class="deck-track-details">
-            <span class="deck-title" id="deck-track-name">Select Master Source Track</span>
-            <span class="deck-artist" id="deck-artist-name">Parallax Interface</span>
-        </div>
+    <div class="wrapper">
+        
+        <header>
+            <a href="#" class="brand">PARALLAX</a>
+            <a href="https://boundless-official-store.printify.me/" target="_blank" class="store-btn">Shop Store</a>
+        </header>
 
-        <div class="deck-controls">
-            <button class="control-trigger">Prev</button>
-            <button class="control-trigger" style="font-weight: bold;">Play</button>
-            <button class="control-trigger">Next</button>
-        </div>
+        <main>
+            <h1 class="hero-title">PARALLAX</h1>
+            <p class="hero-subtitle">Enter the Void</p>
+        </main>
 
-        <div class="deck-timeline-wrapper">
-            <span class="time-stamp">0:44</span>
-            <div class="timeline-rail">
-                <div class="timeline-fill"></div>
-            </div>
-            <span class="time-stamp">3:12</span>
-        </div>
+        <footer>
+            <ul class="social-grid">
+                <li><a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank">Instagram</a></li>
+                <li><a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank">YouTube</a></li>
+                <li><a href="https://x.com/Parallax_x_x" target="_blank">X (Twitter)</a></li>
+                <li><a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank">Facebook</a></li>
+                <li><a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank">TikTok</a></li>
+                <li><a href="https://discord.com/invite/rhXuzGvM6" target="_blank">Discord</a></li>
+            </ul>
+        </footer>
+
     </div>
 
     <script>
-        /* --- Core SPA View Routing Matrix --- */
-        function switchPage(pageId, element) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-
-            const links = document.querySelectorAll('.nav-link');
-            links.forEach(link => link.classList.remove('active'));
-
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) targetPage.classList.add('active');
-
-            if (element) {
-                element.classList.add('active');
-            } else {
-                const defaultLink = document.querySelector('nav .nav-link');
-                if(defaultLink) defaultLink.classList.add('active');
-            }
-        }
-
-        /* --- Audio Deck Master Handler --- */
-        function loadTrack(name, artist) {
-            document.getElementById('deck-track-name').innerText = name;
-            document.getElementById('deck-artist-name').innerText = artist;
-        }
-
-        /* --- Stellar Deep Space Vector Simulation --- */
-        const canvas = document.getElementById('galaxy-canvas');
+        const canvas = document.getElementById('galaxyCanvas');
         const ctx = canvas.getContext('2d');
 
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
 
-        const numStars = 220;
+        const numStars = 150;
         const stars = [];
+
+        // Mouse coordinates for tracking interactivity
         let mouse = { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2 };
 
         window.addEventListener('resize', () => {
@@ -658,60 +228,64 @@
             mouse.targetY = e.clientY;
         });
 
-        window.addEventListener('touchmove', (e) => {
-            if (e.touches.length > 0) {
-                mouse.targetX = e.touches[0].clientX;
-                mouse.targetY = e.touches[0].clientY;
-            }
-        });
-
+        // Generate properties for star nodes to construct a galaxy/nebula cluster effect
         class Star {
-            constructor() { this.reset(); }
-            reset() {
+            constructor() {
+                this.reset();
+                // Randomize starting positions across the screen initially
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.size = Math.random() * 1.8;
-                this.speedX = (Math.random() - 0.5) * 0.12;
-                this.speedY = (Math.random() - 0.5) * 0.12;
-                this.density = (Math.random() * 35) + 15;
-                this.opacity = Math.random();
-                this.fadeSpeed = 0.002 + Math.random() * 0.006;
-                this.direction = Math.random() > 0.5 ? 1 : -1;
             }
+
+            reset() {
+                this.orbitRadius = Math.random() * (Math.min(width, height) * 0.6);
+                this.angle = Math.random() * Math.PI * 2;
+                this.orbitSpeed = (Math.random() * 0.0005) + 0.0001;
+                this.size = Math.random() * 1.5 + 0.5;
+                // Grayscale/Monochrome alpha values
+                this.alpha = Math.random() * 0.6 + 0.2;
+            }
+
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+                // Orbiting mechanism
+                this.angle += this.orbitSpeed;
                 
-                let dx = mouse.x - (width / 2);
-                let dy = mouse.y - (height / 2);
-                this.x -= (dx / this.density) * 0.015;
-                this.y -= (dy / this.density) * 0.015;
+                // Base positions derived from cosmic center rotation
+                let baseX = width / 2 + Math.cos(this.angle) * this.orbitRadius;
+                let baseY = height / 2 + Math.sin(this.angle) * this.orbitRadius;
 
-                this.opacity += this.fadeSpeed * this.direction;
-                if (this.opacity >= 1 || this.opacity <= 0.05) this.direction *= -1;
+                // Parallax interactive effect: stars shift slightly based on mouse position
+                // Stars closer to center move differently than stars far away
+                let shiftX = (mouse.x - width / 2) * (this.orbitRadius / width) * 0.4;
+                let shiftY = (mouse.y - height / 2) * (this.orbitRadius / height) * 0.4;
 
-                if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
+                this.x = baseX + shiftX;
+                this.y = baseY + shiftY;
             }
+
             draw() {
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
-        for (let i = 0; i < numStars; i++) stars.push(new Star());
+        // Initialize star system
+        for (let i = 0; i < numStars; i++) {
+            stars.push(new Star());
+        }
 
+        // Animation loop
         function animate() {
-            // Maintains stark void context while clearing pixel tracks
-            ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+            // Smooth mouse easing
+            mouse.x += (mouse.targetX - mouse.x) * 0.05;
+            mouse.y += (mouse.targetY - mouse.y) * 0.05;
+
+            // Creates a trailing/nebula illusion by not fully clearing previous frame
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
             ctx.fillRect(0, 0, width, height);
 
-            // Smooth viewport perspective translation interpolation
-            mouse.x += (mouse.targetX - mouse.x) * 0.04;
-            mouse.y += (mouse.targetY - mouse.y) * 0.04;
-
-            // Render and update state arrays
             stars.forEach(star => {
                 star.update();
                 star.draw();
@@ -719,6 +293,7 @@
 
             requestAnimationFrame(animate);
         }
+
         animate();
     </script>
 </body>
