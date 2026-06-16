@@ -3,191 +3,537 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PARALLAX | OFFICIAL</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>PARALLAX | Official Website</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        /* --- DESIGN SYSTEM & TOKENS --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --bg-card: #121212;
+            --text-main: #ffffff;
+            --text-muted: #8a8a8a;
+            --accent: #ffffff;
+            --font-display: 'Syncopate', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+            --border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #000000;
-            color: #ffffff;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
             overflow-x: hidden;
+            letter-spacing: -0.02em;
         }
-        /* Custom text stroke effect inspired by the reference designs */
-        .text-stroke {
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
-            color: transparent;
-        }
-        .grain-overlay {
+
+        /* --- NAVIGATION --- */
+        nav {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.8), transparent);
+            backdrop-filter: blur(10px);
+            border-bottom: rgba(255,255,255,0.05) 1px solid;
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* --- HERO SECTION (Inspired by The Weeknd Concept) --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 0 4%;
+            border-bottom: var(--border);
+        }
+
+        /* High contrast back-circle graphics */
+        .hero-graphic-circle {
+            position: absolute;
+            width: 65vh;
+            height: 65vh;
+            background: #ffffff;
+            border-radius: 50%;
+            z-index: 1;
+            mix-blend-mode: difference;
+        }
+
+        .hero-img {
+            position: absolute;
+            bottom: 0;
+            height: 90vh;
+            width: auto;
+            z-index: 2;
+            filter: grayscale(1) contrast(1.3) brightness(0.9);
+            mix-blend-mode: luminosity;
             pointer-events: none;
-            z-index: 50;
+        }
+
+        .hero-title-wrapper {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 11vw;
+            line-height: 0.85;
+            text-transform: uppercase;
+            letter-spacing: -0.04em;
+            color: var(--text-main);
+        }
+
+        /* --- SPLIT RELEASES SECTION (Inspired by Split Layouts) --- */
+        .split-section {
+            display: flex;
+            min-height: 100vh;
+            border-bottom: var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .split-section { flex-direction: column; }
+            .split-left, .split-right { width: 100% !important; min-height: 50vh; }
+        }
+
+        .split-left {
+            width: 45%;
+            border-right: var(--border);
+            padding: 6rem 4%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .split-left img {
+            width: 100%;
+            height: 65%;
+            object-fit: cover;
+            filter: grayscale(1) contrast(1.1);
+        }
+
+        .split-right {
+            width: 55%;
+            padding: 6rem 5%;
+            background-color: #0d0d0d;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-tag {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        /* --- TRACKLIST / DISCOGRAPHY --- */
+        .track-list {
+            list-style: none;
+        }
+
+        .track-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: rgba(255, 255, 255, 0.1) 1px solid;
+            transition: padding-left 0.3s ease;
+        }
+
+        .track-item:hover {
+            padding-left: 1rem;
+        }
+
+        .track-num {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-muted);
+            width: 3rem;
+        }
+
+        .track-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .track-btn {
+            margin-left: auto;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1.2rem;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .track-item:hover .track-btn {
+            opacity: 1;
+        }
+
+        /* --- LATEST MUSIC / MEDIA (Daft Punk Grid style) --- */
+        .media-section {
+            padding: 8rem 4%;
+            border-bottom: var(--border);
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .media-grid { grid-template-columns: 1fr; }
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            background: var(--bg-card);
+            border: var(--border);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: grayscale(1) contrast(1.1);
+        }
+
+        .network-box {
+            background-color: var(--bg-card);
+            border: var(--border);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .network-box h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .network-box p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* --- STORE SECTION --- */
+        .store-section {
+            padding: 8rem 4%;
+            border-bottom: var(--border);
+        }
+
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: var(--border);
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            background: #1a1a1a;
+            filter: grayscale(1);
+            margin-bottom: 1.5rem;
+            transition: filter 0.3s;
+        }
+
+        .product-card:hover .product-img {
+            filter: grayscale(0);
+        }
+
+        .product-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-title {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        /* --- BIG BUTTONS (Brutalist CTA) --- */
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            transition: opacity 0.3s;
+        }
+
+        .cta-btn:hover {
+            opacity: 0.9;
+        }
+
+        .cta-btn.outline {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+        }
+
+        .cta-btn.outline:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        /* --- SOCIAL HUB FOOTER --- */
+        footer {
+            padding: 6rem 4% 3rem 4%;
+            background-color: #000000;
+        }
+
+        .footer-socials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1rem;
+            border: rgba(255, 255, 255, 0.05) 1px solid;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .social-link i {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .social-link:hover {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: rgba(255,255,255,0.05) 1px solid;
+            padding-top: 2rem;
         }
     </style>
 </head>
-<body class="antialiased selection:bg-white selection:text-black">
+<body>
 
-    <div class="grain-overlay"></div>
+    <nav>
+        <a href="#" class="nav-logo">PARALLAX</a>
+        <ul class="nav-links">
+            <li><a href="#music">Music</a></li>
+            <li><a href="#store">Store</a></li>
+            <li><a href="#network">Network</a></li>
+        </ul>
+    </nav>
 
-    <header class="w-full fixed top-0 left-0 z-40 bg-black/80 backdrop-blur-md border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-black tracking-widest hover:opacity-80 transition">PARALLAX</a>
-            <nav class="hidden md:flex space-x-8 text-xs tracking-[0.2em] font-medium uppercase">
-                <a href="#about" class="hover:text-neutral-400 transition">Overview</a>
-                <a href="#releases" class="hover:text-neutral-400 transition">Releases</a>
-                <a href="#store" class="hover:text-neutral-400 transition">Store</a>
-                <a href="#network" class="hover:text-neutral-400 transition">Network</a>
-            </nav>
-            <a href="https://boundless-official-store.printify.me/" target="_blank" class="bg-white text-black px-4 py-2 text-xs font-bold tracking-wider uppercase hover:bg-neutral-200 transition">
-                Shop Now
+    <section class="hero">
+        <div class="hero-graphic-circle"></div>
+        <img class="hero-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop" alt="Parallax Portrait Image">
+        <div class="hero-title-wrapper">
+            <h1>PARALLAX</h1>
+        </div>
+    </section>
+
+    <section id="music" class="split-section">
+        <div class="split-left">
+            <h2 class="section-tag" style="font-size: 1.8rem;">Latest Release</h2>
+            <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=1000&auto=format&fit=crop" alt="Current Album Project Cover Grid">
+            <div>
+                <p style="font-size: 1.2rem; font-weight: 500; margin-bottom: 0.5rem;">SHUDDER ON GETTING</p>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Available on all streaming networks.</p>
+                <a href="#music" class="cta-btn">Listen Now</a>
+            </div>
+        </div>
+        <div class="split-right">
+            <h2 class="section-tag">Featured Hits</h2>
+            <ul class="track-list">
+                <li class="track-item">
+                    <span class="track-num">01</span>
+                    <span class="track-title">Blinding Lights (Remix)</span>
+                    <a href="#" class="track-btn"><i class="fa-solid fa-play"></i></a>
+                </li>
+                <li class="track-item">
+                    <span class="track-num">02</span>
+                    <span class="track-title">Starboy Dynamics</span>
+                    <a href="#" class="track-btn"><i class="fa-solid fa-play"></i></a>
+                </li>
+                <li class="track-item">
+                    <span class="track-num">03</span>
+                    <span class="track-title">The Birds Pt. III</span>
+                    <a href="#" class="track-btn"><i class="fa-solid fa-play"></i></a>
+                </li>
+                <li class="track-item">
+                    <span class="track-num">04</span>
+                    <span class="track-title">Earned It Vibe</span>
+                    <a href="#" class="track-btn"><i class="fa-solid fa-play"></i></a>
+                </li>
+                <li class="track-item">
+                    <span class="track-num">05</span>
+                    <span class="track-title">Save Your Tears Edit</span>
+                    <a href="#" class="track-btn"><i class="fa-solid fa-play"></i></a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="media-section">
+        <h2 class="section-tag">Latest AudioVisual</h2>
+        <div class="media-grid">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=parallax.x.x" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div id="network" class="network-box">
+                <h3>The Network</h3>
+                <p>Join the inner circle network community grid on Discord. Get access to secure drops, project tracking timelines, files, and community hubs before public access launch windows.</p>
+                <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="cta-btn outline">Launch Access Server</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="store" class="store-section">
+        <h2 class="section-tag">Boundless Store</h2>
+        <div class="store-grid">
+            <a href="https://boundless-official-store.printify.me/" target="_blank" class="product-card">
+                <img class="product-img" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=600&auto=format&fit=crop" alt="Product Drop Minimal">
+                <div class="product-info">
+                    <span class="product-title">ARCHIVE HOODIE 01</span>
+                    <span style="color: var(--text-muted);">Shop</span>
+                </div>
             </a>
-        </div>
-    </header>
-
-    <section class="relative min-h-screen pt-24 flex flex-col justify-center items-center px-6 overflow-hidden border-b border-white/10">
-        <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
-            <h1 class="text-[12vw] font-black tracking-tighter uppercase opacity-10 whitespace-nowrap">
-                PARALLAX
-            </h1>
-        </div>
-
-        <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 my-auto">
-            <div class="lg:col-span-5 order-2 lg:order-1 flex flex-col justify-center">
-                <div class="relative w-64 h-64 mb-8 grayscale opacity-70 border border-white/20 rounded-sm overflow-hidden group">
-                    <img src="IMG_1752.jpeg" alt="Parallax Portrait" class="w-full h-full object-cover filter contrast-125 scale-105 group-hover:scale-100 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <a href="https://boundless-official-store.printify.me/" target="_blank" class="product-card">
+                <img class="product-img" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=600&auto=format&fit=crop" alt="Product Drop Minimal">
+                <div class="product-info">
+                    <span class="product-title">BOUNDLESS OVERSIZED TEE</span>
+                    <span style="color: var(--text-muted);">Shop</span>
                 </div>
-                <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 mb-2">// IDENTITY</p>
-                <h2 class="text-4xl md:text-5xl font-black tracking-tight mb-4">PARALLAX</h2>
-                <p class="text-sm text-neutral-400 max-w-sm leading-relaxed font-light mb-6">
-                    A multi-sensory audio-visual landscape. Merging raw lo-fi textures, high-contrast aesthetics, and heavy sonic atmosphere.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#network" class="border border-white/20 text-white px-5 py-3 text-xs tracking-widest font-bold uppercase hover:bg-white hover:text-black transition">
-                        Join Network
-                    </a>
+            </a>
+            <a href="https://boundless-official-store.printify.me/" target="_blank" class="product-card">
+                <img class="product-img" src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=600&auto=format&fit=crop" alt="Product Drop Minimal">
+                <div class="product-info">
+                    <span class="product-title">PARALLAX CAP ARCHIVE</span>
+                    <span style="color: var(--text-muted);">Shop</span>
                 </div>
-            </div>
-
-            <div class="lg:col-span-7 order-1 lg:order-2 flex justify-center items-center relative">
-                <div class="relative w-[320px] h-[320px] md:w-[480px] md:h-[480px] flex items-center justify-center">
-                    <div class="absolute w-full h-full bg-neutral-900 rounded-full border border-white/10 overflow-hidden shadow-2xl">
-                        <img src="Album 8.png" alt="Featured Artwork" class="w-full h-full object-cover filter contrast-150 scale-110">
-                    </div>
-                    <div class="absolute inset-x-[-20px] inset-y-[-20px] border border-dashed border-white/5 rounded-full animate-[spin_120s_linear_infinite] pointer-events-none"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="releases" class="py-24 border-b border-white/10 bg-neutral-950">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
-                <div>
-                    <span class="text-xs tracking-[0.4em] text-neutral-500 uppercase font-bold">PROJECTS</span>
-                    <h3 class="text-5xl font-black tracking-tighter text-stroke uppercase mt-2">CREATIVE</h3>
-                </div>
-                <span class="text-xs text-neutral-500 tracking-widest uppercase">01 / ARCHIVE</span>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
-                <div class="lg:col-span-5 flex flex-col justify-between border-r border-white/5 pr-0 lg:pr-12">
-                    <div class="space-y-8">
-                        <div class="group flex items-center justify-between py-4 border-b border-white/10 cursor-pointer">
-                            <div class="flex items-center space-x-6">
-                                <span class="text-sm font-bold text-neutral-600 tracking-wider">01</span>
-                                <h4 class="text-xl font-bold tracking-tight group-hover:text-neutral-400 transition">SONIC FORM</h4>
-                            </div>
-                            <span class="text-xs text-neutral-500 font-mono">2026</span>
-                        </div>
-                        <div class="group flex items-center justify-between py-4 border-b border-white/10 cursor-pointer">
-                            <div class="flex items-center space-x-6">
-                                <span class="text-sm font-bold text-neutral-600 tracking-wider">02</span>
-                                <h4 class="text-xl font-bold tracking-tight group-hover:text-neutral-400 transition">BOUNDLESS LANDSCAPE</h4>
-                            </div>
-                            <span class="text-xs text-neutral-500 font-mono">2026</span>
-                        </div>
-                        <div class="group flex items-center justify-between py-4 border-b border-white/10 cursor-pointer">
-                            <div class="flex items-center space-x-6">
-                                <span class="text-sm font-bold text-neutral-600 tracking-wider">03</span>
-                                <h4 class="text-xl font-bold tracking-tight group-hover:text-neutral-400 transition">PARALLAX ARCHIVES</h4>
-                            </div>
-                            <span class="text-xs text-neutral-500 font-mono">2025</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-7 bg-black border border-white/10 p-8 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
-                    <div class="max-w-xs z-10">
-                        <span class="text-xs font-bold tracking-widest text-neutral-400 uppercase">// CURRENT FOCUS</span>
-                        <h4 class="text-2xl font-black tracking-tight uppercase mt-4 mb-3">SOUNDWAVE EXPERIMENTATION</h4>
-                        <p class="text-xs text-neutral-400 leading-relaxed font-light">
-                            Exploring dark synthesis, minimalist arrangements, and immersive stereo fields to reconstruct digital audio aesthetics.
-                        </p>
-                    </div>
-                    <div class="relative w-48 h-48 flex-shrink-0 opacity-40 md:opacity-100 transition-opacity">
-                        <div class="absolute inset-0 rounded-full bg-neutral-900 border-4 border-neutral-800 shadow-2xl flex items-center justify-center">
-                            <div class="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center bg-zinc-950">
-                                <div class="w-4 h-4 rounded-full bg-neutral-900 border border-white/20"></div>
-                            </div>
-                        </div>
-                        <div class="absolute inset-4 rounded-full border border-neutral-800/50 pointer-events-none"></div>
-                        <div class="absolute inset-8 rounded-full border border-neutral-800/50 pointer-events-none"></div>
-                        <div class="absolute inset-12 rounded-full border border-neutral-800/50 pointer-events-none"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="store" class="py-20 bg-white text-black relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div class="lg:col-span-8">
-                <span class="text-xs font-bold tracking-[0.3em] text-neutral-500 uppercase">OFFICIAL APPAREL & GOODS</span>
-                <h3 class="text-4xl md:text-6xl font-black tracking-tighter uppercase mt-2 mb-4">BOUNDLESS STORE</h3>
-                <p class="text-sm text-neutral-600 max-w-xl font-light">
-                    Premium physical drops, curated merchandise, and exclusive prints engineered directly by Parallax. Hosted securely via Printify.
-                </p>
-            </div>
-            <div class="lg:col-span-4 flex lg:justify-end">
-                <a href="https://boundless-official-store.printify.me/" target="_blank" class="w-full lg:w-auto inline-block text-center bg-black text-white px-8 py-4 font-bold text-xs tracking-widest uppercase hover:bg-neutral-800 transition shadow-lg">
-                    Access Storefront &rarr;
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="network" class="py-24 border-b border-white/10">
-        <div class="max-w-5xl mx-auto px-6 text-center">
-            <span class="text-xs tracking-[0.4em] text-neutral-500 uppercase font-bold">COMMUNITY NODE</span>
-            <h3 class="text-4xl md:text-5xl font-black tracking-tight uppercase mt-3 mb-6">JOIN THE NETWORK</h3>
-            <p class="text-sm text-neutral-400 max-w-xl mx-auto leading-relaxed font-light mb-8">
-                Connect directly with the community infrastructure, access exclusive digital downloads, asset pipelines, and collaborative audio production rooms.
-            </p>
-            <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="inline-flex items-center space-x-3 bg-neutral-900 border border-white/20 text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-black transition">
-                <span>ENTER DISCORD SERVER</span>
             </a>
         </div>
     </section>
 
-    <footer class="py-16 bg-black">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="text-center md:text-left">
-                <h4 class="text-lg font-black tracking-widest uppercase">PARALLAX</h4>
-                <p class="text-[10px] text-neutral-500 uppercase tracking-widest mt-1">&copy; 2026 All Rights Reserved.</p>
-            </div>
-            
-            <div class="grid grid-cols-3 sm:grid-cols-5 gap-x-8 gap-y-4 text-xs font-bold tracking-wider uppercase">
-                <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="hover:text-neutral-400 transition">Instagram</a>
-                <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="hover:text-neutral-400 transition">YouTube</a>
-                <a href="https://x.com/Parallax_x_x" target="_blank" class="hover:text-neutral-400 transition">X.com</a>
-                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="hover:text-neutral-400 transition">Facebook</a>
-                <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="hover:text-neutral-400 transition col-span-3 sm:col-span-1 text-center sm:text-left">TikTok</a>
-            </div>
+    <footer>
+        <div class="footer-socials">
+            <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="social-link">
+                <i class="fa-brands fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+            <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="social-link">
+                <i class="fa-brands fa-youtube"></i>
+                <span>YouTube</span>
+            </a>
+            <a href="https://x.com/Parallax_x_x" target="_blank" class="social-link">
+                <i class="fa-brands fa-x-twitter"></i>
+                <span>X / Twitter</span>
+            </a>
+            <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="social-link">
+                <i class="fa-brands fa-facebook-f"></i>
+                <span>Facebook</span>
+            </a>
+            <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="social-link">
+                <i class="fa-brands fa-tiktok"></i>
+                <span>TikTok</span>
+            </a>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 PARALLAX. ALL RIGHTS RESERVED.</span>
+            <span>DESIGN STYLES CONCEPT INSPIRED BY EVE &amp; D-P</span>
         </div>
     </footer>
 
