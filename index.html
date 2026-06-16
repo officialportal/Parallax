@@ -11,6 +11,7 @@
             padding: 0;
             box-sizing: border-box;
             user-select: none;
+            -webkit-user-select: none;
         }
 
         body {
@@ -19,6 +20,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden;
             height: 100vh;
+            width: 100vw;
             display: flex;
         }
 
@@ -27,8 +29,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             z-index: 1;
             pointer-events: none;
         }
@@ -47,14 +49,14 @@
             width: 280px;
             height: 100%;
             border-right: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            flex-shrink: 0;
         }
 
         .brand h1 {
@@ -63,6 +65,11 @@
             letter-spacing: 0.5rem;
             text-transform: uppercase;
             cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .brand h1:hover {
+            opacity: 0.8;
         }
 
         .brand p {
@@ -87,12 +94,12 @@
             color: #666666;
             text-decoration: none;
             cursor: pointer;
-            transition: color 0.3s ease, padding-left 0.3s ease;
+            transition: color 0.3s ease, padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .nav-link:hover, .nav-link.active {
             color: #ffffff;
-            padding-left: 4px;
+            padding-left: 6px;
         }
 
         .sidebar-footer {
@@ -107,6 +114,7 @@
             flex: 1;
             height: 100%;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             padding: 60px;
             position: relative;
         }
@@ -115,8 +123,8 @@
             display: none;
             opacity: 0;
             transform: translateY(10px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            max-width: 1200px;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            max-width: 1000px;
             width: 100%;
         }
 
@@ -127,7 +135,7 @@
         }
 
         h2 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 200;
             letter-spacing: 0.4rem;
             text-transform: uppercase;
@@ -150,6 +158,7 @@
             font-size: 3.5rem;
             letter-spacing: 1rem;
             margin-bottom: 12px;
+            padding-bottom: 0;
         }
 
         .hero-subtitle {
@@ -162,12 +171,12 @@
         /* --- Store Page Grid Layout --- */
         .store-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 32px;
         }
 
         .product-card {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.01);
             border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 24px;
             text-align: center;
@@ -183,15 +192,16 @@
         .product-thumb {
             width: 100%;
             aspect-ratio: 1;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.7rem;
             letter-spacing: 0.2rem;
-            color: #444444;
+            color: #555555;
             text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .product-title {
@@ -208,7 +218,7 @@
         }
 
         .buy-btn {
-            display: inline-block;
+            display: block;
             width: 100%;
             padding: 12px;
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -283,7 +293,7 @@
         }
 
         .network-lead {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.6;
             color: #888888;
             margin-bottom: 40px;
@@ -317,7 +327,6 @@
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
-                overflow: hidden;
             }
             aside {
                 width: 100%;
@@ -328,24 +337,32 @@
             }
             nav {
                 flex-direction: row;
+                flex-wrap: wrap;
                 justify-content: space-between;
-                margin: 24px 0 0 0;
-                gap: 8px;
+                margin: 20px 0 0 0;
+                gap: 12px;
             }
             .nav-link {
-                font-size: 0.65rem;
+                font-size: 0.7rem;
                 letter-spacing: 0.15rem;
+            }
+            .nav-link:hover, .nav-link.active {
+                padding-left: 0;
+                border-bottom: 1px solid #ffffff;
             }
             .sidebar-footer {
                 display: none;
             }
             main {
-                padding: 32px 24px;
-                height: calc(100vh - 140px);
+                padding: 40px 24px;
+                height: calc(100vh - 150px);
             }
             #home h2 {
                 font-size: 2.2rem;
                 letter-spacing: 0.6rem;
+            }
+            .network-links {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -394,7 +411,7 @@
                             <span class="track-num">02</span>
                             <span class="track-title">Project Data Feed 1</span>
                         </div>
-                        <a href="#" class="listen-btn">Locked</a>
+                        <a href="#" class="listen-btn" onclick="return false;">Locked</a>
                     </div>
                 </div>
             </section>
@@ -425,7 +442,7 @@
                         <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="net-btn">Discord Server</a>
                         <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="net-btn">Instagram</a>
                         <a href="https://x.com/Parallax_x_x" target="_blank" class="net-btn">X / Twitter</a>
-                        <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="net-btn">TikTok</a>
+                        <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_btn" class="net-btn">TikTok</a>
                         <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="net-btn">Facebook</a>
                     </div>
                 </div>
@@ -436,19 +453,16 @@
     <script>
         /* --- SPA Routing Engine --- */
         function switchPage(pageId, element) {
-            // Hide all pages with a clean fade state
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => {
                 page.classList.remove('active');
             });
 
-            // Deactivate all nav elements
             const links = document.querySelectorAll('.nav-link');
             links.forEach(link => {
                 link.classList.remove('active');
             });
 
-            // Activate current targets
             const targetPage = document.getElementById(pageId);
             if (targetPage) {
                 targetPage.classList.add('active');
@@ -457,8 +471,9 @@
             if (element) {
                 element.classList.add('active');
             } else {
-                // Default back to home link highlight if logo clicked
-                document.querySelector('nav .nav-link').classList.add('active');
+                // Default back to home link highlight if title banner is clicked
+                const homeLink = document.querySelector('nav .nav-link');
+                if(homeLink) homeLink.classList.add('active');
             }
         }
 
@@ -471,6 +486,8 @@
 
         const numStars = 180;
         const stars = [];
+        
+        // Initializing coordinates at center to prevent mathematical drift gaps before movement
         let mouse = { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2 };
 
         window.addEventListener('resize', () => {
@@ -481,6 +498,14 @@
         window.addEventListener('mousemove', (e) => {
             mouse.targetX = e.clientX;
             mouse.targetY = e.clientY;
+        });
+
+        // Touch listener tracking to ensure parity on mobile screen vectors
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouse.targetX = e.touches[0].clientX;
+                mouse.targetY = e.touches[0].clientY;
+            }
         });
 
         class Star {
@@ -521,6 +546,7 @@
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
+            // Smooth mouse rendering interpolation 
             mouse.x += (mouse.targetX - mouse.x) * 0.05;
             mouse.y += (mouse.targetY - mouse.y) * 0.05;
             stars.forEach(star => { star.update(); star.draw(); });
