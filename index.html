@@ -3,14 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parallax | Official</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>PARALLAX | Official</title>
     <style>
-        /* --- RESET & BASE STYLES --- */
+        /* --- Reset & Core Aesthetics --- */
         * {
             margin: 0;
             padding: 0;
@@ -18,227 +13,138 @@
             user-select: none;
         }
 
-        body, html {
-            width: 100%;
-            height: 100%;
-            overflow-x: hidden;
-            background-color: #050505;
-            font-family: 'Montserrat', sans-serif;
+        body {
+            background-color: #000000;
             color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        /* --- INTERACTIVE CANVAS BACKGROUND --- */
+        /* --- Interactive Galaxy Canvas --- */
         #galaxy-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             z-index: 1;
-            pointer-events: all;
+            pointer-events: none;
         }
 
-        /* --- MAIN CONTENT CONTAINER --- */
+        /* --- Layout Container --- */
         .wrapper {
             position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             z-index: 2;
-            padding: 3rem 2rem;
-            pointer-events: none; /* Allows mouse to pass through to canvas */
-        }
-
-        /* Re-enable pointer events for interactive elements */
-        .interactive-element {
-            pointer-events: auto;
-        }
-
-        /* --- HERO HEADER --- */
-        header {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 80px 24px;
             text-align: center;
-            margin-bottom: 3rem;
-            animation: fadeIn 2s ease-out;
+        }
+
+        /* --- Typography & Branding --- */
+        header {
+            margin-bottom: 60px;
         }
 
         h1 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            letter-spacing: 12px;
-            text-transform: none; 
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 0.6rem;
+            text-transform: uppercase;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-            margin-bottom: 0.8rem;
-            transition: transform 0.3s ease;
+            margin-bottom: 8px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
-        h1:hover {
-            transform: scale(1.03);
+        .subtitle {
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.3rem;
+            text-transform: uppercase;
+            color: #888888;
         }
 
-        /* --- LINKS & NAVIGATION --- */
+        /* --- Interactive Nav/Links --- */
         .links-container {
-            width: 100%;
-            max-width: 480px;
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
-            animation: fadeIn 2.5s ease-out;
-            margin-bottom: 2.5rem;
+            gap: 16px;
+            margin-bottom: 60px;
         }
 
-        .nav-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.2rem 2rem;
+        .btn {
+            position: relative;
+            display: block;
+            width: 100%;
+            padding: 18px;
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
-            text-decoration: none;
-            color: #cccccc;
-            font-size: 0.9rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-
-        .nav-link i {
-            font-size: 1.1rem;
-            transition: transform 0.4s ease;
-        }
-
-        /* Hover Aesthetics */
-        .nav-link:hover {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 0px; /* Sharp edges for a cleaner architectural look */
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25rem;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Hover Mechanics */
+        .btn:hover {
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
             transform: translateY(-2px);
         }
 
-        .nav-link:hover i {
-            transform: translateX(5px);
+        /* Featured Store Button Accent */
+        .btn.featured {
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.07);
         }
 
-        /* --- SUBSCRIPTION SECTION --- */
-        .subscribe-panel {
-            width: 100%;
-            max-width: 480px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
-            padding: 1.5rem;
-            text-align: center;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            animation: fadeIn 2.8s ease-out;
-            margin-bottom: 2rem;
-        }
-
-        .subscribe-panel h3 {
-            font-size: 0.75rem;
-            font-weight: 400;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #aaaaaa;
-            margin-bottom: 1rem;
-        }
-
-        .subscribe-form {
+        /* --- Minimal Social Icons Grid --- */
+        .socials-grid {
             display: flex;
-            gap: 0.5rem;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
-        .subscribe-input {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0.8rem 1rem;
-            color: #ffffff;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
-            border-radius: 2px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .subscribe-input:focus {
-            border-color: rgba(255, 255, 255, 0.4);
-            background: rgba(0, 0, 0, 0.6);
-        }
-
-        .subscribe-btn {
-            background: #ffffff;
-            color: #050505;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            font-family: 'Montserrat', sans-serif;
+        .social-link {
+            color: #666666;
+            text-decoration: none;
             font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1px;
             text-transform: uppercase;
-            border-radius: 2px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            letter-spacing: 0.15rem;
+            transition: color 0.3s ease;
         }
 
-        .subscribe-btn:hover {
-            background: #cccccc;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        .social-link:hover {
+            color: #ffffff;
         }
 
-        /* --- FOOTER SOCIALS --- */
+        /* --- Footer --- */
         footer {
-            display: flex;
-            gap: 1.8rem;
-            animation: fadeIn 3.2s ease-out;
+            position: relative;
+            z-index: 2;
+            padding: 32px;
+            text-align: center;
         }
 
-        .social-icon {
-            color: #555555;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            transform: scale(1.2);
-        }
-
-        /* --- ANIMATIONS --- */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-                letter-spacing: 8px;
-            }
-            .links-container, .subscribe-panel {
-                padding: 1.2rem;
-                width: 92%;
-            }
-            .nav-link {
-                padding: 1rem 1.5rem;
-                font-size: 0.8rem;
-            }
-            .subscribe-form {
-                flex-direction: column;
-            }
-            .subscribe-btn {
-                width: 100%;
-            }
+        .copyright {
+            font-size: 0.65rem;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+            color: #444444;
         }
     </style>
 </head>
@@ -247,152 +153,135 @@
     <canvas id="galaxy-canvas"></canvas>
 
     <div class="wrapper">
-        
-        <header class="interactive-element">
+        <header>
             <h1>Parallax</h1>
+            <div class="subtitle">Official Platform</div>
         </header>
 
-        <main class="links-container interactive-element">
-            <a href="https://boundless-official-store.printify.me/" target="_blank" class="nav-link">
-                <span>Official Store</span>
-                <i class="fa-solid fa-bag-shopping"></i>
-            </a>
-            <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="nav-link">
-                <span>Discord Network</span>
-                <i class="fa-brands fa-discord"></i>
-            </a>
-            <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="nav-link">
-                <span>YouTube Channel</span>
-                <i class="fa-brands fa-youtube"></i>
-            </a>
-            <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="nav-link">
-                <span>Instagram</span>
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-            <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="nav-link">
-                <span>TikTok</span>
-                <i class="fa-brands fa-tiktok"></i>
-            </a>
-            <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="nav-link">
-                <span>Facebook</span>
-                <i class="fa-brands fa-facebook-f"></i>
-            </a>
+        <main>
+            <div class="links-container">
+                <a href="https://boundless-official-store.printify.me/" target="_blank" class="btn featured">Official Store</a>
+                
+                <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="btn">Discord Network</a>
+                <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="btn">YouTube Channel</a>
+                <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="btn">Instagram</a>
+            </div>
+
+            <div class="socials-grid">
+                <a href="https://x.com/Parallax_x_x" target="_blank" class="social-link">X / Twitter</a>
+                <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="social-link">TikTok</a>
+                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="social-link">Facebook</a>
+            </div>
         </main>
-
-        <section class="subscribe-panel interactive-element">
-            <h3>Subscribe for Updates</h3>
-            <form class="subscribe-form" onsubmit="event.preventDefault(); alert('Subscribed successfully.');">
-                <input type="email" class="subscribe-input" placeholder="ENTER YOUR EMAIL" required>
-                <button type="submit" class="subscribe-btn">Join</button>
-            </form>
-        </section>
-
-        <footer class="interactive-element">
-            <a href="https://x.com/Parallax_x_x" target="_blank" class="social-icon" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-        </footer>
-
     </div>
+
+    <footer>
+        <div class="copyright">&copy; 2026 Parallax. All Rights Reserved.</div>
+    </footer>
 
     <script>
         const canvas = document.getElementById('galaxy-canvas');
         const ctx = canvas.getContext('2d');
 
-        let particles = [];
-        const particleCount = 220; // Increased count for a denser monochrome galaxy depth
-        let mouse = { x: null, y: null, radius: 170 };
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        const numStars = 150;
+        const stars = [];
 
+        let mouse = { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2 };
+
+        // Handle window resizing
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // Capture Mouse / Touch Coordinates for interactive tracking
         window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
+            mouse.targetX = e.clientX;
+            mouse.targetY = e.clientY;
         });
 
-        window.addEventListener('mouseleave', () => {
-            mouse.x = null;
-            mouse.y = null;
+        window.addEventListener('touchmove', (e) => {
+            if(e.touches.length > 0) {
+                mouse.targetX = e.touches[0].clientX;
+                mouse.targetY = e.touches[0].clientY;
+            }
         });
 
-        class Particle {
+        // Star Blueprint
+        class Star {
             constructor() {
                 this.reset();
             }
 
             reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                
-                // Pure monochrome profile: variance strictly across high-contrast greys and whites
-                const monochromeValue = Math.floor(Math.random() * 185) + 70; 
-                this.color = `rgba(${monochromeValue}, ${monochromeValue}, ${monochromeValue}, ${Math.random() * 0.7 + 0.15})`;
-                
-                this.size = Math.random() * 2.2 + 0.4;
-                this.speedX = (Math.random() - 0.5) * 0.25;
-                this.speedY = (Math.random() - 0.5) * 0.25;
-                this.baseSize = this.size;
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 1.5;
+                this.speedX = (Math.random() - 0.5) * 0.2;
+                this.speedY = (Math.random() - 0.5) * 0.2;
+                this.density = (Math.random() * 20) + 10;
+                this.opacity = Math.random();
+                this.fadeSpeed = 0.005 + Math.random() * 0.01;
+                this.direction = Math.random() > 0.5 ? 1 : -1;
             }
 
             update() {
+                // Natural drifting movement
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                    this.reset();
+                // Parallax shift based on cursor interactivity
+                let dx = mouse.x - (width / 2);
+                let dy = mouse.y - (height / 2);
+                this.x -= (dx / this.density) * 0.03;
+                this.y -= (dy / this.density) * 0.03;
+
+                // Subtle twinkling effect
+                this.opacity += this.fadeSpeed * this.direction;
+                if (this.opacity >= 1 || this.opacity <= 0.1) {
+                    this.direction *= -1;
                 }
 
-                if (mouse.x !== null && mouse.y !== null) {
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let distance = Math.hypot(dx, dy);
-                    
-                    if (distance < mouse.radius) {
-                        const force = (mouse.radius - distance) / mouse.radius;
-                        this.x -= (dx / distance) * force * 1.8;
-                        this.y -= (dy / distance) * force * 1.8;
-                        this.size = this.baseSize * (1 + force * 1.3);
-                    } else {
-                        if (this.size > this.baseSize) this.size -= 0.08;
-                    }
+                // Recycle stars that move completely out of boundaries
+                if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+                    this.reset();
                 }
             }
 
             draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = this.size * 2.5;
-                ctx.shadowColor = '#ffffff';
                 ctx.fill();
-                ctx.shadowBlur = 0; 
             }
         }
 
-        function init() {
-            particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
+        // Initialize Starfield Matrix
+        for (let i = 0; i < numStars; i++) {
+            stars.push(new Star());
         }
 
+        // Animation Loop
         function animate() {
-            // Faint monochrome trace trail logic
-            ctx.fillStyle = 'rgba(5, 5, 5, 0.18)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Clear canvas while maintaining stark contrast
+            ctx.clearRect(0, 0, width, height);
 
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
+            // Smooth easing for mouse tracking coordinates
+            mouse.x += (mouse.targetX - mouse.x) * 0.08;
+            mouse.y += (mouse.targetY - mouse.y) * 0.08;
+
+            // Render and update every celestial asset
+            stars.forEach(star => {
+                star.update();
+                star.draw();
             });
 
             requestAnimationFrame(animate);
         }
 
-        init();
         animate();
     </script>
 </body>
