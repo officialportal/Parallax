@@ -6,7 +6,7 @@
     
     <meta name="google-site-verification" content="google990317cbb4fca942" />
 
-    <title>Parallax // Network & Store</title>
+    <title>Parallax</title>
     <style>
         /* --- RESET & ROOT VARIABLES --- */
         * {
@@ -22,7 +22,6 @@
             --border-color: rgba(255, 255, 255, 0.15);
             --text-main: #ffffff;
             --text-muted: #888888;
-            --accent: #ffffff;
             --font-mono: 'Courier New', Courier, monospace;
         }
 
@@ -31,10 +30,10 @@
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             overflow-x: hidden;
-            min-height: 100vh;
+            letter-spacing: -0.02em;
         }
 
-        /* --- MONOCHROME CANVAS LAYER --- */
+        /* --- BACKGROUND LAYER --- */
         #space-canvas {
             position: fixed;
             top: 0;
@@ -46,88 +45,133 @@
             background: radial-gradient(circle at center, #111111 0%, #050505 100%);
         }
 
-        /* --- STICKY NAVIGATION HEADER --- */
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            font-weight: 900;
+        }
+
+        a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* --- CRYSTAL CLEAR FIXED HEADER --- */
         header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 4%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem 4rem;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
             z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(10, 10, 10, 0.5);
         }
 
         .logo {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 900;
-            letter-spacing: 0.5rem;
-            text-transform: none;
+            letter-spacing: 0.4rem;
             text-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
 
-        .cart-status {
+        nav a {
             font-family: var(--font-mono);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            margin-left: 30px;
             letter-spacing: 2px;
-            cursor: pointer;
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
             color: var(--text-main);
         }
 
-        .cart-status:hover {
-            background: var(--text-main);
-            color: var(--bg-deep);
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 4%;
+            z-index: 2;
+            text-align: center;
         }
 
-        main {
-            max-width: 1200px;
+        .hero-title {
+            font-size: clamp(4rem, 15vw, 12rem);
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            font-weight: 900;
+            background: linear-gradient(180deg, #ffffff 70%, #333333 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- LAYOUT CONTAINER --- */
+        .container {
+            position: relative;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 100px 4%;
+            z-index: 2;
         }
 
-        /* --- STORE HERO BLOCK --- */
+        .section-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            line-height: 1;
+            letter-spacing: 1px;
+        }
+
+        /* --- STORE BANNER UPGRADE --- */
         .store-banner {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 4rem 3rem;
-            margin-bottom: 5rem;
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            margin-bottom: 120px;
             backdrop-filter: blur(5px);
-            position: relative;
         }
 
         .store-banner h3 {
-            font-size: 2rem;
-            font-weight: 900;
-            letter-spacing: 3px;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            line-height: 0.95;
             text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .store-banner p {
-            color: var(--text-muted);
-            max-width: 600px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
         }
 
         .store-btn {
-            display: inline-block;
             background: none;
             border: 1px solid var(--text-main);
             color: var(--text-main);
-            padding: 0.75rem 2rem;
+            padding: 15px 40px;
+            font-size: 0.9rem;
             font-family: var(--font-mono);
-            font-size: 0.85rem;
             font-weight: 700;
-            letter-spacing: 2px;
-            text-decoration: none;
+            letter-spacing: 0.1em;
+            margin-top: 20px;
+            display: inline-block;
             transition: all 0.3s ease;
         }
 
@@ -137,182 +181,121 @@
             transform: translateY(-2px);
         }
 
-        /* --- ARCHIVE SECTION HEADER --- */
-        .section-title {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            padding-left: 0.5rem;
-            border-left: 2px solid var(--border-color);
-        }
-
-        /* --- PRODUCT GRID ARCHITECTURE --- */
-        .store-grid {
+        /* --- SOCIALS GRID TREE --- */
+        .links-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 6rem;
+            gap: 1.5rem;
+            margin-bottom: 60px;
         }
 
-        .product-card {
+        .link-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            overflow: hidden;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .product-image-wrapper {
-            position: relative;
-            width: 100%;
-            padding-top: 100%;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            padding: 40px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .product-image-placeholder {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-mono);
-            color: rgba(255,255,255,0.07);
-            font-size: 5rem;
-            font-weight: bold;
-        }
-
-        .product-details {
-            padding: 1.5rem;
-            display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: flex-end;
-            border-top: 1px solid var(--border-color);
-            background: rgba(10, 10, 10, 0.8);
+            min-height: 220px;
+            position: relative;
+            transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .product-meta .title {
-            font-size: 1.1rem;
-            font-weight: 500;
+        .link-card:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .link-card .platform-name {
+            font-size: 1.8rem;
+            font-weight: 700;
             letter-spacing: 1px;
-            margin-bottom: 0.25rem;
-            text-transform: uppercase;
         }
 
-        .product-meta .price {
-            font-family: var(--font-mono);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .buy-btn {
-            background: none;
-            border: 1px solid var(--text-main);
-            color: var(--text-main);
-            padding: 0.5rem 1rem;
+        .link-card .action-text {
             font-family: var(--font-mono);
             font-size: 0.8rem;
-            cursor: pointer;
-            letter-spacing: 1px;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            text-transform: uppercase;
             transition: all 0.3s ease;
         }
 
-        .buy-btn:hover {
+        .link-card:hover .action-text {
+            color: var(--text-main);
+            padding-left: 5px;
+        }
+
+        /* --- DISCORD / NETWORK BLOCK --- */
+        .network-block {
+            border: 1px dashed var(--border-color);
+            padding: 60px 40px;
+            text-align: center;
+            margin-top: 100px;
+            background: var(--card-bg);
+            backdrop-filter: blur(5px);
+            transition: border-style 0.3s ease;
+        }
+
+        .network-block:hover {
+            border-style: solid;
+            border-color: var(--text-main);
+        }
+
+        .network-block h3 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .network-block p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .network-btn {
+            display: inline-block;
+            border: 1px solid var(--text-main);
+            padding: 15px 40px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .network-btn:hover {
             background: var(--text-main);
             color: var(--bg-deep);
         }
 
-        /* --- SOCIAL LINKS & COMMUNITY FOOTER --- */
-        .network-footer {
+        /* --- FOOTER --- */
+        footer {
             border-top: 1px solid var(--border-color);
-            padding-top: 5rem;
-            margin-top: 4rem;
+            padding: 40px 4%;
             text-align: center;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2.5rem;
-            margin-bottom: 4rem;
-        }
-
-        .social-link {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
             color: var(--text-muted);
-            text-decoration: none;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: color 0.3s ease, transform 0.3s ease;
-            display: inline-block;
+            letter-spacing: 0.05em;
+            z-index: 2;
+            position: relative;
+            opacity: 0.6;
         }
 
-        .social-link:hover {
-            color: var(--text-main);
-            transform: scale(1.05);
-        }
-
-        .network-banner {
-            display: inline-block;
-            border: 1px dashed var(--border-color);
-            padding: 1.5rem 3rem;
-            text-decoration: none;
-            color: var(--text-main);
-            font-family: var(--font-mono);
-            letter-spacing: 3px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            margin-bottom: 3rem;
-        }
-
-        .network-banner:hover {
-            border-style: solid;
-            border-color: var(--text-main);
-            background: rgba(255,255,255,0.02);
-        }
-
-        .copyright {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            opacity: 0.5;
-        }
-
-        /* --- RESPONSIVE ADJUSTMENTS --- */
+        /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 768px) {
-            header {
-                padding: 1.5rem 2rem;
-            }
-            .logo {
-                font-size: 1.3rem;
-                letter-spacing: 0.3rem;
-            }
-            .store-banner {
-                padding: 2.5rem 1.5rem;
-            }
-            .social-links {
-                gap: 1.5rem;
-            }
-            .social-link {
-                font-size: 0.75rem;
-            }
+            nav { display: none; }
+            .store-banner { padding: 40px 30px; }
+            .network-block { padding: 40px 20px; }
+            header { padding: 1rem 4%; }
+            .logo { font-size: 1.2rem; letter-spacing: 0.2rem; }
         }
     </style>
 </head>
@@ -322,112 +305,74 @@
 
     <header>
         <div class="logo">Parallax</div>
-        <a href="https://home1x.github.io/Store/" target="_blank" class="cart-status" id="cart-counter">BAG [0]</a>
+        <nav>
+            <a href="#connect">Connect</a>
+            <a href="#store">Store</a>
+            <a href="#network">Network</a>
+        </nav>
     </header>
 
-    <main>
-        
-        <section class="store-banner">
+    <section class="hero">
+        <h1 class="hero-title">Parallax</h1>
+    </section>
+
+    <main class="container">
+
+        <section id="store" class="store-banner">
             <h3>Store</h3>
-            <p>Access exclusive apparel, drops, and official merchandise direct from the parallax collection.</p>
-            <a href="https://home1x.github.io/Store/" target="_blank" class="store-btn">SHOP COLLECTION →</a>
+            <p>
+                Access exclusive apparel, drops, and official merchandise direct from the parallax collection.
+            </p>
+            <a href="https://home1x.github.io/Store/" target="_blank" class="store-btn">Shop collection →</a>
         </section>
 
-        <div class="section-title">Product Archive</div>
-
-        <div class="store-grid">
-            <div class="product-card">
-                <div class="product-image-wrapper">
-                    <div class="product-image-placeholder">01</div>
-                </div>
-                <div class="product-details">
-                    <div class="product-meta">
-                        <div class="title">Parallax Drop</div>
-                        <div class="price">Apparel // $--.--</div>
-                    </div>
-                    <button class="buy-btn" onclick="addToBag()">ADD</button>
-                </div>
+        <section id="connect">
+            <div class="section-header">
+                <h2>Connect</h2>
             </div>
 
-            <div class="product-card">
-                <div class="product-image-wrapper">
-                    <div class="product-image-placeholder">02</div>
-                </div>
-                <div class="product-details">
-                    <div class="product-meta">
-                        <div class="title">Official Merch</div>
-                        <div class="price">Accessory // $--.--</div>
-                    </div>
-                    <button class="buy-btn" onclick="addToBag()">ADD</button>
-                </div>
-            </div>
+            <div class="links-grid">
+                <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="link-card">
+                    <div class="platform-name">Instagram</div>
+                    <div class="action-text">View profile ↗</div>
+                </a>
 
-            <div class="product-card">
-                <div class="product-image-wrapper">
-                    <div class="product-image-placeholder">03</div>
-                </div>
-                <div class="product-details">
-                    <div class="product-meta">
-                        <div class="title">Limited Edition</div>
-                        <div class="price">Capsule // $--.--</div>
-                    </div>
-                    <button class="buy-btn" onclick="addToBag()">ADD</button>
-                </div>
-            </div>
+                <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="link-card">
+                    <div class="platform-name">YouTube</div>
+                    <div class="action-text">Subscribe ↗</div>
+                </a>
 
-            <div class="product-card">
-                <div class="product-image-wrapper">
-                    <div class="product-image-placeholder">04</div>
-                </div>
-                <div class="product-details">
-                    <div class="product-meta">
-                        <div class="title">Community Core</div>
-                        <div class="price">Garment // $--.--</div>
-                    </div>
-                    <button class="buy-btn" onclick="addToBag()">ADD</button>
-                </div>
-            </div>
+                <a href="https://x.com/Parallax_x_x" target="_blank" class="link-card">
+                    <div class="platform-name">X.com</div>
+                    <div class="action-text">Follow feed ↗</div>
+                </a>
 
-            <div class="product-card">
-                <div class="product-image-wrapper">
-                    <div class="product-image-placeholder">05</div>
-                </div>
-                <div class="product-details">
-                    <div class="product-meta">
-                        <div class="title">Inner Circle</div>
-                        <div class="price">Artifact // $--.--</div>
-                    </div>
-                    <button class="buy-btn" onclick="addToBag()">ADD</button>
-                </div>
-            </div>
-        </div>
+                <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="link-card">
+                    <div class="platform-name">TikTok</div>
+                    <div class="action-text">Watch content ↗</div>
+                </a>
 
-        <footer class="network-footer">
-            <div class="social-links">
-                <a href="https://x.com/Parallax_x_x" target="_blank" class="social-link">X.com</a>
-                <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="social-link">Instagram</a>
-                <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="social-link">YouTube</a>
-                <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="social-link">TikTok</a>
-                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="social-link">Facebook</a>
+                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="link-card">
+                    <div class="platform-name">Facebook</div>
+                    <div class="action-text">Join community ↗</div>
+                </a>
             </div>
-            
-            <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="network-banner">JOIN THE DISCORD NETWORK</a>
-            
-            <div class="copyright">
-                &copy; PARALLAX. ALL RIGHTS RESERVED.
-            </div>
-        </footer>
+        </section>
+
+        <section id="network" class="network-block">
+            <h3>The network</h3>
+            <p>Join the official Discord server. Interact directly, stay updated on community events, and enter the inner circle.</p>
+            <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="network-btn">Enter Discord</a>
+        </section>
+
     </main>
 
-    <script>
-        // Cart state counter interaction updates
-        let count = 0;
-        function addToBag() {
-            count++;
-            document.getElementById('cart-counter').innerText = `BAG [${count}]`;
-        }
+    <footer>
+        &copy; PARALLAX. ALL RIGHTS RESERVED.
+    </footer>
 
-        // Optional fallback initialization for the interactive background space-canvas framework
+    <script>
+        // Set up the dark radial engine wrapper fallback
         const canvas = document.getElementById('space-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
