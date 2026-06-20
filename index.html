@@ -57,19 +57,17 @@
             transition: all 0.3s ease;
         }
 
-        /* --- THE NEW CUSTOM LOCAL CURSIVE LOGO --- */
-        .custom-cursive-logo {
-            /* Uses local cursive fonts for a clean, readable band signature style */
-            font-family: "Brush Script MT", "Lucida Handwriting", "Comic Sans MS", cursive;
-            font-weight: bold;
-            font-style: italic;
-            /* Keeps the casing exactly as typed in the HTML */
-            text-transform: none !important; 
-            color: #ffffff;
-            /* Sleek rock star stage light shadow */
-            text-shadow: 
-                0 0 8px rgba(255, 255, 255, 0.6),
-                0 0 20px rgba(255, 255, 255, 0.3);
+        /* --- THE NEW INJECTED CUSTOM ARTIST LOGO STYLE --- */
+        .custom-logo-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custom-logo-svg {
+            /* Gives the custom cursive layout a bright, pristine studio stage glow */
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7)) 
+                    drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
         }
 
         /* --- CRYSTAL CLEAR FIXED HEADER --- */
@@ -89,8 +87,8 @@
             background: rgba(10, 10, 10, 0.5);
         }
 
-        .logo {
-            font-size: 2.2rem;
+        .logo-wrapper {
+            height: 45px;
         }
 
         nav a {
@@ -119,9 +117,9 @@
             text-align: center;
         }
 
-        .hero-title {
-            font-size: clamp(4.5rem, 14vw, 10rem); 
-            transform: rotate(-3deg); /* Slight classic attitude tilt */
+        .hero-title-wrapper {
+            width: clamp(280px, 65vw, 680px);
+            transform: rotate(-2.5deg); /* Subtle premium rock star tilt */
         }
 
         /* --- LAYOUT CONTAINER --- */
@@ -295,6 +293,10 @@
             z-index: 2;
             position: relative;
             opacity: 0.6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         /* --- RESPONSIVE DESIGN --- */
@@ -303,8 +305,7 @@
             .store-banner { padding: 40px 30px; }
             .network-block { padding: 40px 20px; }
             header { padding: 1.2rem 4%; }
-            .logo { font-size: 1.8rem; }
-            .hero-title { font-size: clamp(3rem, 11vw, 6rem); }
+            .logo-wrapper { height: 35px; }
         }
     </style>
 </head>
@@ -313,7 +314,12 @@
     <canvas id="space-canvas"></canvas>
 
     <header>
-        <div class="logo custom-cursive-logo">Parallax</div>
+        <div class="logo-wrapper custom-logo-container">
+            <svg class="custom-logo-svg" viewBox="0 0 320 90" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <path d="M45,75 L45,15 C45,15 75,10 75,32 C75,54 45,52 45,52 L60,75 M92,58 C80,58 78,44 90,44 C102,44 102,58 92,58 M102,58 L102,44 M115,58 L115,44 C115,40 125,40 125,46 M138,58 C128,58 126,44 136,44 C146,44 146,58 138,58 M146,58 L146,44 M158,28 L158,58 M168,58 C158,58 156,44 166,44 C176,44 176,58 168,58 M176,58 L176,44 M185,58 L197,44 M200,58 L188,44 M212,58 C202,58 200,44 210,44 C220,44 220,58 212,58 M220,58 L220,44" 
+                      fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
         <nav>
             <a href="#connect">Connect</a>
             <a href="#store">Store</a>
@@ -322,7 +328,12 @@
     </header>
 
     <section class="hero">
-        <h1 class="hero-title custom-cursive-logo">Parallax</h1>
+        <div class="hero-title-wrapper custom-logo-container">
+            <svg class="custom-logo-svg" viewBox="0 0 320 90" width="100%" xmlns="http://www.w3.org/2000/svg">
+                <path d="M45,75 L45,15 C45,15 75,10 75,32 C75,54 45,52 45,52 L60,75 M92,58 C80,58 78,44 90,44 C102,44 102,58 92,58 M102,58 L102,44 M115,58 L115,44 C115,40 125,40 125,46 M138,58 C128,58 126,44 136,44 C146,44 146,58 138,58 M146,58 L146,44 M158,28 L158,58 M168,58 C158,58 156,44 166,44 C176,44 176,58 168,58 M176,58 L176,44 M185,58 L197,44 M200,58 L188,44 M212,58 C202,58 200,44 210,44 C220,44 220,58 212,58 M220,58 L220,44" 
+                      fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
     </section>
 
     <main class="container">
@@ -377,7 +388,13 @@
     </main>
 
     <footer>
-        &copy; <span class="custom-cursive-logo" style="font-size: 1.3rem; vertical-align: middle;">Parallax</span>. all rights reserved.
+        &copy; 
+        <span class="custom-logo-container" style="height: 20px; vertical-align: middle;">
+            <svg class="custom-logo-svg" viewBox="0 0 320 90" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <path d="M45,75 L45,15 C45,15 75,10 75,32 C75,54 45,52 45,52 L60,75 M92,58 C80,58 78,44 90,44 C102,44 102,58 92,58 M102,58 L102,44 M115,58 L115,44 C115,40 125,40 125,46 M138,58 C128,58 126,44 136,44 C146,44 146,58 138,58 M146,58 L146,44 M158,28 L158,58 M168,58 C158,58 156,44 166,44 C176,44 176,58 168,58 M176,58 L176,44 M185,58 L197,44 M200,58 L188,44 M212,58 C202,58 200,44 210,44 C220,44 220,58 212,58 M220,58 L220,44" 
+                      fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>. all rights reserved.
     </footer>
 
     <script>
