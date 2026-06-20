@@ -7,10 +7,6 @@
     <meta name="google-site-verification" content="google990317cbb4fca942" />
 
     <title>Parallax</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
 
     <style>
         /* --- RESET & ROOT VARIABLES --- */
@@ -61,24 +57,18 @@
             transition: all 0.3s ease;
         }
 
-        /* --- THE INJECTED CUSTOM ARTIST LOGO STYLE --- */
-        .cursive-artist {
-            font-family: 'Rock Salt', cursive, sans-serif;
-            font-weight: 400;
-            /* STRICTLY FIXED: Forces lowercase layout across all browsers */
-            text-transform: lowercase !important; 
-            letter-spacing: -0.02em; 
-            line-height: 1.2;
-            color: #ffffff;
-            text-shadow: 
-                0 0 8px rgba(255, 255, 255, 0.7),
-                0 0 25px rgba(255, 255, 255, 0.4),
-                0 0 50px rgba(255, 255, 255, 0.15);
+        /* --- THE NEW INJECTED CUSTOM ARTIST LOGO STYLE --- */
+        .custom-logo-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
-        
-        /* Capitalizes just the very first letter of the element */
-        .cursive-artist::first-letter {
-            text-transform: uppercase !important;
+
+        .custom-logo-svg {
+            /* Gives the custom cursive text that bright cosmic neon glow */
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8)) 
+                    drop-shadow(0 0 12px rgba(255, 255, 255, 0.4)) 
+                    drop-shadow(0 0 30px rgba(255, 255, 255, 0.2));
         }
 
         /* --- CRYSTAL CLEAR FIXED HEADER --- */
@@ -98,8 +88,8 @@
             background: rgba(10, 10, 10, 0.5);
         }
 
-        .logo {
-            font-size: 1.3rem;
+        .logo-wrapper {
+            height: 40px;
         }
 
         nav a {
@@ -128,9 +118,9 @@
             text-align: center;
         }
 
-        .hero-title {
-            font-size: clamp(3.2rem, 11vw, 8rem); 
-            transform: rotate(-3.5deg); 
+        .hero-title-wrapper {
+            width: clamp(280px, 75vw, 780px);
+            transform: rotate(-3deg); /* Rock star slant */
         }
 
         /* --- LAYOUT CONTAINER --- */
@@ -304,6 +294,10 @@
             z-index: 2;
             position: relative;
             opacity: 0.6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         /* --- RESPONSIVE DESIGN --- */
@@ -312,8 +306,7 @@
             .store-banner { padding: 40px 30px; }
             .network-block { padding: 40px 20px; }
             header { padding: 1.2rem 4%; }
-            .logo { font-size: 1.1rem; }
-            .hero-title { font-size: clamp(2.2rem, 9vw, 5rem); }
+            .logo-wrapper { height: 32px; }
         }
     </style>
 </head>
@@ -322,7 +315,12 @@
     <canvas id="space-canvas"></canvas>
 
     <header>
-        <div class="logo cursive-artist">Parallax</div>
+        <div class="logo-wrapper custom-logo-container">
+            <svg class="custom-logo-svg" viewBox="0 0 240 80" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25,65 Q15,35 28,15 Q45,10 40,32 Q35,50 18,48 M38,30 Q70,25 55,48 Q45,60 58,60 Q72,58 75,45 Q78,35 88,48 Q95,58 102,46 Q106,38 112,60 Q118,60 125,40 M120,50 Q135,48 142,60 M140,32 L146,60 M150,58 Q165,42 175,60 M170,52 Q185,48 192,60 M195,45 Q210,38 222,60 M210,60 L230,42" 
+                      fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
         <nav>
             <a href="#connect">Connect</a>
             <a href="#store">Store</a>
@@ -331,7 +329,12 @@
     </header>
 
     <section class="hero">
-        <h1 class="hero-title cursive-artist">Parallax</h1>
+        <div class="hero-title-wrapper custom-logo-container">
+            <svg class="custom-logo-svg" viewBox="0 0 240 80" width="100%" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25,65 Q15,35 28,15 Q45,10 40,32 Q35,50 18,48 M38,30 Q70,25 55,48 Q45,60 58,60 Q72,58 75,45 Q78,35 88,48 Q95,58 102,46 Q106,38 112,60 Q118,60 125,40 M120,50 Q135,48 142,60 M140,32 L146,60 M150,58 Q165,42 175,60 M170,52 Q185,48 192,60 M195,45 Q210,38 222,60 M210,60 L230,42" 
+                      fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
     </section>
 
     <main class="container">
@@ -386,7 +389,13 @@
     </main>
 
     <footer>
-        &copy; <span class="cursive-artist" style="font-size: 0.9rem; vertical-align: middle;">Parallax</span>. all rights reserved.
+        &copy; 
+        <span class="custom-logo-container" style="height: 18px; vertical-align: middle;">
+            <svg class="custom-logo-svg" viewBox="0 0 240 80" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25,65 Q15,35 28,15 Q45,10 40,32 Q35,50 18,48 M38,30 Q70,25 55,48 Q45,60 58,60 Q72,58 75,45 Q78,35 88,48 Q95,58 102,46 Q106,38 112,60 Q118,60 125,40 M120,50 Q135,48 142,60 M140,32 L146,60 M150,58 Q165,42 175,60 M170,52 Q185,48 192,60 M195,45 Q210,38 222,60 M210,60 L230,42" 
+                      fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>. all rights reserved.
     </footer>
 
     <script>
