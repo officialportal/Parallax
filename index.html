@@ -105,7 +105,7 @@
             margin-left: 30px;
             letter-spacing: 2px;
             color: var(--text-muted);
-            text-transform: uppercase;
+            text-transform: capitalize; /* Capitalizes first letter only */
         }
 
         nav a:hover {
@@ -153,10 +153,10 @@
             font-size: clamp(2rem, 5vw, 3.5rem);
             line-height: 1;
             letter-spacing: 1px;
-            text-transform: uppercase;
+            text-transform: capitalize; /* Capitalizes first letter only */
         }
 
-        /* --- SECTION 1: Albums Grid (High Content Density) --- */
+        /* --- SECTION 1: ALBUMS GRID (High Content Density) --- */
         .albums-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -207,10 +207,10 @@
             font-family: var(--font-mono);
             font-size: 0.8rem;
             color: var(--text-muted);
-            text-transform: uppercase;
+            text-transform: capitalize; /* Capitalizes first letter only */
         }
 
-        /* --- SECTION 2: Connect Grid (Medium Content Density) --- */
+        /* --- SECTION 2: CONNECT GRID (Medium Content Density) --- */
         .links-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -244,7 +244,7 @@
             font-size: 0.8rem;
             letter-spacing: 0.1em;
             color: var(--text-muted);
-            text-transform: uppercase;
+            text-transform: capitalize; /* Capitalizes first letter only */
             transition: all 0.3s ease;
         }
 
@@ -253,7 +253,7 @@
             padding-left: 5px;
         }
 
-        /* --- SECTION 3: Store Banner (Minimal Density Rest-point) --- */
+        /* --- SECTION 3: STORE BANNER (Minimal Density Rest-point) --- */
         .store-banner {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -270,7 +270,7 @@
             margin-bottom: 20px;
             letter-spacing: 2px;
             line-height: 0.95;
-            text-transform: uppercase;
+            text-transform: capitalize; /* Capitalizes first letter only */
         }
 
         .store-banner p {
@@ -292,6 +292,7 @@
             letter-spacing: 0.1em;
             display: inline-block;
             transition: all 0.3s ease;
+            text-transform: capitalize; /* Capitalizes first letter only */
         }
 
         .action-btn:hover {
@@ -369,7 +370,7 @@
                     <div class="album-art-blank"></div>
                     <div class="album-details">
                         <h4>Project I</h4>
-                        <p>Coming Soon</p>
+                        <p>Coming soon</p>
                     </div>
                 </div>
 
@@ -377,7 +378,7 @@
                     <div class="album-art-blank"></div>
                     <div class="album-details">
                         <h4>Project II</h4>
-                        <p>Coming Soon</p>
+                        <p>Coming soon</p>
                     </div>
                 </div>
 
@@ -385,7 +386,7 @@
                     <div class="album-art-blank"></div>
                     <div class="album-details">
                         <h4>Project III</h4>
-                        <p>Coming Soon</p>
+                        <p>Coming soon</p>
                     </div>
                 </div>
             </div>
@@ -434,7 +435,7 @@
             <p>
                 Access premium garments, unique drops, and official merchandise direct from the curated Parallax collection line.
             </p>
-            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop Collection →</a>
+            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop collection →</a>
         </section>
 
     </main>
