@@ -66,7 +66,6 @@
 
         .signature-svg {
             overflow: visible;
-            /* Ultra-clean, sharp upscale studio glow */
             filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9))
                     drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
         }
@@ -74,13 +73,12 @@
         .signature-path {
             fill: none;
             stroke: #ffffff;
-            /* Fine-tipped luxury felt-pen profile */
             stroke-width: 2.2px;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
 
-        /* --- CRYSTAL CLEAR FIXED HEADER --- */
+        /* --- FIXED HEADER --- */
         header {
             position: fixed;
             top: 0;
@@ -129,7 +127,7 @@
 
         .hero-title-wrapper {
             width: clamp(260px, 50vw, 500px);
-            transform: rotate(-1deg); /* Subtle refined tilt */
+            transform: rotate(-1deg);
         }
 
         /* --- LAYOUT CONTAINER --- */
@@ -137,72 +135,86 @@
             position: relative;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 100px 4%;
+            padding: 40px 4% 100px 4%;
             z-index: 2;
+        }
+
+        section {
+            margin-bottom: 140px; /* Unified spacing between sections */
         }
 
         .section-header {
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 15px;
-            margin-bottom: 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
+            margin-bottom: 50px;
         }
 
         .section-header h2 {
-            font-size: clamp(2rem, 5vw, 4rem);
+            font-size: clamp(2rem, 5vw, 3.5rem);
             line-height: 1;
             letter-spacing: 1px;
-        }
-
-        /* --- BANNER STYLING (ALBUMS & STORE) --- */
-        .info-banner {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 80px 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            margin-bottom: 120px;
-            backdrop-filter: blur(5px);
-        }
-
-        .info-banner h3 {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            line-height: 0.95;
             text-transform: uppercase;
         }
 
-        .action-btn {
-            background: none;
-            border: 1px solid var(--text-main);
-            color: var(--text-main);
-            padding: 15px 40px;
-            font-size: 0.9rem;
-            font-family: var(--font-mono);
+        /* --- SECTION 1: ALBUMS GRID (High Content Density) --- */
+        .albums-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .album-card {
+            display: flex;
+            flex-direction: column;
+            group: hover;
+        }
+
+        .album-art-blank {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: radial-gradient(circle at cubic-bezier(0.16, 1, 0.3, 1), rgba(30,30,30,0.6) 0%, rgba(15,15,15,0.8) 100%);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(5px);
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .album-art-blank::before {
+            content: "";
+            width: 25%;
+            height: 25%;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+        }
+
+        .album-card:hover .album-art-blank {
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .album-details h4 {
+            font-size: 1.3rem;
             font-weight: 700;
-            letter-spacing: 0.1em;
-            margin-top: 20px;
-            display: inline-block;
-            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+            margin-bottom: 5px;
         }
 
-        .action-btn:hover {
-            background: var(--text-main);
-            color: var(--bg-deep);
-            transform: translateY(-2px);
+        .album-details p {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
         }
 
-        /* --- SOCIALS GRID TREE --- */
+        /* --- SECTION 2: CONNECT GRID (Medium Content Density) --- */
         .links-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 120px; /* Kept spaced out from the next section */
         }
 
         .link-card {
@@ -212,8 +224,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 220px;
-            position: relative;
+            min-height: 200px;
             transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -242,53 +253,87 @@
             padding-left: 5px;
         }
 
-        /* --- DISCORD / NETWORK BLOCK --- */
-        .network-block {
+        /* Nested Integrated Network Block */
+        .nested-network-card {
+            grid-column: 1 / -1; /* Spans full width of the grid for emphasis */
             border: 1px dashed var(--border-color);
-            padding: 60px 40px;
+            background: rgba(20, 20, 20, 0.4);
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            margin-top: 100px;
-            background: var(--card-bg);
-            backdrop-filter: blur(5px);
-            transition: border-style 0.3s ease;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            transition: border-color 0.3s ease, background 0.3s ease;
         }
 
-        .network-block:hover {
+        .nested-network-card:hover {
             border-style: solid;
             border-color: var(--text-main);
+            background: var(--card-bg);
         }
 
-        .network-block h3 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+        .nested-network-card h3 {
+            font-size: 1.8rem;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        .network-block p {
+        .nested-network-card p {
             color: var(--text-muted);
-            margin-bottom: 30px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 550px;
             font-size: 0.95rem;
             line-height: 1.5;
+            margin-bottom: 10px;
         }
 
-        .network-btn {
-            display: inline-block;
+        /* --- SECTION 3: STORE BANNER (Minimal Density Rest-point) --- */
+        .store-banner {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .store-banner h3 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            line-height: 0.95;
+            text-transform: uppercase;
+        }
+
+        .store-banner p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            background: none;
             border: 1px solid var(--text-main);
+            color: var(--text-main);
             padding: 15px 40px;
+            font-size: 0.9rem;
             font-family: var(--font-mono);
-            font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: 0.1em;
+            display: inline-block;
             transition: all 0.3s ease;
         }
 
-        .network-btn:hover {
+        .action-btn:hover {
             background: var(--text-main);
             color: var(--bg-deep);
+            transform: translateY(-2px);
         }
 
         /* --- FOOTER --- */
@@ -312,10 +357,11 @@
         /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 768px) {
             nav { display: none; }
-            .info-banner { padding: 40px 30px; }
-            .network-block { padding: 40px 20px; }
+            .store-banner { padding: 40px 30px; }
+            .nested-network-card { padding: 40px 20px; }
             header { padding: 1.2rem 4%; }
             .logo-wrapper { height: 30px; }
+            section { margin-bottom: 100px; }
         }
     </style>
 </head>
@@ -335,7 +381,6 @@
             <a href="#albums">Albums</a>
             <a href="#connect">Connect</a>
             <a href="#store">Store</a>
-            <a href="#network">Network</a>
         </nav>
     </header>
 
@@ -351,14 +396,43 @@
 
     <main class="container">
 
-        <section id="albums" class="info-banner">
-            <h3>Albums</h3>
-            <p>
-                Explore the latest sounds, official discography, and sonic projects direct from the Parallax archive.
-            </p>
-            <a href="#" class="action-btn">Listen Now →</a>
+        <!-- --- SECTION 1: ALBUMS (HIGHEST DENSITY / 3 BLANK ALBUMS) --- -->
+        <section id="albums">
+            <div class="section-header">
+                <h2>Albums</h2>
+            </div>
+            
+            <div class="albums-grid">
+                <!-- Album 1 -->
+                <div class="album-card">
+                    <div class="album-art-blank"></div>
+                    <div class="album-details">
+                        <h4>Project I</h4>
+                        <p>Coming Soon</p>
+                    </div>
+                </div>
+
+                <!-- Album 2 -->
+                <div class="album-card">
+                    <div class="album-art-blank"></div>
+                    <div class="album-details">
+                        <h4>Project II</h4>
+                        <p>Coming Soon</p>
+                    </div>
+                </div>
+
+                <!-- Album 3 -->
+                <div class="album-card">
+                    <div class="album-art-blank"></div>
+                    <div class="album-details">
+                        <h4>Project III</h4>
+                        <p>Coming Soon</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
+        <!-- --- SECTION 2: CONNECT & NETWORK (MEDIUM DENSITY) --- -->
         <section id="connect">
             <div class="section-header">
                 <h2>Connect</h2>
@@ -389,21 +463,23 @@
                     <div class="platform-name">Facebook</div>
                     <div class="action-text">Join community ↗</div>
                 </a>
+
+                <!-- INTEGRATED NETWORK SECTION -->
+                <div class="nested-network-card">
+                    <h3>The Network</h3>
+                    <p>Join our official Discord portal. Interact directly, get updates, and sync with the inner circle.</p>
+                    <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="action-btn" style="padding: 12px 35px; font-size: 0.8rem;">Enter Discord</a>
+                </div>
             </div>
         </section>
 
-        <section id="store" class="info-banner">
+        <!-- --- SECTION 3: STORE (MINIMAL DENSITY / CLEAN BANNER) --- -->
+        <section id="store" class="store-banner">
             <h3>Store</h3>
             <p>
-                Access exclusive apparel, drops, and official merchandise direct from the Parallax collection.
+                Access premium garments, unique drops, and official merchandise direct from the curated Parallax collection line.
             </p>
-            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop collection →</a>
-        </section>
-
-        <section id="network" class="network-block">
-            <h3>The network</h3>
-            <p>Join the official Discord server. Interact directly, stay updated on community events, and enter the inner circle.</p>
-            <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="network-btn">Enter Discord</a>
+            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop Collection →</a>
         </section>
 
     </main>
