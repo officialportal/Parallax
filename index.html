@@ -253,42 +253,6 @@
             padding-left: 5px;
         }
 
-        /* Nested Integrated Network Block */
-        .nested-network-card {
-            grid-column: 1 / -1; /* Spans full width of the grid for emphasis */
-            border: 1px dashed var(--border-color);
-            background: rgba(20, 20, 20, 0.4);
-            padding: 50px 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
-            transition: border-color 0.3s ease, background 0.3s ease;
-        }
-
-        .nested-network-card:hover {
-            border-style: solid;
-            border-color: var(--text-main);
-            background: var(--card-bg);
-        }
-
-        .nested-network-card h3 {
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .nested-network-card p {
-            color: var(--text-muted);
-            max-width: 550px;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 10px;
-        }
-
         /* --- SECTION 3: STORE BANNER (Minimal Density Rest-point) --- */
         .store-banner {
             background: var(--card-bg);
@@ -358,7 +322,6 @@
         @media (max-width: 768px) {
             nav { display: none; }
             .store-banner { padding: 40px 30px; }
-            .nested-network-card { padding: 40px 20px; }
             header { padding: 1.2rem 4%; }
             .logo-wrapper { height: 30px; }
             section { margin-bottom: 100px; }
@@ -396,14 +359,12 @@
 
     <main class="container">
 
-        <!-- --- SECTION 1: ALBUMS (HIGHEST DENSITY / 3 BLANK ALBUMS) --- -->
         <section id="albums">
             <div class="section-header">
                 <h2>Albums</h2>
             </div>
             
             <div class="albums-grid">
-                <!-- Album 1 -->
                 <div class="album-card">
                     <div class="album-art-blank"></div>
                     <div class="album-details">
@@ -412,7 +373,6 @@
                     </div>
                 </div>
 
-                <!-- Album 2 -->
                 <div class="album-card">
                     <div class="album-art-blank"></div>
                     <div class="album-details">
@@ -421,7 +381,6 @@
                     </div>
                 </div>
 
-                <!-- Album 3 -->
                 <div class="album-card">
                     <div class="album-art-blank"></div>
                     <div class="album-details">
@@ -432,7 +391,6 @@
             </div>
         </section>
 
-        <!-- --- SECTION 2: CONNECT & NETWORK (MEDIUM DENSITY) --- -->
         <section id="connect">
             <div class="section-header">
                 <h2>Connect</h2>
@@ -464,16 +422,13 @@
                     <div class="action-text">Join community ↗</div>
                 </a>
 
-                <!-- INTEGRATED NETWORK SECTION -->
-                <div class="nested-network-card">
-                    <h3>The Network</h3>
-                    <p>Join our official Discord portal. Interact directly, get updates, and sync with the inner circle.</p>
-                    <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="action-btn" style="padding: 12px 35px; font-size: 0.8rem;">Enter Discord</a>
-                </div>
+                <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="link-card">
+                    <div class="platform-name">The Network</div>
+                    <div class="action-text">Enter portal ↗</div>
+                </a>
             </div>
         </section>
 
-        <!-- --- SECTION 3: STORE (MINIMAL DENSITY / CLEAN BANNER) --- -->
         <section id="store" class="store-banner">
             <h3>Store</h3>
             <p>
