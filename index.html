@@ -56,6 +56,13 @@
             transition: all 0.3s ease;
         }
 
+        /* --- CURSIVE STYLE FOR ARTIST NAME --- */
+        .cursive-artist {
+            font-family: 'Brush Script MT', 'Comic Sans MS', 'Playball', 'Great Vibes', cursive;
+            font-weight: normal;
+            text-transform: none;
+        }
+
         /* --- CRYSTAL CLEAR FIXED HEADER --- */
         header {
             position: fixed;
@@ -74,9 +81,8 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            letter-spacing: 0.4rem;
+            font-size: 2rem;
+            letter-spacing: 0.1rem;
             text-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
 
@@ -108,10 +114,8 @@
 
         .hero-title {
             font-size: clamp(4rem, 15vw, 12rem);
-            line-height: 0.85;
-            letter-spacing: -0.04em;
-            font-weight: 900;
-            background: linear-gradient(180deg, #ffffff 70%, #333333 100%);
+            line-height: 1.1;
+            background: linear-gradient(180deg, #ffffff 70%, #888888 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -206,12 +210,10 @@
             transform: translateY(-3px);
         }
 
-        /* CHANGED: Applied standard elegant cursive font style here */
         .link-card .platform-name {
-            font-family: 'Brush Script MT', 'Comic Sans MS', cursive;
-            font-size: 2.4rem;
-            font-weight: 500;
-            letter-spacing: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
         .link-card .action-text {
@@ -297,7 +299,7 @@
             .store-banner { padding: 40px 30px; }
             .network-block { padding: 40px 20px; }
             header { padding: 1rem 4%; }
-            .logo { font-size: 1.2rem; letter-spacing: 0.2rem; }
+            .logo { font-size: 1.6rem; letter-spacing: 0.1rem; }
         }
     </style>
 </head>
@@ -306,7 +308,7 @@
     <canvas id="space-canvas"></canvas>
 
     <header>
-        <div class="logo">Parallax</div>
+        <div class="logo cursive-artist">Parallax</div>
         <nav>
             <a href="#connect">Connect</a>
             <a href="#store">Store</a>
@@ -315,7 +317,7 @@
     </header>
 
     <section class="hero">
-        <h1 class="hero-title">Parallax</h1>
+        <h1 class="hero-title cursive-artist">Parallax</h1>
     </section>
 
     <main class="container">
@@ -370,7 +372,7 @@
     </main>
 
     <footer>
-        &copy; Parallax. all rights reserved.
+        &copy; <span class="cursive-artist" style="font-size: 1.1rem;">Parallax</span>. all rights reserved.
     </footer>
 
     <script>
