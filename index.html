@@ -10,7 +10,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
 
     <style>
         /* --- RESET & ROOT VARIABLES --- */
@@ -63,17 +63,15 @@
 
         /* --- THE INJECTED CUSTOM ARTIST LOGO STYLE --- */
         .cursive-artist {
-            font-family: 'Rock Salt', cursive;
+            font-family: 'Alex Brush', cursive;
             font-weight: 400;
             text-transform: none;
             /* Creates a raw, bright white core with a cosmic outer glow */
             color: #ffffff;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
             text-shadow: 
-                0 0 8px rgba(255, 255, 255, 0.7),
-                0 0 25px rgba(255, 255, 255, 0.4),
-                0 0 50px rgba(255, 255, 255, 0.15);
+                0 0 10px rgba(255, 255, 255, 0.6),
+                0 0 20px rgba(255, 255, 255, 0.3),
+                0 0 40px rgba(255, 255, 255, 0.1);
         }
 
         /* --- CRYSTAL CLEAR FIXED HEADER --- */
@@ -94,7 +92,7 @@
         }
 
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             letter-spacing: -0.05rem;
         }
 
@@ -125,8 +123,9 @@
         }
 
         .hero-title {
-            font-size: clamp(3.5rem, 12vw, 8.5rem); 
-            transform: rotate(-3deg); /* Slightly more aggressive tilt matching your cover art */
+            font-size: clamp(3.5rem, 12vw, 9rem); /* Dialed down slightly due to font expansion */
+            line-height: 1.3;
+            transform: rotate(-2deg); /* Added slight angle twist matching your original image */
         }
 
         /* --- LAYOUT CONTAINER --- */
