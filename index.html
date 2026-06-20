@@ -57,17 +57,31 @@
             transition: all 0.3s ease;
         }
 
-        /* --- CUSTOM HAND-DRAWN SIGNATURE LOGO STYLE --- */
-        .custom-logo-container {
+        /* --- SIGNATURE ENGINE LAYOUT --- */
+        .custom-signature-container {
             display: inline-flex;
             align-items: center;
             justify-content: center;
         }
 
-        .custom-logo-svg {
-            /* Clean studio lighting aura for the signature text */
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)) 
-                    drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+        .signature-svg {
+            overflow: visible;
+            /* Atmospheric studio glowing stage shadow */
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7))
+                    drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+        }
+
+        .signature-text {
+            /* Loads local system cursive rendering paths without calling external google assets */
+            font-family: "Brush Script MT", "Lucida Handwriting", "Segoe Script", cursive;
+            font-weight: bold;
+            font-style: italic;
+            fill: none;
+            stroke: #ffffff;
+            /* Creates a textured, hand-drawn felt ink pen outline stroke style */
+            stroke-width: 1.5px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         /* --- CRYSTAL CLEAR FIXED HEADER --- */
@@ -88,7 +102,7 @@
         }
 
         .logo-wrapper {
-            height: 42px;
+            height: 40px;
         }
 
         nav a {
@@ -118,8 +132,8 @@
         }
 
         .hero-title-wrapper {
-            width: clamp(280px, 70vw, 720px);
-            transform: rotate(-2.5deg); /* Signature angle tilt */
+            width: clamp(280px, 60vw, 640px);
+            transform: rotate(-2.5deg); /* Custom raw signature posture tilt */
         }
 
         /* --- LAYOUT CONTAINER --- */
@@ -314,10 +328,11 @@
     <canvas id="space-canvas"></canvas>
 
     <header>
-        <div class="logo-wrapper custom-logo-container">
-            <svg class="custom-logo-svg" viewBox="0 0 340 90" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 35 75 L 35 15 C 35 15 70 8 70 32 C 70 56 35 52 35 52 L 55 75 M 100 58 C 84 58 84 42 100 42 C 116 42 116 58 100 58 M 112 58 L 112 42 M 128 58 L 128 42 C 128 36 142 36 142 45 L 142 58 M 162 58 C 146 58 146 42 162 42 C 178 42 178 58 162 58 M 174 58 L 174 42 M 188 20 L 188 58 M 208 58 C 192 58 192 42 208 42 C 224 42 224 58 208 58 M 220 58 L 220 42 M 232 58 L 246 42 M 250 58 L 236 42 M 268 58 C 252 58 252 42 268 42 C 284 42 284 58 268 58 M 278 58 L 292 42" 
-                      fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Header Custom Vector Engine Layer -->
+        <div class="logo-wrapper custom-signature-container">
+            <svg class="signature-svg" viewBox="0 0 180 50" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <!-- Renders actual typed name text path directly inside browser rendering pipeline -->
+                <text x="10" y="38" font-size="34" class="signature-text">Parallax</text>
             </svg>
         </div>
         <nav>
@@ -328,10 +343,10 @@
     </header>
 
     <section class="hero">
-        <div class="hero-title-wrapper custom-logo-container">
-            <svg class="custom-logo-svg" viewBox="0 0 340 90" width="100%" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 35 75 L 35 15 C 35 15 70 8 70 32 C 70 56 35 52 35 52 L 55 75 M 100 58 C 84 58 84 42 100 42 C 116 42 116 58 100 58 M 112 58 L 112 42 M 128 58 L 128 42 C 128 36 142 36 142 45 L 142 58 M 162 58 C 146 58 146 42 162 42 C 178 42 178 58 162 58 M 174 58 L 174 42 M 188 20 L 188 58 M 208 58 C 192 58 192 42 208 42 C 224 42 224 58 208 58 M 220 58 L 220 42 M 232 58 L 246 42 M 250 58 L 236 42 M 268 58 C 252 58 252 42 268 42 C 284 42 284 58 268 58 M 278 58 L 292 42" 
-                      fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Main Center Screen Custom Vector Engine Layer -->
+        <div class="hero-title-wrapper custom-signature-container">
+            <svg class="signature-svg" viewBox="0 0 180 50" width="100%" xmlns="http://www.w3.org/2000/svg">
+                <text x="10" y="38" font-size="36" class="signature-text">Parallax</text>
             </svg>
         </div>
     </section>
@@ -389,10 +404,9 @@
 
     <footer>
         &copy; 
-        <span class="custom-logo-container" style="height: 18px; vertical-align: middle;">
-            <svg class="custom-logo-svg" viewBox="0 0 340 90" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 35 75 L 35 15 C 35 15 70 8 70 32 C 70 56 35 52 35 52 L 55 75 M 100 58 C 84 58 84 42 100 42 C 116 42 116 58 100 58 M 112 58 L 112 42 M 128 58 L 128 42 C 128 36 142 36 142 45 L 142 58 M 162 58 C 146 58 146 42 162 42 C 178 42 178 58 162 58 M 174 58 L 174 42 M 188 20 L 188 58 M 208 58 C 192 58 192 42 208 42 C 224 42 224 58 208 58 M 220 58 L 220 42 M 232 58 L 246 42 M 250 58 L 236 42 M 268 58 C 252 58 252 42 268 42 C 284 42 284 58 268 58 M 278 58 L 292 42" 
-                      fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <span class="custom-signature-container" style="height: 22px; vertical-align: middle; margin: 0 4px;">
+            <svg class="signature-svg" viewBox="0 0 180 50" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <text x="10" y="38" font-size="34" class="signature-text" stroke-width="2px">Parallax</text>
             </svg>
         </span>. all rights reserved.
     </footer>
