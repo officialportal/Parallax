@@ -66,16 +66,16 @@
 
         .signature-svg {
             overflow: visible;
-            /* Atmospheric studio glowing stage shadow */
-            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8))
-                    drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+            /* Ultra-clean, sharp upscale studio glow */
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9))
+                    drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
         }
 
         .signature-path {
             fill: none;
             stroke: #ffffff;
-            /* Textured, hand-drawn ink pen outline stroke style */
-            stroke-width: 2.5px;
+            /* Fine-tipped luxury felt-pen profile */
+            stroke-width: 2.2px;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
@@ -98,7 +98,7 @@
         }
 
         .logo-wrapper {
-            height: 40px;
+            height: 38px;
         }
 
         nav a {
@@ -120,3 +120,315 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 4%;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero-title-wrapper {
+            width: clamp(260px, 50vw, 500px);
+            transform: rotate(-1deg); /* Subtle refined tilt */
+        }
+
+        /* --- LAYOUT CONTAINER --- */
+        .container {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 4%;
+            z-index: 2;
+        }
+
+        .section-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            line-height: 1;
+            letter-spacing: 1px;
+        }
+
+        /* --- STORE BANNER UPGRADE --- */
+        .store-banner {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            margin-bottom: 120px;
+            backdrop-filter: blur(5px);
+        }
+
+        .store-banner h3 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            line-height: 0.95;
+            text-transform: uppercase;
+        }
+
+        .store-btn {
+            background: none;
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
+            padding: 15px 40px;
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-top: 20px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .store-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-deep);
+            transform: translateY(-2px);
+        }
+
+        /* --- SOCIALS GRID TREE --- */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 60px;
+        }
+
+        .link-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 220px;
+            position: relative;
+            transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .link-card:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .link-card .platform-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .link-card .action-text {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .link-card:hover .action-text {
+            color: var(--text-main);
+            padding-left: 5px;
+        }
+
+        /* --- DISCORD / NETWORK BLOCK --- */
+        .network-block {
+            border: 1px dashed var(--border-color);
+            padding: 60px 40px;
+            text-align: center;
+            margin-top: 100px;
+            background: var(--card-bg);
+            backdrop-filter: blur(5px);
+            transition: border-style 0.3s ease;
+        }
+
+        .network-block:hover {
+            border-style: solid;
+            border-color: var(--text-main);
+        }
+
+        .network-block h3 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .network-block p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .network-btn {
+            display: inline-block;
+            border: 1px solid var(--text-main);
+            padding: 15px 40px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .network-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-deep);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 4%;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            z-index: 2;
+            position: relative;
+            opacity: 0.6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .store-banner { padding: 40px 30px; }
+            .network-block { padding: 40px 20px; }
+            header { padding: 1.2rem 4%; }
+            .logo-wrapper { height: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="space-canvas"></canvas>
+
+    <header>
+        <div class="logo-wrapper custom-signature-container">
+            <!-- Minimalist luxury abstract signature for 'Parallax' -->
+            <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <!-- Abstract Geometric Capital P -->
+                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
+                <!-- Ultra-smooth fluid running script thread (arallax) -->
+                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
+                <!-- Sharp architectural architectural signature strike underline line -->
+                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.85" />
+            </svg>
+        </div>
+        <nav>
+            <a href="#connect">Connect</a>
+            <a href="#store">Store</a>
+            <a href="#network">Network</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-title-wrapper custom-signature-container">
+            <svg class="signature-svg" viewBox="0 0 240 70" width="100%" xmlns="http://www.w3.org/2000/svg">
+                <!-- Abstract Geometric Capital P -->
+                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
+                <!-- Ultra-smooth fluid running script thread (arallax) -->
+                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
+                <!-- Sharp architectural architectural signature strike underline line -->
+                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.85" />
+            </svg>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <section id="store" class="store-banner">
+            <h3>Store</h3>
+            <p>
+                Access exclusive apparel, drops, and official merchandise direct from the Parallax collection.
+            </p>
+            <a href="https://home1x.github.io/Store/" target="_blank" class="store-btn">Shop collection →</a>
+        </section>
+
+        <section id="connect">
+            <div class="section-header">
+                <h2>Connect</h2>
+            </div>
+
+            <div class="links-grid">
+                <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="link-card">
+                    <div class="platform-name">Instagram</div>
+                    <div class="action-text">View profile ↗</div>
+                </a>
+
+                <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="link-card">
+                    <div class="platform-name">YouTube</div>
+                    <div class="action-text">Subscribe ↗</div>
+                </a>
+
+                <a href="https://x.com/Parallax_x_x" target="_blank" class="link-card">
+                    <div class="platform-name">X.com</div>
+                    <div class="action-text">Follow feed ↗</div>
+                </a>
+
+                <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="link-card">
+                    <div class="platform-name">TikTok</div>
+                    <div class="action-text">Watch content ↗</div>
+                </a>
+
+                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="link-card">
+                    <div class="platform-name">Facebook</div>
+                    <div class="action-text">Join community ↗</div>
+                </a>
+            </div>
+        </section>
+
+        <section id="network" class="network-block">
+            <h3>The network</h3>
+            <p>Join the official Discord server. Interact directly, stay updated on community events, and enter the inner circle.</p>
+            <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="network-btn">Enter Discord</a>
+        </section>
+
+    </main>
+
+    <footer>
+        &copy; 
+        <span class="custom-signature-container" style="height: 20px; vertical-align: middle; margin: 0 4px;">
+            <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <!-- Scaled Footer Variant -->
+                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" stroke-width="3.5px" />
+                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" stroke-width="3.5px" />
+                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="2px" opacity="0.85" />
+            </svg>
+        </span>. all rights reserved.
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('space-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+        }
+    </script>
+</body>
+</html>
