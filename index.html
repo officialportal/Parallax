@@ -10,7 +10,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Rock+Salt&display=swap" rel="stylesheet">
 
     <style>
         /* --- RESET & ROOT VARIABLES --- */
@@ -63,13 +63,15 @@
 
         /* --- THE INJECTED CUSTOM ARTIST LOGO STYLE --- */
         .cursive-artist {
-            font-family: 'Rock Salt', cursive;
+            /* Prioritizing a highly elegant, flowing cursive look while keeping text-transform off */
+            font-family: 'Alex Brush', 'Rock Salt', cursive;
             font-weight: 400;
             text-transform: none;
+            /* Loosened slightly for the sweeping script style to breathe */
+            letter-spacing: 0.02em; 
+            line-height: 1.1;
             /* Creates a raw, bright white core with a cosmic outer glow */
             color: #ffffff;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
             text-shadow: 
                 0 0 8px rgba(255, 255, 255, 0.7),
                 0 0 25px rgba(255, 255, 255, 0.4),
@@ -94,8 +96,7 @@
         }
 
         .logo {
-            font-size: 1.4rem;
-            letter-spacing: -0.05rem;
+            font-size: 2.2rem; /* Bumped slightly to account for the sleeker cursive script */
         }
 
         nav a {
@@ -125,7 +126,7 @@
         }
 
         .hero-title {
-            font-size: clamp(3.5rem, 12vw, 8.5rem); 
+            font-size: clamp(4.5rem, 14vw, 10rem); /* Maximized scaling for the sweeping font */
             transform: rotate(-3deg); /* Slightly more aggressive tilt matching your cover art */
         }
 
@@ -308,8 +309,8 @@
             .store-banner { padding: 40px 30px; }
             .network-block { padding: 40px 20px; }
             header { padding: 1.2rem 4%; }
-            .logo { font-size: 1.2rem; }
-            .hero-title { font-size: clamp(2.5rem, 10vw, 5rem); }
+            .logo { font-size: 1.8rem; }
+            .hero-title { font-size: clamp(3.5rem, 12vw, 6.5rem); }
         }
     </style>
 </head>
@@ -382,7 +383,7 @@
     </main>
 
     <footer>
-        &copy; <span class="cursive-artist" style="font-size: 0.9rem; vertical-align: middle;">Parallax</span>. all rights reserved.
+        &copy; <span class="cursive-artist" style="font-size: 1.3rem; vertical-align: middle;">Parallax</span>. all rights reserved.
     </footer>
 
     <script>
