@@ -8,7 +8,6 @@
 
     <title>Parallax</title>
 
-    <!-- GOOGLE KNOWLEDGE PANEL SCHEMA MARKUP -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -126,7 +125,7 @@
             margin-left: 30px;
             letter-spacing: 2px;
             color: var(--text-muted);
-            text-transform: capitalize; /* Capitalizes first letter only */
+            text-transform: capitalize;
         }
 
         nav a:hover {
@@ -161,7 +160,7 @@
         }
 
         section {
-            margin-bottom: 140px; /* Unified spacing between sections */
+            margin-bottom: 140px;
         }
 
         .section-header {
@@ -174,7 +173,7 @@
             font-size: clamp(2rem, 5vw, 3.5rem);
             line-height: 1;
             letter-spacing: 1px;
-            text-transform: capitalize; /* Capitalizes first letter only */
+            text-transform: capitalize;
         }
 
         /* --- SECTION 1: ALBUMS GRID (High Content Density) --- */
@@ -228,84 +227,126 @@
             font-family: var(--font-mono);
             font-size: 0.8rem;
             color: var(--text-muted);
-            text-transform: capitalize; /* Capitalizes first letter only */
+            text-transform: capitalize;
         }
 
-        /* --- TOUR LIST (Elegant, Structured Minimal Layout) --- */
-        .tour-list {
+        /* --- NEW UPGRADED TOUR DESIGN --- */
+        .tour-table {
             display: flex;
             flex-direction: column;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        .tour-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 30px 20px;
+        .tour-header-row {
+            display: grid;
+            grid-template-columns: 1.2fr 2fr 1.8fr 1.5fr 1fr;
+            padding: 20px 30px;
             border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .tour-row:hover {
             background: rgba(255, 255, 255, 0.02);
-            transform: translateX(4px);
-        }
-
-        .tour-date {
             font-family: var(--font-mono);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
             color: var(--text-muted);
-            min-width: 150px;
+            text-transform: uppercase;
         }
 
-        .tour-row:hover .tour-date {
+        .tour-data-row {
+            display: grid;
+            grid-template-columns: 1.2fr 2fr 1.8fr 1.5fr 1fr;
+            padding: 35px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            align-items: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .tour-data-row:last-child {
+            border-bottom: none;
+        }
+
+        .tour-data-row:hover {
+            background: rgba(255, 255, 255, 0.03);
+            transform: scale(1.005);
+        }
+
+        /* Column Elements Stylings */
+        .td-date {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .td-venue {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+        }
+
+        .td-location {
+            font-size: 1rem;
             color: var(--text-main);
         }
 
-        .tour-venue-city {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            padding: 0 20px;
-        }
-
-        .tour-venue {
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-        }
-
-        .tour-city {
-            font-size: 0.85rem;
-            color: var(--text-muted);
+        .td-lineup {
             font-family: var(--font-mono);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
         }
 
-        .tour-action {
+        .tour-data-row:hover .td-lineup {
+            color: var(--text-main);
+        }
+
+        .td-action {
+            justify-self: end;
+            width: 100%;
             text-align: right;
         }
 
-        .tour-btn {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 10px 24px;
-            font-size: 0.75rem;
+        /* Status Badges & Buttons */
+        .tour-status {
+            display: inline-block;
             font-family: var(--font-mono);
-            letter-spacing: 0.1em;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
             text-transform: uppercase;
+            padding: 10px 20px;
+            width: 100%;
+            max-width: 140px;
+            text-align: center;
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
         }
 
-        .tour-row:hover .tour-btn {
+        .status-onsale {
             border-color: var(--text-main);
+            color: var(--text-main);
+        }
+
+        .status-onsale:hover {
             background: var(--text-main);
             color: var(--bg-deep);
+        }
+
+        .status-lowtickets {
+            border-color: #ffaa00;
+            color: #ffaa00;
+        }
+
+        .status-lowtickets:hover {
+            background: #ffaa00;
+            color: var(--bg-deep);
+        }
+
+        .status-soldout {
+            border-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            opacity: 0.4;
+            pointer-events: none;
         }
 
         /* --- SECTION 2: CONNECT GRID (Medium Content Density) --- */
@@ -342,7 +383,7 @@
             font-size: 0.8rem;
             letter-spacing: 0.1em;
             color: var(--text-muted);
-            text-transform: capitalize; /* Capitalizes first letter only */
+            text-transform: capitalize;
             transition: all 0.3s ease;
         }
 
@@ -368,7 +409,7 @@
             margin-bottom: 20px;
             letter-spacing: 2px;
             line-height: 0.95;
-            text-transform: capitalize; /* Capitalizes first letter only */
+            text-transform: capitalize;
         }
 
         .store-banner p {
@@ -390,7 +431,7 @@
             letter-spacing: 0.1em;
             display: inline-block;
             transition: all 0.3s ease;
-            text-transform: capitalize; /* Capitalizes first letter only */
+            text-transform: capitalize;
         }
 
         .action-btn:hover {
@@ -418,16 +459,24 @@
         }
 
         /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 992px) {
+            .tour-header-row { display: none; }
+            .tour-data-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 30px 20px;
+                justify-items: start;
+            }
+            .td-action { justify-self: start; text-align: left; margin-top: 8px; width: 100%; }
+            .tour-status { max-width: 100%; }
+        }
+
         @media (max-width: 768px) {
             nav { display: none; }
             .store-banner { padding: 40px 30px; }
             header { padding: 1.2rem 4%; }
             .logo-wrapper { height: 30px; }
             section { margin-bottom: 100px; }
-            .tour-row { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px 10px; }
-            .tour-venue-city { padding: 0; }
-            .tour-action { width: 100%; }
-            .tour-btn { width: 100%; text-align: center; }
         }
     </style>
 </head>
@@ -463,7 +512,6 @@
 
     <main class="container">
 
-        <!-- ALBUMS SECTION -->
         <section id="albums">
             <div class="section-header">
                 <h2>Albums</h2>
@@ -496,49 +544,64 @@
             </div>
         </section>
 
-        <!-- TOUR SECTION -->
         <section id="tour">
             <div class="section-header">
                 <h2>Tour</h2>
             </div>
             
-            <div class="tour-list">
-                <div class="tour-row">
-                    <div class="tour-date">OCT 14, 2026</div>
-                    <div class="tour-venue-city">
-                        <span class="tour-venue">The Echo Chamber</span>
-                        <span class="tour-city">Los Angeles, CA</span>
-                    </div>
-                    <div class="tour-action">
-                        <a href="#" class="tour-btn">Tickets</a>
+            <div class="tour-table">
+                <div class="tour-header-row">
+                    <div>Date</div>
+                    <div>Venue</div>
+                    <div>Location</div>
+                    <div>Lineup / Support</div>
+                    <div style="text-align: right;">Status</div>
+                </div>
+
+                <div class="tour-data-row">
+                    <div class="td-date">OCT 14, 2026</div>
+                    
+                    <div class="td-venue">The Echo Chamber</div>
+                    
+                    <div class="td-location">Los Angeles, CA</div>
+                    
+                    <div class="td-lineup">w/ Special Guests<br>+ Audio Oasis</div>
+                    
+                    <div class="td-action">
+                        <a href="YOUR_TICKET_LINK_HERE" target="_blank" class="tour-status status-onsale">Tickets</a>
                     </div>
                 </div>
 
-                <div class="tour-row">
-                    <div class="tour-date">OCT 19, 2026</div>
-                    <div class="tour-venue-city">
-                        <span class="tour-venue">Terminal Ambient</span>
-                        <span class="tour-city">New York, NY</span>
-                    </div>
-                    <div class="tour-action">
-                        <a href="#" class="tour-btn">Tickets</a>
+                <div class="tour-data-row">
+                    <div class="td-date">OCT 19, 2026</div>
+                    
+                    <div class="td-venue">Terminal Ambient</div>
+                    
+                    <div class="td-location">New York, NY</div>
+                    
+                    <div class="td-lineup">Solo Performance</div>
+                    
+                    <div class="td-action">
+                        <a href="YOUR_TICKET_LINK_HERE" target="_blank" class="tour-status status-lowtickets">Low Tickets</a>
                     </div>
                 </div>
 
-                <div class="tour-row">
-                    <div class="tour-date">NOV 02, 2026</div>
-                    <div class="tour-venue-city">
-                        <span class="tour-venue">The Sub-Level Lounge</span>
-                        <span class="tour-city">London, UK</span>
-                    </div>
-                    <div class="tour-action">
-                        <a href="#" class="tour-btn">Tickets</a>
+                <div class="tour-data-row">
+                    <div class="td-date">NOV 02, 2026</div>
+                    
+                    <div class="td-venue">The Sub-Level Lounge</div>
+                    
+                    <div class="td-location">London, UK</div>
+                    
+                    <div class="td-lineup">w/ Curated Support</div>
+                    
+                    <div class="td-action">
+                        <span class="tour-status status-soldout">Sold Out</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CONNECT SECTION -->
         <section id="connect">
             <div class="section-header">
                 <h2>Connect</h2>
@@ -577,7 +640,6 @@
             </div>
         </section>
 
-        <!-- STORE SECTION -->
         <section id="store" class="store-banner">
             <h3>Store</h3>
             <p>
