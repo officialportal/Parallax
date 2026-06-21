@@ -231,6 +231,83 @@
             text-transform: capitalize; /* Capitalizes first letter only */
         }
 
+        /* --- TOUR LIST (Elegant, Structured Minimal Layout) --- */
+        .tour-list {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tour-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 30px 20px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tour-row:hover {
+            background: rgba(255, 255, 255, 0.02);
+            transform: translateX(4px);
+        }
+
+        .tour-date {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            min-width: 150px;
+        }
+
+        .tour-row:hover .tour-date {
+            color: var(--text-main);
+        }
+
+        .tour-venue-city {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 0 20px;
+        }
+
+        .tour-venue {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .tour-city {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tour-action {
+            text-align: right;
+        }
+
+        .tour-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px 24px;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .tour-row:hover .tour-btn {
+            border-color: var(--text-main);
+            background: var(--text-main);
+            color: var(--bg-deep);
+        }
+
         /* --- SECTION 2: CONNECT GRID (Medium Content Density) --- */
         .links-grid {
             display: grid;
@@ -347,6 +424,10 @@
             header { padding: 1.2rem 4%; }
             .logo-wrapper { height: 30px; }
             section { margin-bottom: 100px; }
+            .tour-row { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px 10px; }
+            .tour-venue-city { padding: 0; }
+            .tour-action { width: 100%; }
+            .tour-btn { width: 100%; text-align: center; }
         }
     </style>
 </head>
@@ -364,6 +445,7 @@
         </div>
         <nav>
             <a href="#albums">Albums</a>
+            <a href="#tour">Tour</a>
             <a href="#connect">Connect</a>
             <a href="#store">Store</a>
         </nav>
@@ -381,6 +463,7 @@
 
     <main class="container">
 
+        <!-- ALBUMS SECTION -->
         <section id="albums">
             <div class="section-header">
                 <h2>Albums</h2>
@@ -413,6 +496,49 @@
             </div>
         </section>
 
+        <!-- TOUR SECTION -->
+        <section id="tour">
+            <div class="section-header">
+                <h2>Tour</h2>
+            </div>
+            
+            <div class="tour-list">
+                <div class="tour-row">
+                    <div class="tour-date">OCT 14, 2026</div>
+                    <div class="tour-venue-city">
+                        <span class="tour-venue">The Echo Chamber</span>
+                        <span class="tour-city">Los Angeles, CA</span>
+                    </div>
+                    <div class="tour-action">
+                        <a href="#" class="tour-btn">Tickets</a>
+                    </div>
+                </div>
+
+                <div class="tour-row">
+                    <div class="tour-date">OCT 19, 2026</div>
+                    <div class="tour-venue-city">
+                        <span class="tour-venue">Terminal Ambient</span>
+                        <span class="tour-city">New York, NY</span>
+                    </div>
+                    <div class="tour-action">
+                        <a href="#" class="tour-btn">Tickets</a>
+                    </div>
+                </div>
+
+                <div class="tour-row">
+                    <div class="tour-date">NOV 02, 2026</div>
+                    <div class="tour-venue-city">
+                        <span class="tour-venue">The Sub-Level Lounge</span>
+                        <span class="tour-city">London, UK</span>
+                    </div>
+                    <div class="tour-action">
+                        <a href="#" class="tour-btn">Tickets</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONNECT SECTION -->
         <section id="connect">
             <div class="section-header">
                 <h2>Connect</h2>
@@ -451,6 +577,7 @@
             </div>
         </section>
 
+        <!-- STORE SECTION -->
         <section id="store" class="store-banner">
             <h3>Store</h3>
             <p>
