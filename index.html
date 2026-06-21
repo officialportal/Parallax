@@ -1,467 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="google-site-verification" content="google990317cbb4fca942" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="google-site-verification" content="google990317cbb4fca942" />
 
-    <title>Parallax</title>
+    <title>Parallax</title>
 
-    <style>
-        /* --- RESET & ROOT VARIABLES --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            user-select: none;
-        }
+    <!-- GOOGLE KNOWLEDGE PANEL SCHEMA MARKUP -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Parallax",
+      "jobTitle": "R&B Music Artist",
+      "description": "Parallax is an R&B music artist.",
+      "url": "https://home1x.github.io/Parallax/",
+      "image": "https://kommodo.ai/i/hFIQ88tDEU0Cs0tuTAdd",
+      "sameAs": [
+        "https://m.youtube.com/@parallax.x.x?ra=m",
+        "https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr",
+        "https://x.com/Parallax_x_x",
+        "https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug",
+        "https://www.facebook.com/Parallax.x.x.x.x/",
+        "https://discord.com/invite/rhXuzGvM6"
+      ]
+    }
+    </script>
 
-        :root {
-            --bg-deep: #0a0a0a;
-            --card-bg: rgba(18, 18, 18, 0.7);
-            --border-color: rgba(255, 255, 255, 0.15);
-            --text-main: #ffffff;
-            --text-muted: #888888;
-            --font-mono: 'Courier New', Courier, monospace;
-        }
+    <style>
+        /* --- RESET & ROOT VARIABLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
 
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            overflow-x: hidden;
-            letter-spacing: -0.02em;
-        }
+        :root {
+            --bg-deep: #0a0a0a;
+            --card-bg: rgba(18, 18, 18, 0.7);
+            --border-color: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
 
-        /* --- BACKGROUND LAYER --- */
-        #space-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-            background: radial-gradient(circle at center, #111111 0%, #050505 100%);
-        }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            letter-spacing: -0.02em;
+        }
 
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3 {
-            font-weight: 900;
-        }
+        /* --- BACKGROUND LAYER --- */
+        #space-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(circle at center, #111111 0%, #050505 100%);
+        }
 
-        a {
-            color: var(--text-main);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            font-weight: 900;
+        }
 
-        /* --- SIGNATURE ENGINE LAYOUT --- */
-        .custom-signature-container {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
+        a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
 
-        .signature-svg {
-            overflow: visible;
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9))
-                    drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
-        }
+        /* --- SIGNATURE ENGINE LAYOUT --- */
+        .custom-signature-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        .signature-path {
-            fill: none;
-            stroke: #ffffff;
-            stroke-width: 2.2px;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+        .signature-svg {
+            overflow: visible;
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9))
+                    drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+        }
 
-        /* --- FIXED HEADER --- */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1.5rem 4%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            background: rgba(10, 10, 10, 0.5);
-        }
+        .signature-path {
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 2.2px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
 
-        .logo-wrapper {
-            height: 38px;
-        }
+        /* --- FIXED HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(10, 10, 10, 0.5);
+        }
 
-        nav a {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            margin-left: 30px;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            text-transform: capitalize; /* Capitalizes first letter only */
-        }
+        .logo-wrapper {
+            height: 38px;
+        }
 
-        nav a:hover {
-            color: var(--text-main);
-        }
+        nav a {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            margin-left: 30px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: capitalize; /* Capitalizes first letter only */
+        }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 0 4%;
-            z-index: 2;
-            text-align: center;
-        }
+        nav a:hover {
+            color: var(--text-main);
+        }
 
-        .hero-title-wrapper {
-            width: clamp(260px, 50vw, 500px);
-            transform: rotate(-1deg);
-        }
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 4%;
+            z-index: 2;
+            text-align: center;
+        }
 
-        /* --- LAYOUT CONTAINER --- */
-        .container {
-            position: relative;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 4% 100px 4%;
-            z-index: 2;
-        }
+        .hero-title-wrapper {
+            width: clamp(260px, 50vw, 500px);
+            transform: rotate(-1deg);
+        }
 
-        section {
-            margin-bottom: 140px; /* Unified spacing between sections */
-        }
+        /* --- LAYOUT CONTAINER --- */
+        .container {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 4% 100px 4%;
+            z-index: 2;
+        }
 
-        .section-header {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-bottom: 50px;
-        }
+        section {
+            margin-bottom: 140px; /* Unified spacing between sections */
+        }
 
-        .section-header h2 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            line-height: 1;
-            letter-spacing: 1px;
-            text-transform: capitalize; /* Capitalizes first letter only */
-        }
+        .section-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 50px;
+        }
 
-        /* --- SECTION 1: ALBUMS GRID (High Content Density) --- */
-        .albums-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-        }
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1;
+            letter-spacing: 1px;
+            text-transform: capitalize; /* Capitalizes first letter only */
+        }
 
-        .album-card {
-            display: flex;
-            flex-direction: column;
-            group: hover;
-        }
+        /* --- SECTION 1: ALBUMS GRID (High Content Density) --- */
+        .albums-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
 
-        .album-art-blank {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            background: radial-gradient(circle at cubic-bezier(0.16, 1, 0.3, 1), rgba(30,30,30,0.6) 0%, rgba(15,15,15,0.8) 100%);
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(5px);
-            margin-bottom: 20px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .album-card {
+            display: flex;
+            flex-direction: column;
+            group: hover;
+        }
 
-        .album-art-blank::before {
-            content: "";
-            width: 25%;
-            height: 25%;
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-        }
+        .album-art-blank {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: radial-gradient(circle at cubic-bezier(0.16, 1, 0.3, 1), rgba(30,30,30,0.6) 0%, rgba(15,15,15,0.8) 100%);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(5px);
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-        .album-card:hover .album-art-blank {
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-5px);
-        }
+        .album-art-blank::before {
+            content: "";
+            width: 25%;
+            height: 25%;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+        }
 
-        .album-details h4 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            margin-bottom: 5px;
-        }
+        .album-card:hover .album-art-blank {
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-5px);
+        }
 
-        .album-details p {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: capitalize; /* Capitalizes first letter only */
-        }
+        .album-details h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 5px;
+        }
 
-        /* --- SECTION 2: CONNECT GRID (Medium Content Density) --- */
-        .links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
+        .album-details p {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: capitalize; /* Capitalizes first letter only */
+        }
 
-        .link-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 200px;
-            transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        /* --- SECTION 2: CONNECT GRID (Medium Content Density) --- */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
 
-        .link-card:hover {
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-3px);
-        }
+        .link-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+            transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-        .link-card .platform-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
+        .link-card:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+        }
 
-        .link-card .action-text {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            text-transform: capitalize; /* Capitalizes first letter only */
-            transition: all 0.3s ease;
-        }
+        .link-card .platform-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
 
-        .link-card:hover .action-text {
-            color: var(--text-main);
-            padding-left: 5px;
-        }
+        .link-card .action-text {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            text-transform: capitalize; /* Capitalizes first letter only */
+            transition: all 0.3s ease;
+        }
 
-        /* --- SECTION 3: STORE BANNER (Minimal Density Rest-point) --- */
-        .store-banner {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 80px 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            backdrop-filter: blur(5px);
-        }
+        .link-card:hover .action-text {
+            color: var(--text-main);
+            padding-left: 5px;
+        }
 
-        .store-banner h3 {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            line-height: 0.95;
-            text-transform: capitalize; /* Capitalizes first letter only */
-        }
+        /* --- SECTION 3: STORE BANNER (Minimal Density Rest-point) --- */
+        .store-banner {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
 
-        .store-banner p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            max-width: 600px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
+        .store-banner h3 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            line-height: 0.95;
+            text-transform: capitalize; /* Capitalizes first letter only */
+        }
 
-        .action-btn {
-            background: none;
-            border: 1px solid var(--text-main);
-            color: var(--text-main);
-            padding: 15px 40px;
-            font-size: 0.9rem;
-            font-family: var(--font-mono);
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            display: inline-block;
-            transition: all 0.3s ease;
-            text-transform: capitalize; /* Capitalizes first letter only */
-        }
+        .store-banner p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
 
-        .action-btn:hover {
-            background: var(--text-main);
-            color: var(--bg-deep);
-            transform: translateY(-2px);
-        }
+        .action-btn {
+            background: none;
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
+            padding: 15px 40px;
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: capitalize; /* Capitalizes first letter only */
+        }
 
-        /* --- FOOTER --- */
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 40px 4%;
-            text-align: center;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            letter-spacing: 0.05em;
-            z-index: 2;
-            position: relative;
-            opacity: 0.6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
+        .action-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-deep);
+            transform: translateY(-2px);
+        }
 
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 768px) {
-            nav { display: none; }
-            .store-banner { padding: 40px 30px; }
-            header { padding: 1.2rem 4%; }
-            .logo-wrapper { height: 30px; }
-            section { margin-bottom: 100px; }
-        }
-    </style>
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 4%;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            z-index: 2;
+            position: relative;
+            opacity: 0.6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .store-banner { padding: 40px 30px; }
+            header { padding: 1.2rem 4%; }
+            .logo-wrapper { height: 30px; }
+            section { margin-bottom: 100px; }
+        }
+    </style>
 </head>
 <body>
 
-    <canvas id="space-canvas"></canvas>
+    <canvas id="space-canvas"></canvas>
 
-    <header>
-        <div class="logo-wrapper custom-signature-container">
-            <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
-                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.85" />
-            </svg>
-        </div>
-        <nav>
-            <a href="#albums">Albums</a>
-            <a href="#connect">Connect</a>
-            <a href="#store">Store</a>
-        </nav>
-    </header>
+    <header>
+        <div class="logo-wrapper custom-signature-container">
+            <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
+                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
+                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.85" />
+            </svg>
+        </div>
+        <nav>
+            <a href="#albums">Albums</a>
+            <a href="#connect">Connect</a>
+            <a href="#store">Store</a>
+        </nav>
+    </header>
 
-    <section class="hero">
-        <div class="hero-title-wrapper custom-signature-container">
-            <svg class="signature-svg" viewBox="0 0 240 70" width="100%" xmlns="http://www.w3.org/2000/svg">
-                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
-                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.85" />
-            </svg>
-        </div>
-    </section>
+    <section class="hero">
+        <div class="hero-title-wrapper custom-signature-container">
+            <svg class="signature-svg" viewBox="0 0 240 70" width="100%" xmlns="http://www.w3.org/2000/svg">
+                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
+                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
+                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.85" />
+            </svg>
+        </div>
+    </section>
 
-    <main class="container">
+    <main class="container">
 
-        <section id="albums">
-            <div class="section-header">
-                <h2>Albums</h2>
-            </div>
-            
-            <div class="albums-grid">
-                <div class="album-card">
-                    <div class="album-art-blank"></div>
-                    <div class="album-details">
-                        <h4>Project I</h4>
-                        <p>Coming soon</p>
-                    </div>
-                </div>
+        <section id="albums">
+            <div class="section-header">
+                <h2>Albums</h2>
+            </div>
+            
+            <div class="albums-grid">
+                <div class="album-card">
+                    <div class="album-art-blank"></div>
+                    <div class="album-details">
+                        <h4>Project I</h4>
+                        <p>Coming soon</p>
+                    </div>
+                </div>
 
-                <div class="album-card">
-                    <div class="album-art-blank"></div>
-                    <div class="album-details">
-                        <h4>Project II</h4>
-                        <p>Coming soon</p>
-                    </div>
-                </div>
+                <div class="album-card">
+                    <div class="album-art-blank"></div>
+                    <div class="album-details">
+                        <h4>Project II</h4>
+                        <p>Coming soon</p>
+                    </div>
+                </div>
 
-                <div class="album-card">
-                    <div class="album-art-blank"></div>
-                    <div class="album-details">
-                        <h4>Project III</h4>
-                        <p>Coming soon</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+                <div class="album-card">
+                    <div class="album-art-blank"></div>
+                    <div class="album-details">
+                        <h4>Project III</h4>
+                        <p>Coming soon</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <section id="connect">
-            <div class="section-header">
-                <h2>Connect</h2>
-            </div>
+        <section id="connect">
+            <div class="section-header">
+                <h2>Connect</h2>
+            </div>
 
-            <div class="links-grid">
-                <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="link-card">
-                    <div class="platform-name">Instagram</div>
-                    <div class="action-text">View profile ↗</div>
-                </a>
+            <div class="links-grid">
+                <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="link-card">
+                    <div class="platform-name">Instagram</div>
+                    <div class="action-text">View profile ↗</div>
+                </a>
 
-                <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="link-card">
-                    <div class="platform-name">YouTube</div>
-                    <div class="action-text">Subscribe ↗</div>
-                </a>
+                <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="link-card">
+                    <div class="platform-name">YouTube</div>
+                    <div class="action-text">Subscribe ↗</div>
+                </a>
 
-                <a href="https://x.com/Parallax_x_x" target="_blank" class="link-card">
-                    <div class="platform-name">X.com</div>
-                    <div class="action-text">Follow feed ↗</div>
-                </a>
+                <a href="https://x.com/Parallax_x_x" target="_blank" class="link-card">
+                    <div class="platform-name">X.com</div>
+                    <div class="action-text">Follow feed ↗</div>
+                </a>
 
-                <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="link-card">
-                    <div class="platform-name">TikTok</div>
-                    <div class="action-text">Watch content ↗</div>
-                </a>
+                <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="link-card">
+                    <div class="platform-name">TikTok</div>
+                    <div class="action-text">Watch content ↗</div>
+                </a>
 
-                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="link-card">
-                    <div class="platform-name">Facebook</div>
-                    <div class="action-text">Join community ↗</div>
-                </a>
+                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="link-card">
+                    <div class="platform-name">Facebook</div>
+                    <div class="action-text">Join community ↗</div>
+                </a>
 
-                <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="link-card">
-                    <div class="platform-name">The Network</div>
-                    <div class="action-text">Enter portal ↗</div>
-                </a>
-            </div>
-        </section>
+                <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="link-card">
+                    <div class="platform-name">The Network</div>
+                    <div class="action-text">Enter portal ↗</div>
+                </a>
+            </div>
+        </section>
 
-        <section id="store" class="store-banner">
-            <h3>Store</h3>
-            <p>
-                Access premium garments, unique drops, and official merchandise direct from the curated Parallax collection line.
-            </p>
-            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop collection →</a>
-        </section>
+        <section id="store" class="store-banner">
+            <h3>Store</h3>
+            <p>
+                Access premium garments, unique drops, and official merchandise direct from the curated Parallax collection line.
+            </p>
+            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop collection →</a>
+        </section>
 
-    </main>
+    </main>
 
-    <footer>
-        &copy; 
-        <span class="custom-signature-container" style="height: 20px; vertical-align: middle; margin: 0 4px;">
-            <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" stroke-width="3.5px" />
-                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" stroke-width="3.5px" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="2px" opacity="0.85" />
-            </svg>
-        </span>. all rights reserved.
-    </footer>
+    <footer>
+        &copy; 
+        <span class="custom-signature-container" style="height: 20px; vertical-align: middle; margin: 0 4px;">
+            <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" stroke-width="3.5px" />
+                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" stroke-width="3.5px" />
+                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="2px" opacity="0.85" />
+            </svg>
+        </span>. all rights reserved.
+    </footer>
 
-    <script>
-        const canvas = document.getElementById('space-canvas');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-            function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            window.addEventListener('resize', resize);
-            resize();
-        }
-    </script>
+    <script>
+        const canvas = document.getElementById('space-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+        }
+    </script>
 </body>
 </html>
