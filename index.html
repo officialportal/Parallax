@@ -8,6 +8,7 @@
 
     <title>Parallax</title>
 
+    <!-- GOOGLE KNOWLEDGE PANEL SCHEMA MARKUP -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -439,7 +440,7 @@
             transform: translateY(-2px);
         }
 
-        /* --- NEW SECTION: NEWSLETTER SIGNUP --- */
+        /* --- EMAIL SIGNUP SECTION --- */
         .newsletter-section {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -485,7 +486,7 @@
             font-size: 1rem;
             padding: 15px 0;
             flex-grow: 1;
-            user-select: text; /* Allows users to type */
+            user-select: text;
         }
 
         .newsletter-input::placeholder {
@@ -586,6 +587,7 @@
 
     <main class="container">
 
+        <!-- ALBUMS SECTION -->
         <section id="albums">
             <div class="section-header">
                 <h2>Albums</h2>
@@ -618,12 +620,14 @@
             </div>
         </section>
 
+        <!-- TOUR SECTION -->
         <section id="tour">
             <div class="section-header">
                 <h2>Tour</h2>
             </div>
             
             <div class="tour-table">
+                <!-- Headers -->
                 <div class="tour-header-row">
                     <div>Date</div>
                     <div>Venue</div>
@@ -632,6 +636,7 @@
                     <div style="text-align: right;">Status</div>
                 </div>
 
+                <!-- SHOW 1 -->
                 <div class="tour-data-row">
                     <div class="td-date">DATE HERE</div>
                     <div class="td-venue">VENUE NAME</div>
@@ -642,6 +647,7 @@
                     </div>
                 </div>
 
+                <!-- SHOW 2 -->
                 <div class="tour-data-row">
                     <div class="td-date">DATE HERE</div>
                     <div class="td-venue">VENUE NAME</div>
@@ -652,6 +658,7 @@
                     </div>
                 </div>
 
+                <!-- SHOW 3 -->
                 <div class="tour-data-row">
                     <div class="td-date">DATE HERE</div>
                     <div class="td-venue">VENUE NAME</div>
@@ -664,6 +671,7 @@
             </div>
         </section>
 
+        <!-- CONNECT SECTION -->
         <section id="connect">
             <div class="section-header">
                 <h2>Connect</h2>
@@ -702,6 +710,7 @@
             </div>
         </section>
 
+        <!-- STORE SECTION -->
         <section id="store" class="store-banner">
             <h3>Store</h3>
             <p>
@@ -710,10 +719,11 @@
             <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop collection →</a>
         </section>
 
+        <!-- EMAIL SIGNUP SECTION -->
         <section id="newsletter" class="newsletter-section">
             <div class="newsletter-info">
-                <h3>Transmission</h3>
-                <p>Subscribe to receive exclusive drops, project updates, and early access transmissions directly from Parallax.</p>
+                <h3>Stay Updated</h3>
+                <p>Subscribe to receive exclusive drops, project updates, and early ticket access directly from Parallax.</p>
             </div>
             <form action="#" method="POST" class="newsletter-form">
                 <input type="email" name="email" class="newsletter-input" placeholder="ENTER YOUR EMAIL" required autocomplete="off">
