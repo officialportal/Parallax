@@ -390,82 +390,6 @@
             padding-left: 5px;
         }
 
-        /* --- NEW SIGNUP SECTION --- */
-        .signup-banner {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 60px 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            backdrop-filter: blur(5px);
-        }
-
-        .signup-banner h3 {
-            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-            text-transform: capitalize;
-        }
-
-        .signup-banner p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            max-width: 500px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .signup-form {
-            display: flex;
-            width: 100%;
-            max-width: 550px;
-            gap: 10px;
-        }
-
-        .signup-input {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-color);
-            padding: 15px 20px;
-            color: var(--text-main);
-            font-size: 0.9rem;
-            font-family: inherit;
-            letter-spacing: 0.05em;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .signup-input:focus {
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .signup-input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-            text-transform: capitalize;
-        }
-
-        .signup-btn {
-            background: none;
-            border: 1px solid var(--text-main);
-            color: var(--text-main);
-            padding: 15px 30px;
-            font-size: 0.9rem;
-            font-family: var(--font-mono);
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-
-        .signup-btn:hover {
-            background: var(--text-main);
-            color: var(--bg-deep);
-        }
-
         /* --- SECTION 3: STORE BANNER (Minimal Density Rest-point) --- */
         .store-banner {
             background: var(--card-bg);
@@ -506,12 +430,87 @@
             display: inline-block;
             transition: all 0.3s ease;
             text-transform: capitalize;
+            cursor: pointer;
         }
 
         .action-btn:hover {
             background: var(--text-main);
             color: var(--bg-deep);
             transform: translateY(-2px);
+        }
+
+        /* --- NEW SECTION: NEWSLETTER SIGNUP --- */
+        .newsletter-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 60px 40px;
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .newsletter-info h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-transform: capitalize;
+        }
+
+        .newsletter-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 500px;
+            line-height: 1.5;
+        }
+
+        .newsletter-form {
+            display: flex;
+            width: 100%;
+            max-width: 550px;
+            border-bottom: 1px solid var(--border-color);
+            transition: border-color 0.3s ease;
+        }
+
+        .newsletter-form:focus-within {
+            border-color: var(--text-main);
+        }
+
+        .newsletter-input {
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            padding: 15px 0;
+            flex-grow: 1;
+            user-select: text; /* Allows users to type */
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        .newsletter-submit {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 0 10px 0 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        .newsletter-submit:hover {
+            opacity: 0.7;
         }
 
         /* --- FOOTER --- */
@@ -547,9 +546,8 @@
 
         @media (max-width: 768px) {
             nav { display: none; }
-            .store-banner, .signup-banner { padding: 40px 30px; }
-            .signup-form { flex-direction: column; }
-            .signup-btn { width: 100%; }
+            .store-banner { padding: 40px 30px; }
+            .newsletter-section { padding: 40px 25px; }
             header { padding: 1.2rem 4%; }
             .logo-wrapper { height: 30px; }
             section { margin-bottom: 100px; }
@@ -572,7 +570,6 @@
             <a href="#albums">Albums</a>
             <a href="#tour">Tour</a>
             <a href="#connect">Connect</a>
-            <a href="#signup">Updates</a>
             <a href="#store">Store</a>
         </nav>
     </header>
@@ -705,21 +702,23 @@
             </div>
         </section>
 
-        <section id="signup" class="signup-banner">
-            <h3>Join the transmission</h3>
-            <p>Subscribe to receive exclusive notifications regarding upcoming project releases, tour dates, and private collection drops.</p>
-            <form class="signup-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Subscribed!');">
-                <input type="email" class="signup-input" placeholder="Your email address" required autocomplete="email">
-                <button type="submit" class="signup-btn">Subscribe</button>
-            </form>
-        </section>
-
         <section id="store" class="store-banner">
             <h3>Store</h3>
             <p>
                 Access premium garments, unique drops, and official merchandise direct from the curated Parallax collection line.
             </p>
             <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop collection →</a>
+        </section>
+
+        <section id="newsletter" class="newsletter-section">
+            <div class="newsletter-info">
+                <h3>Transmission</h3>
+                <p>Subscribe to receive exclusive drops, project updates, and early access transmissions directly from Parallax.</p>
+            </div>
+            <form action="#" method="POST" class="newsletter-form">
+                <input type="email" name="email" class="newsletter-input" placeholder="ENTER YOUR EMAIL" required autocomplete="off">
+                <button type="submit" class="newsletter-submit">SUBMIT ↗</button>
+            </form>
         </section>
 
     </main>
