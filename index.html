@@ -3,765 +3,412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="google-site-verification" content="google990317cbb4fca942" />
-
-    <title>Parallax</title>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Parallax",
-      "jobTitle": "R&B Music Artist",
-      "description": "Parallax is an R&B music artist.",
-      "url": "https://home1x.github.io/Parallax/",
-      "image": "https://kommodo.ai/i/hFIQ88tDEU0Cs0tuTAdd",
-      "sameAs": [
-        "https://m.youtube.com/@parallax.x.x?ra=m",
-        "https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr",
-        "https://x.com/Parallax_x_x",
-        "https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug",
-        "https://www.facebook.com/Parallax.x.x.x.x/",
-        "https://discord.com/invite/rhXuzGvM6"
-      ]
-    }
-    </script>
+    <title>ECLIPSE | Official Artist Site</title>
+    <!-- Tailwind CSS for sleek, minimalist styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for clean icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Space Grotesk for a high-end, modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* --- RESET & ROOT VARIABLES --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            user-select: none;
-        }
-
-        html {
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        :root {
-            --bg-deep: #0a0a0a;
-            --card-bg: rgba(18, 18, 18, 0.7);
-            --border-color: rgba(255, 255, 255, 0.12);
-            --text-main: #ffffff;
-            --text-muted: #777777;
-            --font-mono: 'Courier New', Courier, monospace;
-        }
-
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            overflow-x: hidden;
-            letter-spacing: -0.02em;
-        }
-
-        /* --- BACKGROUND LAYER --- */
-        #space-canvas {
+        /* Canvas background container */
+        #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             z-index: -1;
-            pointer-events: none;
-            background: radial-gradient(circle at center, #111111 0%, #050505 100%);
+            background: radial-gradient(circle at 50% 50%, #111111, #050505);
         }
 
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3 {
-            font-weight: 900;
+        /* Liquid Glassmorphism Utility */
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px) saturate(120%);
+            -webkit-backdrop-filter: blur(16px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        a {
-            color: var(--text-main);
-            text-decoration: none;
-            transition: all 0.3s ease;
+        .liquid-glass:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 40px 0 rgba(255, 255, 255, 0.05);
+            transform: translateY(-4px);
         }
 
-        /* --- SIGNATURE ENGINE LAYOUT --- */
-        .custom-signature-container {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        /* Custom subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
         }
-
-        .signature-svg {
-            overflow: visible;
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9))
-                    drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+        ::-webkit-scrollbar-track {
+            background: #050505;
         }
-
-        .signature-path {
-            fill: none;
-            stroke: #ffffff;
-            stroke-width: 2.2px;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        ::-webkit-scrollbar-thumb {
+            background: #222222;
+            border-radius: 3px;
         }
-
-        /* --- FIXED HEADER --- */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1rem 4%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            background: rgba(10, 10, 10, 0.5);
-        }
-
-        .logo-wrapper {
-            height: 30px;
-        }
-
-        nav a {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            margin-left: 20px;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            text-transform: capitalize;
-        }
-
-        nav a:hover {
-            color: var(--text-main);
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            position: relative;
-            min-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 0 4%;
-            z-index: 2;
-            text-align: center;
-        }
-
-        .hero-title-wrapper {
-            width: clamp(200px, 35vw, 380px);
-            transform: rotate(-1deg);
-        }
-
-        /* --- LAYOUT CONTAINER --- */
-        .container {
-            position: relative;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px 4% 80px 4%;
-            z-index: 2;
-        }
-
-        section {
-            margin-bottom: 100px;
-            scroll-margin-top: 100px;
-        }
-
-        .section-header {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-            margin-bottom: 35px;
-        }
-
-        .section-header h2 {
-            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
-            line-height: 1;
-            letter-spacing: 1px;
-            text-transform: capitalize;
-        }
-
-        /* --- SECTION 1: ALBUMS GRID (DAFT PUNK STYLE) --- */
-        .albums-wrapper {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .albums-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 140px); /* Small, uniform block size */
-            gap: 1.5rem;
-            justify-content: center;
-        }
-
-        .album-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .album-art {
-            width: 140px;
-            height: 140px;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(5px);
-            margin-bottom: 10px;
-            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            object-fit: cover;
-            display: block;
-        }
-
-        .album-card:hover .album-art {
-            border-color: #ffffff;
-            transform: scale(1.03);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
-        }
-
-        .album-details h4 {
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            margin-bottom: 2px;
-            text-transform: uppercase;
-        }
-
-        .album-details p {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        /* --- TOUR DESIGN --- */
-        .tour-table {
-            display: flex;
-            flex-direction: column;
-            border: 1px solid var(--border-color);
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .tour-header-row {
-            display: grid;
-            grid-template-columns: 1.2fr 2fr 1.8fr 1.5fr 0.8fr;
-            padding: 15px 25px;
-            border-bottom: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.02);
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .tour-data-row {
-            display: grid;
-            grid-template-columns: 1.2fr 2fr 1.8fr 1.5fr 0.8fr;
-            padding: 22px 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            align-items: center;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .tour-data-row:last-child {
-            border-bottom: none;
-        }
-
-        .tour-data-row:hover {
-            background: rgba(255, 255, 255, 0.02);
-            transform: scale(1.002);
-        }
-
-        .td-date {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-        }
-
-        .td-venue {
-            font-size: 1rem;
-            font-weight: 800;
-            letter-spacing: -0.01em;
-        }
-
-        .td-location {
-            font-size: 0.88rem;
-            color: var(--text-main);
-        }
-
-        .td-lineup {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-
-        .tour-data-row:hover .td-lineup {
-            color: var(--text-main);
-        }
-
-        .td-action {
-            justify-self: end;
-            width: 100%;
-            text-align: right;
-        }
-
-        .tour-status {
-            display: inline-block;
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            padding: 8px 16px;
-            width: 100%;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .status-onsale {
-            border-color: var(--text-main);
-            color: var(--text-main);
-        }
-
-        .status-onsale:hover {
-            background: var(--text-main);
-            color: var(--bg-deep);
-        }
-
-        .status-lowtickets {
-            border-color: #ffaa00;
-            color: #ffaa00;
-        }
-
-        .status-lowtickets:hover {
-            background: #ffaa00;
-            color: var(--bg-deep);
-        }
-
-        .status-soldout {
-            border-color: rgba(255, 255, 255, 0.03);
-            color: var(--text-muted);
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
-        /* --- SECTION 2: CONNECT GRID --- */
-        .links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .link-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 140px;
-            transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .link-card:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .link-card .platform-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .link-card .action-text {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            text-transform: capitalize;
-            transition: all 0.3s ease;
-        }
-
-        .link-card:hover .action-text {
-            color: var(--text-main);
-            padding-left: 4px;
-        }
-
-        /* --- SECTION 3: STORE BANNER --- */
-        .store-banner {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 50px 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            backdrop-filter: blur(5px);
-        }
-
-        .store-banner h3 {
-            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-            line-height: 0.95;
-            text-transform: capitalize;
-        }
-
-        .store-banner p {
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            max-width: 500px;
-            line-height: 1.6;
-            margin-bottom: 18px;
-        }
-
-        .action-btn {
-            background: none;
-            border: 1px solid var(--text-main);
-            color: var(--text-main);
-            padding: 12px 30px;
-            font-size: 0.78rem;
-            font-family: var(--font-mono);
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            display: inline-block;
-            transition: all 0.3s ease;
-            text-transform: capitalize;
-            cursor: pointer;
-        }
-
-        .action-btn:hover {
-            background: var(--text-main);
-            color: var(--bg-deep);
-            transform: translateY(-2px);
-        }
-
-        /* --- EMAIL SIGNUP SECTION --- */
-        .newsletter-section {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 40px 30px;
-            backdrop-filter: blur(5px);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .newsletter-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            text-transform: capitalize;
-        }
-
-        .newsletter-info p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            max-width: 450px;
-            line-height: 1.5;
-        }
-
-        .newsletter-form {
-            display: flex;
-            width: 100%;
-            max-width: 450px;
-            border-bottom: 1px solid var(--border-color);
-            transition: border-color 0.3s ease;
-        }
-
-        .newsletter-form:focus-within {
-            border-color: var(--text-main);
-        }
-
-        .newsletter-input {
-            background: none;
-            border: none;
-            outline: none;
-            color: var(--text-main);
-            font-family: var(--font-mono);
-            font-size: 0.88rem;
-            padding: 10px 0;
-            flex-grow: 1;
-            user-select: text;
-        }
-
-        .newsletter-input::placeholder {
-            color: rgba(255, 255, 255, 0.25);
-            text-transform: uppercase;
-            font-size: 0.72rem;
-            letter-spacing: 2px;
-        }
-
-        .newsletter-submit {
-            background: none;
-            border: none;
-            color: var(--text-main);
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            padding: 0 5px 0 15px;
-            transition: opacity 0.3s ease;
-        }
-
-        .newsletter-submit:hover {
-            opacity: 0.7;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 30px 4%;
-            text-align: center;
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            letter-spacing: 0.05em;
-            z-index: 2;
-            position: relative;
-            opacity: 0.6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 992px) {
-            .tour-header-row { display: none; }
-            .tour-data-row {
-                grid-template-columns: 1fr;
-                gap: 8px;
-                padding: 22px 20px;
-                justify-items: start;
-            }
-            .td-action { justify-self: start; text-align: left; margin-top: 6px; width: 100%; }
-            .tour-status { max-width: 100%; }
-        }
-
-        @media (max-width: 768px) {
-            nav { display: none; }
-            .store-banner { padding: 30px 20px; }
-            .newsletter-section { padding: 30px 20px; }
-            header { padding: 1rem 4%; }
-            .logo-wrapper { height: 24px; }
-            section { margin-bottom: 70px; }
-        }
-        
-        @media (max-width: 520px) {
-            .albums-grid {
-                grid-template-columns: repeat(2, 130px); /* Tidy stack on ultra mobile screens */
-                gap: 1rem;
-            }
-            .album-art {
-                width: 130px;
-                height: 130px;
-            }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444444;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="space-canvas"></canvas>
+    <!-- Dynamic Liquid/Galaxy Canvas Backing -->
+    <div id="canvas-container">
+        <canvas id="galaxyCanvas"></canvas>
+    </div>
 
-    <header>
-        <div class="logo-wrapper custom-signature-container">
-            <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
-                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.85" />
-            </svg>
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full z-50 px-8 py-6 flex justify-between items-center bg-gradient-to-b from-black/50 to-transparent backdrop-blur-sm">
+        <a href="#" class="text-xl font-bold tracking-widest uppercase text-white hover:opacity-80 transition">E C L I P S E</a>
+        <div class="hidden md:flex space-x-8 text-sm tracking-widest uppercase">
+            <a href="#albums" class="hover:text-gray-400 transition">Albums</a>
+            <a href="#tour" class="hover:text-gray-400 transition">Tour</a>
+            <a href="#store" class="hover:text-gray-400 transition">Store</a>
+            <a href="#connect" class="hover:text-gray-400 transition">Connect</a>
         </div>
-        <nav>
-            <a href="#albums">Albums</a>
-            <a href="#tour">Tour</a>
-            <a href="#connect">Connect</a>
-            <a href="#store">Store</a>
-            <a href="#newsletter">Newsletter</a>
-        </nav>
+        <a href="#newsletter" class="text-xs border border-white/30 px-4 py-2 uppercase tracking-wider hover:bg-white hover:text-black transition duration-300">
+            Subscribe
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="h-screen w-full flex flex-col justify-center items-center text-center px-4 relative">
+        <div class="space-y-4 animate-fade-in">
+            <p class="text-xs uppercase tracking-[0.4em] text-gray-400">New Album Available Now</p>
+            <h1 class="text-6xl md:text-9xl font-light tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-200 to-gray-600">
+                SILHOUETTE
+            </h1>
+            <p class="text-sm tracking-widest text-gray-400 max-w-md mx-auto pt-4">
+                An immersive audio-visual journey through deep space and dark ambient soundscapes.
+            </p>
+            <div class="pt-8 flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#albums" class="bg-white text-black font-semibold text-sm tracking-wider uppercase px-8 py-3 hover:bg-gray-200 transition duration-300 shadow-lg">
+                    Listen Now
+                </a>
+                <a href="#tour" class="border border-white/20 text-white font-semibold text-sm tracking-wider uppercase px-8 py-3 hover:bg-white/10 transition duration-300 backdrop-blur-sm">
+                    View Tour
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-40">
+            <i class="fa-solid fa-chevron-down text-xl"></i>
+        </div>
     </header>
 
-    <section class="hero">
-        <div class="hero-title-wrapper custom-signature-container">
-            <svg class="signature-svg" viewBox="0 0 240 70" width="100%" xmlns="http://www.w3.org/2000/svg">
-                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
-                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.85" />
-            </svg>
+    <!-- Albums Section -->
+    <section id="albums" class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-white/10 pb-6">
+            <h2 class="text-4xl font-light tracking-wider uppercase">Discography</h2>
+            <p class="text-gray-400 text-sm tracking-widest mt-2 md:mt-0">Selected Works</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Album 1 -->
+            <div class="liquid-glass p-6 rounded-2xl group cursor-pointer">
+                <div class="aspect-square w-full bg-gradient-to-br from-gray-700 via-black to-gray-900 rounded-xl mb-6 relative overflow-hidden flex items-center justify-center">
+                    <!-- High end minimalist placeholder graphics -->
+                    <div class="w-40 h-40 rounded-full border border-white/10 group-hover:scale-110 transition duration-700 flex items-center justify-center">
+                        <div class="w-20 h-20 rounded-full border border-white/20 bg-white/5 animate-pulse"></div>
+                    </div>
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center backdrop-blur-xs">
+                        <i class="fa-solid fa-play text-4xl text-white"></i>
+                    </div>
+                </div>
+                <h3 class="text-xl font-medium tracking-wide">SILHOUETTE</h3>
+                <p class="text-gray-400 text-xs tracking-widest mt-1">LP • 2026</p>
+            </div>
+
+            <!-- Album 2 -->
+            <div class="liquid-glass p-6 rounded-2xl group cursor-pointer">
+                <div class="aspect-square w-full bg-gradient-to-tr from-gray-900 via-gray-800 to-black rounded-xl mb-6 relative overflow-hidden flex items-center justify-center">
+                    <div class="w-32 h-32 transform rotate-45 border border-white/10 group-hover:rotate-90 transition duration-700 flex items-center justify-center">
+                        <div class="w-16 h-16 border border-white/30"></div>
+                    </div>
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center backdrop-blur-xs">
+                        <i class="fa-solid fa-play text-4xl text-white"></i>
+                    </div>
+                </div>
+                <h3 class="text-xl font-medium tracking-wide">NEBULA ECHOES</h3>
+                <p class="text-gray-400 text-xs tracking-widest mt-1">EP • 2025</p>
+            </div>
+
+            <!-- Album 3 -->
+            <div class="liquid-glass p-6 rounded-2xl group cursor-pointer">
+                <div class="aspect-square w-full bg-gradient-to-b from-black via-zinc-900 to-neutral-800 rounded-xl mb-6 relative overflow-hidden flex items-center justify-center">
+                    <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent absolute group-hover:scale-y-[20] transition duration-700"></div>
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center backdrop-blur-xs">
+                        <i class="fa-solid fa-play text-4xl text-white"></i>
+                    </div>
+                </div>
+                <h3 class="text-xl font-medium tracking-wide">DARK MATTER</h3>
+                <p class="text-gray-400 text-xs tracking-widest mt-1">Single • 2024</p>
+            </div>
         </div>
     </section>
 
-    <main class="container">
+    <!-- Tour Section -->
+    <section id="tour" class="py-32 px-6 max-w-5xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-white/10 pb-6">
+            <h2 class="text-4xl font-light tracking-wider uppercase">Live Continuum</h2>
+            <p class="text-gray-400 text-sm tracking-widest mt-2 md:mt-0">Tour Dates 2026</p>
+        </div>
 
-        <section id="albums">
-            <div class="section-header">
-                <h2>Albums</h2>
-            </div>
-            
-            <div class="albums-wrapper">
-                <div class="albums-grid">
-                    <div class="album-card">
-                        <img src="Album 8.png" alt="Project I Cover Art" class="album-art">
-                        <div class="album-details">
-                            <h4>Project I</h4>
-                            <p>Coming soon</p>
-                        </div>
-                    </div>
-
-                    <div class="album-card">
-                        <img src="Album 11.jpeg" alt="Project II Cover Art" class="album-art">
-                        <div class="album-details">
-                            <h4>Project II</h4>
-                            <p>Coming soon</p>
-                        </div>
-                    </div>
-
-                    <div class="album-card">
-                        <img src="Album 10.jpeg" alt="Project III Cover Art" class="album-art">
-                        <div class="album-details">
-                            <h4>Project III</h4>
-                            <p>Coming soon</p>
-                        </div>
-                    </div>
+        <div class="space-y-4">
+            <!-- Tour Date 1 -->
+            <div class="liquid-glass p-6 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-gray-400 font-semibold">Oct 14</span>
+                    <h3 class="text-xl font-medium tracking-wide mt-1">London, UK</h3>
+                    <p class="text-xs text-gray-500 tracking-wider">The O2 Arena</p>
                 </div>
+                <button class="border border-white text-xs tracking-widest uppercase px-6 py-3 hover:bg-white hover:text-black transition duration-300 w-full md:w-auto">
+                    Tickets
+                </button>
             </div>
-        </section>
 
-        <section id="tour">
-            <div class="section-header">
-                <h2>Tour</h2>
-            </div>
-            
-            <div class="tour-table">
-                <div class="tour-header-row">
-                    <div>Date</div>
-                    <div>Venue</div>
-                    <div>Location</div>
-                    <div>Lineup / Support</div>
-                    <div style="text-align: right;">Status</div>
+            <!-- Tour Date 2 -->
+            <div class="liquid-glass p-6 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-gray-400 font-semibold">Oct 22</span>
+                    <h3 class="text-xl font-medium tracking-wide mt-1">Berlin, DE</h3>
+                    <p class="text-xs text-gray-500 tracking-wider">Verti Music Hall</p>
                 </div>
+                <button class="border border-white text-xs tracking-widest uppercase px-6 py-3 hover:bg-white hover:text-black transition duration-300 w-full md:w-auto">
+                    Tickets
+                </button>
+            </div>
 
-                <div class="tour-data-row">
-                    <div class="td-date">DATE HERE</div>
-                    <div class="td-venue">VENUE NAME</div>
-                    <div class="td-location">CITY, STATE</div>
-                    <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
-                    <div class="td-action">
-                        <a href="#" target="_blank" class="tour-status status-onsale">Tickets</a>
+            <!-- Tour Date 3 -->
+            <div class="liquid-glass p-6 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-gray-400 font-semibold">Nov 05</span>
+                    <h3 class="text-xl font-medium tracking-wide mt-1">New York, USA</h3>
+                    <p class="text-xs text-gray-500 tracking-wider">Madison Square Garden</p>
+                </div>
+                <button class="border border-white text-xs tracking-widest uppercase px-6 py-3 hover:bg-white hover:text-black transition duration-300 w-full md:w-auto">
+                    Tickets
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Store Section -->
+    <section id="store" class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-white/10 pb-6">
+            <h2 class="text-4xl font-light tracking-wider uppercase">Store</h2>
+            <p class="text-gray-400 text-sm tracking-widest mt-2 md:mt-0">Limited Artifacts</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Item 1 -->
+            <div class="liquid-glass p-4 rounded-xl flex flex-col justify-between">
+                <div>
+                    <div class="aspect-square bg-neutral-900 rounded-lg mb-4 flex items-center justify-center p-8 border border-white/5">
+                        <i class="fa-solid fa-compact-disc text-6xl text-gray-400 opacity-60"></i>
                     </div>
+                    <h3 class="text-sm tracking-wide font-medium">Silhouette Special Edition Vinyl</h3>
+                    <p class="text-xs text-gray-400 mt-1">$45.00</p>
                 </div>
+                <button class="mt-6 w-full py-2 bg-white/5 border border-white/10 hover:border-white text-xs uppercase tracking-widest transition">Add to Cart</button>
+            </div>
 
-                <div class="tour-data-row">
-                    <div class="td-date">DATE HERE</div>
-                    <div class="td-venue">VENUE NAME</div>
-                    <div class="td-location">CITY, STATE</div>
-                    <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
-                    <div class="td-action">
-                        <a href="#" target="_blank" class="tour-status status-lowtickets">Low Tickets</a>
+            <!-- Item 2 -->
+            <div class="liquid-glass p-4 rounded-xl flex flex-col justify-between">
+                <div>
+                    <div class="aspect-square bg-neutral-900 rounded-lg mb-4 flex items-center justify-center p-8 border border-white/5">
+                        <span class="text-4xl font-light text-gray-500 tracking-tighter">T-S</span>
                     </div>
+                    <h3 class="text-sm tracking-wide font-medium">Minimalist Galaxy Heavyweight Tee</h3>
+                    <p class="text-xs text-gray-400 mt-1">$38.00</p>
                 </div>
+                <button class="mt-6 w-full py-2 bg-white/5 border border-white/10 hover:border-white text-xs uppercase tracking-widest transition">Add to Cart</button>
+            </div>
 
-                <div class="tour-data-row">
-                    <div class="td-date">DATE HERE</div>
-                    <div class="td-venue">VENUE NAME</div>
-                    <div class="td-location">CITY, COUNTRY</div>
-                    <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
-                    <div class="td-action">
-                        <span class="tour-status status-soldout">Sold Out</span>
+            <!-- Item 3 -->
+            <div class="liquid-glass p-4 rounded-xl flex flex-col justify-between">
+                <div>
+                    <div class="aspect-square bg-neutral-900 rounded-lg mb-4 flex items-center justify-center p-8 border border-white/5">
+                        <span class="text-4xl font-light text-gray-500 tracking-tighter">H-D</span>
                     </div>
+                    <h3 class="text-sm tracking-wide font-medium">Eclipse Over-Sized Cyber Hoodie</h3>
+                    <p class="text-xs text-gray-400 mt-1">$75.00</p>
                 </div>
-            </div>
-        </section>
-
-        <section id="connect">
-            <div class="section-header">
-                <h2>Connect</h2>
+                <button class="mt-6 w-full py-2 bg-white/5 border border-white/10 hover:border-white text-xs uppercase tracking-widest transition">Add to Cart</button>
             </div>
 
-            <div class="links-grid">
-                <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="link-card">
-                    <div class="platform-name">Instagram</div>
-                    <div class="action-text">View profile ↗</div>
-                </a>
-
-                <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="link-card">
-                    <div class="platform-name">YouTube</div>
-                    <div class="action-text">Subscribe ↗</div>
-                </a>
-
-                <a href="https://x.com/Parallax_x_x" target="_blank" class="link-card">
-                    <div class="platform-name">X.com</div>
-                    <div class="action-text">Follow feed ↗</div>
-                </a>
-
-                <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="link-card">
-                    <div class="platform-name">TikTok</div>
-                    <div class="action-text">Watch content ↗</div>
-                </a>
-
-                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="link-card">
-                    <div class="platform-name">Facebook</div>
-                    <div class="action-text">Join community ↗</div>
-                </a>
-
-                <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="link-card">
-                    <div class="platform-name">The Network</div>
-                    <div class="action-text">Enter portal ↗</div>
-                </a>
+            <!-- Item 4 -->
+            <div class="liquid-glass p-4 rounded-xl flex flex-col justify-between">
+                <div>
+                    <div class="aspect-square bg-neutral-900 rounded-lg mb-4 flex items-center justify-center p-8 border border-white/5">
+                        <i class="fa-solid fa-book-open text-5xl text-gray-400 opacity-60"></i>
+                    </div>
+                    <h3 class="text-sm tracking-wide font-medium">Art & Visuals Limited Photo Book</h3>
+                    <p class="text-xs text-gray-400 mt-1">$50.00</p>
+                </div>
+                <button class="mt-6 w-full py-2 bg-white/5 border border-white/10 hover:border-white text-xs uppercase tracking-widest transition">Add to Cart</button>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="store" class="store-banner">
-            <h3>Store</h3>
-            <p>
-                Access premium garments, unique drops, and official merchandise direct from the curated Parallax collection line.
+    <!-- Connect & Newsletter Container -->
+    <section class="py-32 px-6 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 border-t border-white/10">
+        <!-- Connect -->
+        <div id="connect" class="space-y-6">
+            <h2 class="text-2xl font-light tracking-wider uppercase">Connect</h2>
+            <p class="text-xs text-gray-400 tracking-wider max-w-sm">
+                Follow the transmission frequencies across alternative digital networks.
             </p>
-            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop collection →</a>
-        </section>
-
-        <section id="newsletter" class="newsletter-section">
-            <div class="newsletter-info">
-                <h3>Newsletter</h3>
-                <p>Subscribe to receive exclusive drops, project updates, and early ticket access directly from Parallax.</p>
+            <div class="flex space-x-6 text-xl text-gray-400">
+                <a href="#" class="hover:text-white transition duration-300"><i class="fa-brands fa-spotify"></i></a>
+                <a href="#" class="hover:text-white transition duration-300"><i class="fa-brands fa-apple"></i></a>
+                <a href="#" class="hover:text-white transition duration-300"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-white transition duration-300"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="hover:text-white transition duration-300"><i class="fa-brands fa-soundcloud"></i></a>
             </div>
-            <form action="#" method="POST" class="newsletter-form">
-                <input type="email" name="email" class="newsletter-input" placeholder="ENTER YOUR EMAIL" required autocomplete="off">
-                <button type="submit" class="newsletter-submit">SUBMIT ↗</button>
+        </div>
+
+        <!-- Newsletter -->
+        <div id="newsletter" class="space-y-6">
+            <h2 class="text-2xl font-light tracking-wider uppercase">Newsletter</h2>
+            <p class="text-xs text-gray-400 tracking-wider">
+                Subscribe for exclusive content, early transmission access, and merchandise drops.
+            </p>
+            <form class="flex border-b border-white/30 pb-2 focus-within:border-white transition duration-300">
+                <input type="email" placeholder="ENTER YOUR EMAIL" class="bg-transparent w-full text-xs tracking-widest text-white placeholder-gray-600 focus:outline-none uppercase" required>
+                <button type="submit" class="text-xs tracking-widest text-gray-400 hover:text-white transition duration-300">SUBMIT</button>
             </form>
-        </section>
+        </div>
+    </section>
 
-    </main>
-
-    <footer>
-        &copy; 
-        <span class="custom-signature-container" style="height: 16px; vertical-align: middle; margin: 0 4px;">
-            <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" stroke-width="3.5px" />
-                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" stroke-width="3.5px" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="2px" opacity="0.85" />
-            </svg>
-        </span>. all rights reserved.
+    <!-- Footer -->
+    <footer class="py-12 text-center text-[10px] text-gray-600 tracking-[0.3em] uppercase">
+        © 2026 ECLIPSE. Designed meticulously for audiophiles.
     </footer>
 
+    <!-- Interactive HTML5 Canvas Logic for Liquid Glass and Galaxy FX -->
     <script>
-        const canvas = document.getElementById('space-canvas');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-            function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+        const canvas = document.getElementById('galaxyCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initStars();
+        });
+
+        // Stars array (Galaxy Backdrop)
+        let stars = [];
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < 150; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 1.2,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.02
+                });
             }
-            window.addEventListener('resize', resize);
-            resize();
         }
+
+        // Liquid Glass Orbs array
+        const orbs = [
+            { x: width * 0.2, y: height * 0.3, r: 250, vx: 0.4, vy: 0.3, baseR: 250 },
+            { x: width * 0.8, y: height * 0.7, r: 350, vx: -0.3, vy: -0.4, baseR: 350 },
+            { x: width * 0.5, y: height * 0.5, r: 180, vx: 0.5, vy: -0.2, baseR: 180 }
+        ];
+
+        // Track mouse position for minimal interactivity
+        let mouse = { x: width / 2, y: height / 2 };
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        initStars();
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw Deep Space (Dark Galaxy Base)
+            ctx.fillStyle = '#050505';
+            ctx.fillRect(0, 0, width, height);
+
+            // Render & Update Twinkling Stars
+            stars.forEach(star => {
+                star.alpha += star.speed;
+                if (star.alpha > 1 || star.alpha < 0) star.speed = -star.speed;
+                
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0, star.alpha)})`;
+                ctx.fill();
+            });
+
+            // Render & Update Liquid Glass Orbs
+            orbs.forEach((orb, index) => {
+                // Move orbs subtly
+                orb.x += orb.vx;
+                orb.y += orb.vy;
+
+                // Bounce off edges
+                if (orb.x - orb.r < 0 || orb.x + orb.r > width) orb.vx *= -1;
+                if (orb.y - orb.r < 0 || orb.y + orb.r > height) orb.vy *= -1;
+
+                // Soft interaction with mouse movement (slight push)
+                let dx = mouse.x - orb.x;
+                let dy = mouse.y - orb.y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 400) {
+                    orb.x -= (dx / dist) * 0.5;
+                    orb.y -= (dy / dist) * 0.5;
+                }
+
+                // Complex organic morphing look for liquid effect
+                let time = Date.now() * 0.001;
+                orb.r = orb.baseR + Math.sin(time + index) * 15;
+
+                // Dynamic metallic/glass refraction gradient simulation
+                let grad = ctx.createRadialGradient(orb.x - orb.r*0.2, orb.y - orb.r*0.2, orb.r * 0.1, orb.x, orb.y, orb.r);
+                grad.addColorStop(0, 'rgba(255, 255, 255, 0.06)');
+                grad.addColorStop(0.5, 'rgba(100, 100, 100, 0.03)');
+                grad.addColorStop(0.8, 'rgba(20, 20, 20, 0.05)');
+                grad.addColorStop(1, 'rgba(0, 0, 0, 0.6)');
+
+                ctx.beginPath();
+                ctx.arc(orb.x, orb.y, orb.r, 0, Math.PI * 2);
+                ctx.fillStyle = grad;
+                ctx.fill();
+
+                // Soft structural edge to define glass boundaries
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
     </script>
 </body>
 </html>
