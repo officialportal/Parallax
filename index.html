@@ -759,18 +759,18 @@
             let stars = [];
             
             // Interactive mouse coordinates tracking
-            const mouse = { x: null, y: null };
+            const mouse = { x: null, y: null, targetX: null, targetY: null };
 
             // Listen to screen movement anywhere on the window
             window.addEventListener('mousemove', (e) => {
-                mouse.x = e.clientX;
-                mouse.y = e.clientY;
+                mouse.targetX = e.clientX;
+                mouse.targetY = e.clientY;
             });
 
-            // Reset when cursor leaves the window viewport bounds
+            // Reset target position when cursor leaves the window bounds
             window.addEventListener('mouseleave', () => {
-                mouse.x = null;
-                mouse.y = null;
+                mouse.targetX = null;
+                mouse.targetY = null;
             });
 
             function resize() {
@@ -785,15 +785,12 @@
                 for (let i = 0; i < count; i++) {
                     const brightness = Math.floor(Math.random() * 135) + 120; 
                     stars.push({
-                        baseX: Math.random() * canvas.width,
-                        baseY: Math.random() * canvas.height,
-                        x: 0,
-                        y: 0,
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
                         radius: Math.random() * 1.6,
                         color: `rgba(${brightness}, ${brightness}, ${brightness}, ${Math.random() * 0.8 + 0.2})`,
-                        // Individual organic anchor sway metrics
-                        swayOffset: Math.random() * Math.PI * 2,
-                        swaySpeed: 0.005 + Math.random() * 0.01
+                        // Depth factor to determine parallax reaction speed (closer stars move faster)
+                        depth: Math.random() * 0.03 + 0.005
                     });
                 }
             }
@@ -817,38 +814,44 @@
                 ctx.fillStyle = gradient;
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                const time = Date.now();
-
-                // Paint the grey and white star systems with interaction layer logic
-                stars.forEach(star => {
-                    // 1. Natural slow continuous space drift sway
-                    star.swayOffset += star.swaySpeed;
-                    let targetX = star.baseX + Math.cos(star.swayOffset) * 4;
-                    let targetY = star.baseY + Math.sin(star.swayOffset) * 4;
-
-                    // 2. Interactive push away effect if cursor is nearby
-                    if (mouse.x !== null && mouse.y !== null) {
-                        const dx = mouse.x - targetX;
-                        const dy = mouse.y - targetY;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        const maxRadius = 130; // Radius of interactive push zone
-
-                        if (distance < maxRadius) {
-                            const force = (maxRadius - distance) / maxRadius;
-                            // Calculate backward coordinates vectors away from interaction coordinate
-                            const pushX = (dx / distance) * force * 24;
-                            const pushY = (dy / distance) * force * 24;
-                            targetX -= pushX;
-                            targetY -= pushY;
-                        }
+                // Smoothly ease the global mouse tracking coordinates
+                if (mouse.targetX !== null && mouse.targetY !== null) {
+                    if (mouse.x === null) {
+                        mouse.x = mouse.targetX;
+                        mouse.y = mouse.targetY;
+                    } else {
+                        mouse.x += (mouse.targetX - mouse.x) * 0.05;
+                        mouse.y += (mouse.targetY - mouse.y) * 0.05;
                     }
+                } else {
+                    // Drift back toward center if mouse leaves screen
+                    if (mouse.x !== null) {
+                        mouse.x += (canvas.width / 2 - mouse.x) * 0.02;
+                        mouse.y += (canvas.height / 2 - mouse.y) * 0.02;
+                    } else {
+                        mouse.x = canvas.width / 2;
+                        mouse.y = canvas.height / 2;
+                    }
+                }
 
-                    // Smooth ease transition physics interpolation calculation
-                    star.x += (targetX - star.x) * 0.08;
-                    star.y += (targetY - star.y) * 0.08;
+                // Calculate off-center offset vectors from viewport center
+                const offsetX = mouse.x - (canvas.width / 2);
+                const offsetY = mouse.y - (canvas.height / 2);
+
+                // Paint the grey and white star systems using a true responsive parallax shift animation
+                stars.forEach(star => {
+                    // Shift coordinate position inversely based on depth tier matching your name style
+                    const renderX = star.x - (offsetX * star.depth);
+                    const renderY = star.y - (offsetY * star.depth);
+
+                    // Re-wrap bounding constraints smoothly if shift pulls them off canvas edge dimensions
+                    let finalX = renderX % canvas.width;
+                    let finalY = renderY % canvas.height;
+                    if (finalX < 0) finalX += canvas.width;
+                    if (finalY < 0) finalY += canvas.height;
 
                     ctx.beginPath();
-                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.arc(finalX, finalY, star.radius, 0, Math.PI * 2);
                     ctx.fillStyle = star.color;
                     ctx.fill();
                 });
