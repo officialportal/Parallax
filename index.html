@@ -195,37 +195,18 @@
             group: hover;
         }
 
-        .album-art, .album-art-blank {
+        .album-art {
             width: 100%;
             aspect-ratio: 1 / 1;
             border: 1px solid var(--border-color);
             backdrop-filter: blur(5px);
             margin-bottom: 20px;
             transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .album-art {
             object-fit: cover;
             display: block;
         }
 
-        .album-art-blank {
-            background: radial-gradient(circle at cubic-bezier(0.16, 1, 0.3, 1), rgba(30,30,30,0.6) 0%, rgba(15,15,15,0.8) 100%);
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .album-art-blank::before {
-            content: "";
-            width: 25%;
-            height: 25%;
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-        }
-
-        .album-card:hover .album-art, .album-card:hover .album-art-blank {
+        .album-card:hover .album-art {
             border-color: rgba(255, 255, 255, 0.4);
             transform: translateY(-5px);
         }
@@ -624,7 +605,7 @@
                 </div>
 
                 <div class="album-card">
-                    <div class="album-art-blank"></div>
+                    <img src="Album 7.jpg" alt="Project III Cover Art" class="album-art">
                     <div class="album-details">
                         <h4>Project III</h4>
                         <p>Coming soon</p>
