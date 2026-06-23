@@ -42,12 +42,15 @@
         }
 
         :root {
-            --bg-deep: #0a0a0a;
-            --card-bg: rgba(18, 18, 18, 0.7);
-            --border-color: rgba(255, 255, 255, 0.12);
+            --bg-deep: #050505;
+            --card-bg: rgba(12, 12, 12, 0.65);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.3);
             --text-main: #ffffff;
-            --text-muted: #777777;
+            --text-muted: #666666;
             --font-mono: 'Courier New', Courier, monospace;
+            --glow-color: rgba(255, 255, 255, 0.8);
+            --ease-premium: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         body {
@@ -67,7 +70,7 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            background: radial-gradient(circle at center, #111111 0%, #050505 100%);
+            background: radial-gradient(circle at center, #0d0d0d 0%, #030303 100%);
         }
 
         /* --- TYPOGRAPHY --- */
@@ -78,7 +81,7 @@
         a {
             color: var(--text-main);
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.4s var(--ease-premium);
         }
 
         /* --- SIGNATURE ENGINE LAYOUT --- */
@@ -90,8 +93,15 @@
 
         .signature-svg {
             overflow: visible;
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9))
-                    drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6))
+                    drop-shadow(0 0 10px rgba(255, 255, 255, 0.05));
+            transition: filter 0.4s ease;
+        }
+        
+        .logo-wrapper:hover .signature-svg,
+        .hero-title-wrapper:hover .signature-svg {
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 1))
+                    drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
         }
 
         .signature-path {
@@ -108,32 +118,50 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 1rem 4%;
+            padding: 1.2rem 4%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
             border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(5, 5, 5, 0.4);
         }
 
         .logo-wrapper {
-            height: 30px;
+            height: 32px;
+            cursor: pointer;
         }
 
         nav a {
             font-family: var(--font-mono);
             font-size: 0.72rem;
-            margin-left: 20px;
+            margin-left: 24px;
             letter-spacing: 2px;
             color: var(--text-muted);
-            text-transform: capitalize;
+            text-transform: uppercase;
+            position: relative;
+            padding: 4px 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--text-main);
+            transition: width 0.3s var(--ease-premium);
         }
 
         nav a:hover {
             color: var(--text-main);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
         }
 
         /* --- HERO SECTION --- */
@@ -150,8 +178,9 @@
         }
 
         .hero-title-wrapper {
-            width: clamp(200px, 35vw, 380px);
-            transform: rotate(-1deg);
+            width: clamp(220px, 40vw, 400px);
+            transform: rotate(-0.5deg);
+            cursor: crosshair;
         }
 
         /* --- LAYOUT CONTAINER --- */
@@ -164,21 +193,24 @@
         }
 
         section {
-            margin-bottom: 100px;
-            scroll-margin-top: 100px;
+            margin-bottom: 120px;
+            scroll-margin-top: 120px;
         }
 
         .section-header {
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-            margin-bottom: 35px;
+            padding-bottom: 12px;
+            margin-bottom: 40px;
         }
 
         .section-header h2 {
-            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+            font-size: clamp(1.4rem, 3vw, 2rem);
             line-height: 1;
-            letter-spacing: 1px;
-            text-transform: capitalize;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* --- SECTION 1: ALBUMS GRID (DAFT PUNK STYLE) --- */
@@ -190,8 +222,8 @@
 
         .albums-grid {
             display: grid;
-            grid-template-columns: repeat(3, 140px); /* Small, uniform block size */
-            gap: 1.5rem;
+            grid-template-columns: repeat(3, 150px);
+            gap: 2.5rem;
             justify-content: center;
         }
 
@@ -200,31 +232,33 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            cursor: pointer;
         }
 
         .album-art {
-            width: 140px;
-            height: 140px;
+            width: 150px;
+            height: 150px;
             border: 1px solid var(--border-color);
-            backdrop-filter: blur(5px);
-            margin-bottom: 10px;
-            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            background: #000;
+            margin-bottom: 14px;
+            transition: border-color 0.4s var(--ease-premium), transform 0.4s var(--ease-premium), box-shadow 0.4s var(--ease-premium);
             object-fit: cover;
             display: block;
         }
 
         .album-card:hover .album-art {
             border-color: #ffffff;
-            transform: scale(1.03);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.12);
         }
 
         .album-details h4 {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            letter-spacing: 0.05em;
-            margin-bottom: 2px;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
             text-transform: uppercase;
+            font-family: var(--font-mono);
         }
 
         .album-details p {
@@ -232,6 +266,7 @@
             font-size: 0.65rem;
             color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         /* --- TOUR DESIGN --- */
@@ -240,18 +275,18 @@
             flex-direction: column;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
         }
 
         .tour-header-row {
             display: grid;
             grid-template-columns: 1.2fr 2fr 1.8fr 1.5fr 0.8fr;
-            padding: 15px 25px;
+            padding: 16px 25px;
             border-bottom: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.01);
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             letter-spacing: 2px;
             color: var(--text-muted);
             text-transform: uppercase;
@@ -260,10 +295,10 @@
         .tour-data-row {
             display: grid;
             grid-template-columns: 1.2fr 2fr 1.8fr 1.5fr 0.8fr;
-            padding: 22px 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 24px 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             align-items: center;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s var(--ease-premium);
         }
 
         .tour-data-row:last-child {
@@ -272,7 +307,6 @@
 
         .tour-data-row:hover {
             background: rgba(255, 255, 255, 0.02);
-            transform: scale(1.002);
         }
 
         .td-date {
@@ -283,14 +317,14 @@
         }
 
         .td-venue {
-            font-size: 1rem;
-            font-weight: 800;
+            font-size: 0.95rem;
+            font-weight: 700;
             letter-spacing: -0.01em;
         }
 
         .td-location {
             font-size: 0.88rem;
-            color: var(--text-main);
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .td-lineup {
@@ -314,13 +348,13 @@
             display: inline-block;
             font-family: var(--font-mono);
             font-size: 0.65rem;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 8px 16px;
+            padding: 10px 16px;
             width: 100%;
             text-align: center;
             border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            background: transparent;
         }
 
         .status-onsale {
@@ -331,6 +365,7 @@
         .status-onsale:hover {
             background: var(--text-main);
             color: var(--bg-deep);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
         .status-lowtickets {
@@ -341,98 +376,102 @@
         .status-lowtickets:hover {
             background: #ffaa00;
             color: var(--bg-deep);
+            box-shadow: 0 0 15px rgba(255, 170, 0, 0.2);
         }
 
         .status-soldout {
-            border-color: rgba(255, 255, 255, 0.03);
+            border-color: transparent;
             color: var(--text-muted);
-            opacity: 0.3;
+            opacity: 0.4;
             pointer-events: none;
+            background: rgba(255,255,255,0.02);
         }
 
         /* --- SECTION 2: CONNECT GRID --- */
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.2rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
         }
 
         .link-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 25px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 140px;
-            transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            min-height: 150px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .link-card:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
         .link-card .platform-name {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
             letter-spacing: 1px;
         }
 
         .link-card .action-text {
             font-family: var(--font-mono);
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             letter-spacing: 0.1em;
             color: var(--text-muted);
-            text-transform: capitalize;
-            transition: all 0.3s ease;
+            text-transform: uppercase;
         }
 
         .link-card:hover .action-text {
             color: var(--text-main);
-            padding-left: 4px;
         }
 
         /* --- SECTION 3: STORE BANNER --- */
         .store-banner {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 50px 40px;
+            padding: 60px 45px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             justify-content: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .store-banner h3 {
-            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
-            margin-bottom: 15px;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            margin-bottom: 18px;
             letter-spacing: 2px;
-            line-height: 0.95;
-            text-transform: capitalize;
+            line-height: 1;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            font-weight: 400;
         }
 
         .store-banner p {
             color: var(--text-muted);
-            font-size: 0.88rem;
-            max-width: 500px;
+            font-size: 0.9rem;
+            max-width: 520px;
             line-height: 1.6;
-            margin-bottom: 18px;
+            margin-bottom: 24px;
         }
 
         .action-btn {
             background: none;
             border: 1px solid var(--text-main);
             color: var(--text-main);
-            padding: 12px 30px;
-            font-size: 0.78rem;
+            padding: 14px 35px;
+            font-size: 0.75rem;
             font-family: var(--font-mono);
             font-weight: 700;
             letter-spacing: 0.1em;
             display: inline-block;
-            transition: all 0.3s ease;
-            text-transform: capitalize;
+            text-transform: uppercase;
             cursor: pointer;
         }
 
@@ -440,39 +479,43 @@
             background: var(--text-main);
             color: var(--bg-deep);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.15);
         }
 
         /* --- EMAIL SIGNUP SECTION --- */
         .newsletter-section {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 40px 30px;
-            backdrop-filter: blur(5px);
+            padding: 50px 45px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
 
         .newsletter-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            text-transform: capitalize;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            font-weight: 400;
         }
 
         .newsletter-info p {
             color: var(--text-muted);
-            font-size: 0.85rem;
-            max-width: 450px;
-            line-height: 1.5;
+            font-size: 0.88rem;
+            max-width: 480px;
+            line-height: 1.6;
         }
 
         .newsletter-form {
             display: flex;
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
             border-bottom: 1px solid var(--border-color);
-            transition: border-color 0.3s ease;
+            transition: border-color 0.4s var(--ease-premium);
         }
 
         .newsletter-form:focus-within {
@@ -486,13 +529,13 @@
             color: var(--text-main);
             font-family: var(--font-mono);
             font-size: 0.88rem;
-            padding: 10px 0;
+            padding: 12px 0;
             flex-grow: 1;
             user-select: text;
         }
 
         .newsletter-input::placeholder {
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.15);
             text-transform: uppercase;
             font-size: 0.72rem;
             letter-spacing: 2px;
@@ -509,25 +552,27 @@
             text-transform: uppercase;
             cursor: pointer;
             padding: 0 5px 0 15px;
+            opacity: 0.5;
             transition: opacity 0.3s ease;
         }
 
+        .newsletter-form:focus-within .newsletter-submit,
         .newsletter-submit:hover {
-            opacity: 0.7;
+            opacity: 1;
         }
 
         /* --- FOOTER --- */
         footer {
             border-top: 1px solid var(--border-color);
-            padding: 30px 4%;
+            padding: 40px 4%;
             text-align: center;
             font-family: var(--font-mono);
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             color: var(--text-muted);
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
             z-index: 2;
             position: relative;
-            opacity: 0.6;
+            text-transform: uppercase;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -539,41 +584,46 @@
             .tour-header-row { display: none; }
             .tour-data-row {
                 grid-template-columns: 1fr;
-                gap: 8px;
-                padding: 22px 20px;
+                gap: 10px;
+                padding: 24px 20px;
                 justify-items: start;
             }
-            .td-action { justify-self: start; text-align: left; margin-top: 6px; width: 100%; }
-            .tour-status { max-width: 100%; }
+            .td-action { justify-self: start; text-align: left; margin-top: 8px; width: 100%; }
         }
 
         @media (max-width: 768px) {
             nav { display: none; }
-            .store-banner { padding: 30px 20px; }
-            .newsletter-section { padding: 30px 20px; }
-            header { padding: 1rem 4%; }
-            .logo-wrapper { height: 24px; }
-            section { margin-bottom: 70px; }
+            .store-banner { padding: 40px 24px; }
+            .newsletter-section { padding: 40px 24px; }
+            header { padding: 1.2rem 4%; }
+            section { margin-bottom: 80px; }
         }
         
-        @media (max-width: 520px) {
+        @media (max-width: 580px) {
             .albums-grid {
-                grid-template-columns: repeat(2, 130px); /* Tidy stack on ultra mobile screens */
-                gap: 1rem;
+                grid-template-columns: repeat(2, 140px);
+                gap: 1.5rem;
             }
             .album-art {
-                width: 130px;
-                height: 130px;
+                width: 140px;
+                height: 140px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .albums-grid {
+                grid-template-columns: repeat(1, 150px);
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- ANIMATED ATMOSPHERIC LAYER -->
     <canvas id="space-canvas"></canvas>
 
     <header>
-        <div class="logo-wrapper custom-signature-container">
+        <div class="logo-wrapper custom-signature-container" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
             <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
                 <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
                 <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
@@ -603,7 +653,7 @@
 
         <section id="albums">
             <div class="section-header">
-                <h2>Albums</h2>
+                <h2>Discography</h2>
             </div>
             
             <div class="albums-wrapper">
@@ -612,7 +662,7 @@
                         <img src="Album 8.png" alt="Project I Cover Art" class="album-art">
                         <div class="album-details">
                             <h4>Project I</h4>
-                            <p>Coming soon</p>
+                            <p>[tba]</p>
                         </div>
                     </div>
 
@@ -620,7 +670,7 @@
                         <img src="Album 11.jpeg" alt="Project II Cover Art" class="album-art">
                         <div class="album-details">
                             <h4>Project II</h4>
-                            <p>Coming soon</p>
+                            <p>[tba]</p>
                         </div>
                     </div>
 
@@ -628,7 +678,7 @@
                         <img src="Album 10.jpeg" alt="Project III Cover Art" class="album-art">
                         <div class="album-details">
                             <h4>Project III</h4>
-                            <p>Coming soon</p>
+                            <p>[tba]</p>
                         </div>
                     </div>
                 </div>
@@ -637,7 +687,7 @@
 
         <section id="tour">
             <div class="section-header">
-                <h2>Tour</h2>
+                <h2>Performances</h2>
             </div>
             
             <div class="tour-table">
@@ -650,30 +700,30 @@
                 </div>
 
                 <div class="tour-data-row">
-                    <div class="td-date">DATE HERE</div>
-                    <div class="td-venue">VENUE NAME</div>
+                    <div class="td-date">00.00</div>
+                    <div class="td-venue">VENUE DATA</div>
                     <div class="td-location">CITY, STATE</div>
-                    <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
+                    <div class="td-lineup">TRANSMISSION PENDING</div>
                     <div class="td-action">
                         <a href="#" target="_blank" class="tour-status status-onsale">Tickets</a>
                     </div>
                 </div>
 
                 <div class="tour-data-row">
-                    <div class="td-date">DATE HERE</div>
-                    <div class="td-venue">VENUE NAME</div>
+                    <div class="td-date">00.00</div>
+                    <div class="td-venue">VENUE DATA</div>
                     <div class="td-location">CITY, STATE</div>
-                    <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
+                    <div class="td-lineup">TRANSMISSION PENDING</div>
                     <div class="td-action">
                         <a href="#" target="_blank" class="tour-status status-lowtickets">Low Tickets</a>
                     </div>
                 </div>
 
                 <div class="tour-data-row">
-                    <div class="td-date">DATE HERE</div>
-                    <div class="td-venue">VENUE NAME</div>
+                    <div class="td-date">00.00</div>
+                    <div class="td-venue">VENUE DATA</div>
                     <div class="td-location">CITY, COUNTRY</div>
-                    <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
+                    <div class="td-lineup">TRANSMISSION PENDING</div>
                     <div class="td-action">
                         <span class="tour-status status-soldout">Sold Out</span>
                     </div>
@@ -683,7 +733,7 @@
 
         <section id="connect">
             <div class="section-header">
-                <h2>Connect</h2>
+                <h2>Network Channels</h2>
             </div>
 
             <div class="links-grid">
@@ -720,7 +770,7 @@
         </section>
 
         <section id="store" class="store-banner">
-            <h3>Store</h3>
+            <h3>Utility Store</h3>
             <p>
                 Access premium garments, unique drops, and official merchandise direct from the curated Parallax collection line.
             </p>
@@ -729,7 +779,7 @@
 
         <section id="newsletter" class="newsletter-section">
             <div class="newsletter-info">
-                <h3>Newsletter</h3>
+                <h3>Mailing System</h3>
                 <p>Subscribe to receive exclusive drops, project updates, and early ticket access directly from Parallax.</p>
             </div>
             <form action="#" method="POST" class="newsletter-form">
@@ -751,16 +801,93 @@
         </span>. all rights reserved.
     </footer>
 
+    <!-- INTERACTIVE ENGINE SCRIPT -->
     <script>
         const canvas = document.getElementById('space-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouse = { x: null, y: null, radius: 100 };
+
             function resize() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
+                initParticles();
             }
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 1.2 + 0.3;
+                    this.baseX = this.x;
+                    this.baseY = this.y;
+                    this.density = (Math.random() * 15) + 2;
+                    this.alpha = Math.random() * 0.5 + 0.2;
+                }
+                draw() {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+                update() {
+                    // Mouse interaction physics
+                    if (mouse.x !== null && mouse.y !== null) {
+                        let dx = mouse.x - this.x;
+                        let dy = mouse.y - this.y;
+                        let distance = Math.hypot(dx, dy);
+                        if (distance < mouse.radius) {
+                            let force = (mouse.radius - distance) / mouse.radius;
+                            let directionX = (dx / distance) * force * this.density;
+                            let directionY = (dy / distance) * force * this.density;
+                            this.x -= directionX;
+                            this.y -= directionY;
+                        } else {
+                            if (this.x !== this.baseX) {
+                                let dx = this.x - this.baseX;
+                                this.x -= dx / 20;
+                            }
+                            if (this.y !== this.baseY) {
+                                let dy = this.y - this.baseY;
+                                this.y -= dy / 20;
+                            }
+                        }
+                    }
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                // Dynamic density based on monitor real estate
+                const numberOfParticles = (canvas.width * canvas.height) / 9000;
+                for (let i = 0; i < numberOfParticles; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].draw();
+                    particles[i].update();
+                }
+                requestAnimationFrame(animate);
+            }
+
             window.addEventListener('resize', resize);
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+            window.addEventListener('mouseleave', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
             resize();
+            animate();
         }
     </script>
 </body>
