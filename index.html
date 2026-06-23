@@ -67,7 +67,7 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            background: radial-gradient(circle at center, #111111 0%, #050505 100%);
+            background: #000000;
         }
 
         /* --- TYPOGRAPHY --- */
@@ -755,12 +755,57 @@
         const canvas = document.getElementById('space-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
+            let stars = [];
+
             function resize() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
+                initStars();
             }
+
+            function initStars() {
+                stars = [];
+                // Create random black, grey, and white galaxy layers
+                const count = Math.floor((canvas.width * canvas.height) / 3000);
+                for (let i = 0; i < count; i++) {
+                    // Random brightness values ranging from grey to pure white
+                    const brightness = Math.floor(Math.random() * 155) + 100; 
+                    stars.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        radius: Math.random() * 1.5,
+                        color: `rgba(${brightness}, ${brightness}, ${brightness}, ${Math.random()})`
+                    });
+                }
+            }
+
+            function draw() {
+                // Base solid black space backdrop
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Soft grey nebula cloud dust structures
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const gradient = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, Math.max(canvas.width, canvas.height) * 0.8);
+                gradient.addColorStop(0, 'rgba(40, 40, 40, 0.4)');
+                gradient.addColorStop(0.5, 'rgba(20, 20, 20, 0.2)');
+                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Render the monochromatic star field
+                stars.forEach(star => {
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = star.color;
+                    ctx.fill();
+                });
+            }
+
             window.addEventListener('resize', resize);
             resize();
+            draw();
         }
     </script>
 </body>
