@@ -39,7 +39,6 @@
 
         html {
             scroll-behavior: smooth;
-            /* Prevents horizontal scrollbars that scaling might trigger */
             overflow-x: hidden; 
         }
 
@@ -52,7 +51,7 @@
             --font-mono: 'Courier New', Courier, monospace;
             
             /* --- GLOBAL ZOOM FACTOR --- */
-            /* 0.85 means 85% zoom. Lower it to zoom out more (e.g., 0.8), raise it to zoom in (e.g., 0.9) */
+            /* Adjusted cleanly to 85% zoom without breaking symmetry */
             --zoom-level: 0.85; 
         }
 
@@ -61,12 +60,16 @@
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             letter-spacing: -0.02em;
-            
-            /* --- ZOOM OUT SIMULATION ENGINE --- */
+        }
+
+        /* --- ZOOM INTERCEPT WRAPPER --- */
+        /* This scales your content cleanly down from the absolute horizontal center */
+        .page-zoom-wrapper {
             transform: scale(var(--zoom-level));
-            transform-origin: top center; /* Keeps the page locked at the top center while shrinking */
-            width: calc(100% / var(--zoom-level)); /* Adjusts the width so it still stretches edge-to-edge */
-            min-height: calc(100vh / var(--zoom-level)); /* Ensures background/sections fill full height */
+            transform-origin: top center;
+            width: calc(100% / var(--zoom-level));
+            margin-left: calc((100% - (100% / var(--zoom-level))) / 2);
+            display: inline-block;
         }
 
         /* --- BACKGROUND LAYER --- */
@@ -74,9 +77,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            /* Injects inverse math so the background canvas ignores the body zoom and stays full screen */
-            width: calc(100vw / var(--zoom-level));
-            height: calc(100vh / var(--zoom-level));
+            width: 100vw;
+            height: 100vh;
             z-index: -1;
             pointer-events: none;
             background: radial-gradient(circle at center, #111111 0%, #050505 100%);
@@ -562,6 +564,7 @@
 
     <canvas id="space-canvas"></canvas>
 
+    <!-- The top navigation header is isolated outside the zoom box so it anchors straight and true -->
     <header>
         <div class="logo-wrapper custom-signature-container">
             <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -579,175 +582,178 @@
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="hero-title-wrapper custom-signature-container">
-            <svg class="signature-svg" viewBox="0 0 240 70" width="100%" xmlns="http://www.w3.org/2000/svg">
-                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
-                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.85" />
-            </svg>
-        </div>
-    </section>
+    <!-- All main sections go inside this cleanly centered macro zoom layer -->
+    <div class="page-zoom-wrapper">
 
-    <main class="container">
-
-        <section id="albums">
-            <div class="section-header">
-                <h2>Albums</h2>
-            </div>
-            
-            <div class="albums-grid">
-                <div class="album-card">
-                    <img src="Album 8.png" alt="Project I Cover Art" class="album-art">
-                    <div class="album-details">
-                        <h4>Project I</h4>
-                        <p>Coming soon</p>
-                    </div>
-                </div>
-
-                <div class="album-card">
-                    <img src="Album 11.jpeg" alt="Project II Cover Art" class="album-art">
-                    <div class="album-details">
-                        <h4>Project II</h4>
-                        <p>Coming soon</p>
-                    </div>
-                </div>
-
-                <div class="album-card">
-                    <img src="Album 10.jpeg" alt="Project III Cover Art" class="album-art">
-                    <div class="album-details">
-                        <h4>Project III</h4>
-                        <p>Coming soon</p>
-                    </div>
-                </div>
+        <section class="hero">
+            <div class="hero-title-wrapper custom-signature-container">
+                <svg class="signature-svg" viewBox="0 0 240 70" width="100%" xmlns="http://www.w3.org/2000/svg">
+                    <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
+                    <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
+                    <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.85" />
+                </svg>
             </div>
         </section>
 
-        <section id="tour">
-            <div class="section-header">
-                <h2>Tour</h2>
-            </div>
-            
-            <div class="tour-table">
-                <div class="tour-header-row">
-                    <div>Date</div>
-                    <div>Venue</div>
-                    <div>Location</div>
-                    <div>Lineup / Support</div>
-                    <div style="text-align: right;">Status</div>
-                </div>
+        <main class="container">
 
-                <div class="tour-data-row">
-                    <div class="td-date">DATE HERE</div>
-                    <div class="td-venue">VENUE NAME</div>
-                    <div class="td-location">CITY, STATE</div>
-                    <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
-                    <div class="td-action">
-                        <a href="#" target="_blank" class="tour-status status-onsale">Tickets</a>
+            <section id="albums">
+                <div class="section-header">
+                    <h2>Albums</h2>
+                </div>
+                
+                <div class="albums-grid">
+                    <div class="album-card">
+                        <img src="Album 8.png" alt="Project I Cover Art" class="album-art">
+                        <div class="album-details">
+                            <h4>Project I</h4>
+                            <p>Coming soon</p>
+                        </div>
+                    </div>
+
+                    <div class="album-card">
+                        <img src="Album 11.jpeg" alt="Project II Cover Art" class="album-art">
+                        <div class="album-details">
+                            <h4>Project II</h4>
+                            <p>Coming soon</p>
+                        </div>
+                    </div>
+
+                    <div class="album-card">
+                        <img src="Album 10.jpeg" alt="Project III Cover Art" class="album-art">
+                        <div class="album-details">
+                            <h4>Project III</h4>
+                            <p>Coming soon</p>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="tour-data-row">
-                    <div class="td-date">DATE HERE</div>
-                    <div class="td-venue">VENUE NAME</div>
-                    <div class="td-location">CITY, STATE</div>
-                    <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
-                    <div class="td-action">
-                        <a href="#" target="_blank" class="tour-status status-lowtickets">Low Tickets</a>
+            <section id="tour">
+                <div class="section-header">
+                    <h2>Tour</h2>
+                </div>
+                
+                <div class="tour-table">
+                    <div class="tour-header-row">
+                        <div>Date</div>
+                        <div>Venue</div>
+                        <div>Location</div>
+                        <div>Lineup / Support</div>
+                        <div style="text-align: right;">Status</div>
+                    </div>
+
+                    <div class="tour-data-row">
+                        <div class="td-date">DATE HERE</div>
+                        <div class="td-venue">VENUE NAME</div>
+                        <div class="td-location">CITY, STATE</div>
+                        <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
+                        <div class="td-action">
+                            <a href="#" target="_blank" class="tour-status status-onsale">Tickets</a>
+                        </div>
+                    </div>
+
+                    <div class="tour-data-row">
+                        <div class="td-date">DATE HERE</div>
+                        <div class="td-venue">VENUE NAME</div>
+                        <div class="td-location">CITY, STATE</div>
+                        <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
+                        <div class="td-action">
+                            <a href="#" target="_blank" class="tour-status status-lowtickets">Low Tickets</a>
+                        </div>
+                    </div>
+
+                    <div class="tour-data-row">
+                        <div class="td-date">DATE HERE</div>
+                        <div class="td-venue">VENUE NAME</div>
+                        <div class="td-location">CITY, COUNTRY</div>
+                        <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
+                        <div class="td-action">
+                            <span class="tour-status status-soldout">Sold Out</span>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="tour-data-row">
-                    <div class="td-date">DATE HERE</div>
-                    <div class="td-venue">VENUE NAME</div>
-                    <div class="td-location">CITY, COUNTRY</div>
-                    <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
-                    <div class="td-action">
-                        <span class="tour-status status-soldout">Sold Out</span>
-                    </div>
+            <section id="connect">
+                <div class="section-header">
+                    <h2>Connect</h2>
                 </div>
-            </div>
-        </section>
 
-        <section id="connect">
-            <div class="section-header">
-                <h2>Connect</h2>
-            </div>
+                <div class="links-grid">
+                    <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="link-card">
+                        <div class="platform-name">Instagram</div>
+                        <div class="action-text">View profile ↗</div>
+                    </a>
 
-            <div class="links-grid">
-                <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="link-card">
-                    <div class="platform-name">Instagram</div>
-                    <div class="action-text">View profile ↗</div>
-                </a>
+                    <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="link-card">
+                        <div class="platform-name">YouTube</div>
+                        <div class="action-text">Subscribe ↗</div>
+                    </a>
 
-                <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="link-card">
-                    <div class="platform-name">YouTube</div>
-                    <div class="action-text">Subscribe ↗</div>
-                </a>
+                    <a href="https://x.com/Parallax_x_x" target="_blank" class="link-card">
+                        <div class="platform-name">X.com</div>
+                        <div class="action-text">Follow feed ↗</div>
+                    </a>
 
-                <a href="https://x.com/Parallax_x_x" target="_blank" class="link-card">
-                    <div class="platform-name">X.com</div>
-                    <div class="action-text">Follow feed ↗</div>
-                </a>
+                    <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="link-card">
+                        <div class="platform-name">TikTok</div>
+                        <div class="action-text">Watch content ↗</div>
+                    </a>
 
-                <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="link-card">
-                    <div class="platform-name">TikTok</div>
-                    <div class="action-text">Watch content ↗</div>
-                </a>
+                    <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="link-card">
+                        <div class="platform-name">Facebook</div>
+                        <div class="action-text">Join community ↗</div>
+                    </a>
 
-                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="link-card">
-                    <div class="platform-name">Facebook</div>
-                    <div class="action-text">Join community ↗</div>
-                </a>
+                    <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="link-card">
+                        <div class="platform-name">The Network</div>
+                        <div class="action-text">Enter portal ↗</div>
+                    </a>
+                </div>
+            </section>
 
-                <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="link-card">
-                    <div class="platform-name">The Network</div>
-                    <div class="action-text">Enter portal ↗</div>
-                </a>
-            </div>
-        </section>
+            <section id="store" class="store-banner">
+                <h3>Store</h3>
+                <p>
+                    Access premium garments, unique drops, and official merchandise direct from the curated Parallax collection line.
+                </p>
+                <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop collection →</a>
+            </section>
 
-        <section id="store" class="store-banner">
-            <h3>Store</h3>
-            <p>
-                Access premium garments, unique drops, and official merchandise direct from the curated Parallax collection line.
-            </p>
-            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop collection →</a>
-        </section>
+            <section id="newsletter" class="newsletter-section">
+                <div class="newsletter-info">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive exclusive drops, project updates, and early ticket access directly from Parallax.</p>
+                </div>
+                <form action="#" method="POST" class="newsletter-form">
+                    <input type="email" name="email" class="newsletter-input" placeholder="ENTER YOUR EMAIL" required autocomplete="off">
+                    <button type="submit" class="newsletter-submit">SUBMIT ↗</button>
+                </form>
+            </section>
 
-        <section id="newsletter" class="newsletter-section">
-            <div class="newsletter-info">
-                <h3>Newsletter</h3>
-                <p>Subscribe to receive exclusive drops, project updates, and early ticket access directly from Parallax.</p>
-            </div>
-            <form action="#" method="POST" class="newsletter-form">
-                <input type="email" name="email" class="newsletter-input" placeholder="ENTER YOUR EMAIL" required autocomplete="off">
-                <button type="submit" class="newsletter-submit">SUBMIT ↗</button>
-            </form>
-        </section>
+        </main>
 
-    </main>
+        <footer>
+            &copy; 
+            <span class="custom-signature-container" style="height: 16px; vertical-align: middle; margin: 0 4px;">
+                <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" stroke-width="3.5px" />
+                    <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" stroke-width="3.5px" />
+                    <path class="signature-path" d="M 45 56 L 210 50" stroke-width="2px" opacity="0.85" />
+                </svg>
+            </span>. all rights reserved.
+        </footer>
 
-    <footer>
-        &copy; 
-        <span class="custom-signature-container" style="height: 16px; vertical-align: middle; margin: 0 4px;">
-            <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" stroke-width="3.5px" />
-                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" stroke-width="3.5px" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="2px" opacity="0.85" />
-            </svg>
-        </span>. all rights reserved.
-    </footer>
+    </div>
 
     <script>
         const canvas = document.getElementById('space-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
             function resize() {
-                /* Dynamically calculates full screen metrics adjusted to the zoom level variable */
-                const zoomFactor = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--zoom-level')) || 1;
-                canvas.width = window.innerWidth / zoomFactor;
-                canvas.height = window.innerHeight / zoomFactor;
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
             }
             window.addEventListener('resize', resize);
             resize();
