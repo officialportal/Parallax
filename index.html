@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="google990317cbb4fca942" />
-    <title>Parallax | R&B Artist</title>
+    <title>PARALLAX // AUDIO ARCHIVE</title>
 
     <script type="application/ld+json">
     {
@@ -27,7 +27,7 @@
     </script>
 
     <style>
-        /* --- RESET & SYSTEM VARIABLES --- */
+        /* --- CORE CONFIGURATION --- */
         * {
             margin: 0;
             padding: 0;
@@ -35,39 +35,33 @@
             user-select: none;
         }
 
-        html {
-            scroll-behavior: smooth;
-            background-color: #060606;
+        :root {
+            --bg: #030303;
+            --panel: rgba(10, 10, 10, 0.75);
+            --border: rgba(255, 255, 255, 0.05);
+            --neon: #ffffff; /* Change this to a color like #a855f7 for purple glow if preferred */
+            --text-primary: #ffffff;
+            --text-secondary: #666666;
+            --font-mono: 'Courier New', Courier, monospace;
         }
 
-        :root {
-            --bg-deep: #050505;
-            --card-bg: rgba(12, 12, 12, 0.6);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(255, 255, 255, 0.25);
-            --text-main: #ffffff;
-            --text-muted: #8e8e93;
-            --accent: #ffffff;
-            --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        html {
+            scroll-behavior: smooth;
+            background: var(--bg);
         }
 
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             overflow-x: hidden;
-            letter-spacing: -0.01em;
-            line-height: 1.5;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-deep); }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #444; }
+        /* Custom Scroll */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
 
-        /* --- BACKGROUND CANVAS --- */
-        #space-canvas {
+        /* --- VISUALIZER BACKGROUND --- */
+        #visualizer-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -75,653 +69,484 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
+            opacity: 0.25;
         }
 
-        /* --- TYPOGRAPHY & LINKS --- */
-        h1, h2, h3, h4 {
-            font-weight: 700;
-            letter-spacing: -0.03em;
-        }
-
-        a {
-            color: var(--text-main);
-            text-decoration: none;
-            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        /* --- SIGNATURE PATTERNS --- */
-        .custom-signature-container {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .signature-svg {
-            overflow: visible;
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
-        }
-
-        .signature-path {
-            fill: none;
-            stroke: #ffffff;
-            stroke-width: 2px;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        /* --- STICKY NAV REFACTOR --- */
+        /* --- ASYMMETRICAL FIXED HEADER --- */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 1.25rem 6%;
+            padding: 1.5rem 4%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            background: rgba(5, 5, 5, 0.75);
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(to bottom, #030303, transparent);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
-        .logo-wrapper { height: 28px; }
+        .logo-wrapper { height: 24px; }
+        .signature-path {
+            fill: none;
+            stroke: var(--text-primary);
+            stroke-width: 2px;
+            stroke-linecap: round;
+        }
 
         nav a {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
-            margin-left: 28px;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
+            font-size: 0.7rem;
+            margin-left: 24px;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
             text-transform: uppercase;
+            transition: color 0.3s;
         }
 
-        nav a:hover { color: var(--text-main); }
+        nav a:hover, nav a.active { color: var(--neon); }
 
-        /* --- HERO --- */
+        /* --- INDUSTRIAL HERO --- */
         .hero {
-            position: relative;
-            min-height: 90vh;
+            height: 95vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 0 4%;
-            z-index: 2;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: var(--font-mono);
+            font-size: calc(1rem + 1vw);
+            color: var(--text-secondary);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
         }
 
         .hero-title-wrapper {
-            width: clamp(240px, 40vw, 420px);
-            animation: fadeIn 1.8s ease-out;
+            width: clamp(260px, 45vw, 450px);
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.15));
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* --- CORE WRAPPER --- */
+        /* --- CONTENT CONTAINER --- */
         .container {
-            position: relative;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 0 6% 120px 6%;
-            z-index: 2;
+            padding: 0 4% 100px 4%;
         }
 
         section {
-            margin-bottom: 140px;
-            scroll-margin-top: 120px;
+            margin-bottom: 160px;
+            scroll-margin-top: 140px;
         }
 
         .section-header {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 14px;
-            margin-bottom: 45px;
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .section-header .index {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
         }
 
         .section-header h2 {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: -0.02em;
+            letter-spacing: -2px;
         }
 
-        /* --- ALBUMS --- */
+        /* --- ALBUMS INDEX --- */
         .albums-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem 2rem;
         }
 
         .album-card {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
+            position: relative;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 16px;
+            transition: border-color 0.3s, transform 0.3s;
         }
 
-        .album-art-wrapper {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            margin-bottom: 20px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            background: #111;
-            transition: border-color 0.4s ease;
+        .album-card:hover {
+            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
         }
 
         .album-art {
             width: 100%;
-            height: 100%;
+            aspect-ratio: 1/1;
             object-fit: cover;
-            display: block;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(40%);
+            transition: filter 0.3s;
+            margin-bottom: 16px;
         }
 
-        .album-card:hover .album-art-wrapper { border-color: var(--border-hover); }
-        .album-card:hover .album-art { transform: scale(1.04); }
+        .album-card:hover .album-art { filter: grayscale(0%); }
 
-        .album-details h4 {
-            font-size: 1.2rem;
-            margin-bottom: 4px;
+        .album-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
         }
 
-        .album-details p {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .album-info h4 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .album-info span { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); }
 
-        /* --- TOUR REFACTOR --- */
-        .tour-table {
+        /* --- STREAMLINED TOUR PORTAL --- */
+        .tour-list {
             display: flex;
             flex-direction: column;
-            border: 1px solid var(--border-color);
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 4px;
-            overflow: hidden;
+            gap: 10px;
         }
 
-        .tour-header-row {
+        .tour-row {
             display: grid;
-            grid-template-columns: 1fr 1.5fr 1.2fr 1.5fr 120px;
-            padding: 18px 30px;
-            border-bottom: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.01);
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .tour-data-row {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr 1.2fr 1.5fr 120px;
-            padding: 26px 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            grid-template-columns: 0.5fr 1.5fr 1.5fr 1fr;
+            padding: 30px;
+            background: var(--panel);
+            border: 1px solid var(--border);
             align-items: center;
+            backdrop-filter: blur(5px);
         }
 
-        .tour-data-row:last-child { border-bottom: none; }
-        .tour-data-row:hover { background: rgba(255, 255, 255, 0.02); }
+        .tour-row:hover { border-color: rgba(255,255,255,0.15); }
 
-        .td-date { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-main); }
-        .td-venue { font-size: 1.1rem; font-weight: 600; }
-        .td-location { font-size: 0.95rem; color: var(--text-muted); }
-        .td-lineup { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); }
-
-        .td-action { justify-self: end; width: 100%; }
-
-        .tour-status {
-            display: block;
+        .t-date { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); }
+        .t-venue { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.5px; }
+        .t-location { font-size: 0.95rem; color: var(--text-secondary); }
+        .t-btn {
+            justify-self: end;
             font-family: var(--font-mono);
-            font-size: 0.7rem;
-            letter-spacing: 1px;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            padding: 10px 0;
-            width: 100%;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            transition: all 0.2s ease;
+            border: 1px solid var(--text-primary);
+            padding: 10px 24px;
+            letter-spacing: 1px;
         }
+        .t-btn:hover { background: var(--text-primary); color: var(--bg); }
+        .t-sold { border-color: transparent; background: rgba(255,255,255,0.02); color: var(--text-secondary); pointer-events: none; }
 
-        .status-onsale { border-color: var(--text-main); color: var(--text-main); }
-        .status-onsale:hover { background: var(--text-main); color: var(--bg-deep); }
-        .status-lowtickets { border-color: #e6b800; color: #e6b800; }
-        .status-lowtickets:hover { background: #e6b800; color: var(--bg-deep); }
-        .status-soldout { border-color: transparent; color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.02); pointer-events: none; }
-
-        /* --- SOCIALS GRID --- */
-        .links-grid {
+        /* --- MATRIX CONNECT GRID --- */
+        .connect-matrix {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.2rem;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
         }
 
-        .link-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 30px;
+        .matrix-cell {
+            background: var(--bg);
+            padding: 40px 30px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 150px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            min-height: 160px;
+            transition: background 0.3s;
         }
 
-        .link-card:hover {
-            border-color: var(--border-hover);
-            background: rgba(20, 20, 20, 0.8);
+        .matrix-cell:hover { background: rgba(255,255,255,0.02); }
+        .matrix-cell h3 { font-size: 1.5rem; font-weight: 300; letter-spacing: -0.5px; }
+        .matrix-cell span { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-secondary); text-transform: uppercase; }
+
+        /* --- THE VAULT MERCH STORE --- */
+        .store-vault {
+            border: 1px solid var(--border);
+            background: radial-gradient(circle at top left, rgba(20,20,20,0.8), var(--bg));
+            padding: 80px 5%;
+            position: relative;
+            overflow: hidden;
         }
 
-        .link-card .platform-name { font-size: 1.4rem; font-weight: 600; }
-        .link-card .action-text {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            text-transform: uppercase;
+        .store-content { max-width: 600px; position: relative; z-index: 2; }
+        .store-vault h3 { font-size: 3rem; font-weight: 900; text-transform: uppercase; margin-bottom: 15px; letter-spacing: -1px; }
+        .store-vault p { color: var(--text-secondary); font-size: 1rem; line-height: 1.6; margin-bottom: 30px; }
+
+        /* --- MAILING INFRASTRUCTURE --- */
+        .vault-form-box {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 60px 40px;
         }
-        .link-card:hover .action-text { color: var(--text-main); }
-
-        /* --- MERCHANT HUB --- */
-        .store-banner {
-            background: linear-gradient(135deg, rgba(15,15,15,0.6) 0%, rgba(5,5,5,0.8) 100%);
-            border: 1px solid var(--border-color);
-            padding: 60px 50px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .store-banner h3 { font-size: 2.2rem; margin-bottom: 15px; text-transform: uppercase; }
-        .store-banner p { color: var(--text-muted); font-size: 0.95rem; max-width: 550px; margin-bottom: 25px; line-height: 1.6; }
-
-        .action-btn {
-            background: var(--text-main);
-            color: var(--bg-deep);
-            padding: 14px 35px;
-            font-size: 0.75rem;
-            font-family: var(--font-mono);
-            font-weight: 700;
-            letter-spacing: 1px;
-            display: inline-block;
-            text-transform: uppercase;
-        }
-
-        .action-btn:hover { background: transparent; color: var(--text-main); border: 1px solid var(--text-main); }
-
-        /* --- NEWSLETTER SYSTEM --- */
-        .newsletter-section {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 50px;
-            backdrop-filter: blur(10px);
+        .vault-form-box h3 { font-family: var(--font-mono); font-size: 1.1rem; text-transform: uppercase; margin-bottom: 25px; color: var(--text-secondary); }
+        
+        .input-group {
             display: flex;
-            flex-direction: column;
-            gap: 30px;
+            border-bottom: 2px solid var(--text-secondary);
+            padding: 10px 0;
         }
-
-        .newsletter-info h3 { font-size: 1.8rem; margin-bottom: 8px; text-transform: uppercase; }
-        .newsletter-info p { color: var(--text-muted); font-size: 0.95rem; max-width: 500px; }
-
-        .newsletter-form {
-            display: flex;
+        .input-group:focus-within { border-color: var(--text-primary); }
+        .input-group input {
+            background: none; border: none; outline: none;
+            color: var(--text-primary); font-family: var(--font-mono); font-size: 1rem;
             width: 100%;
-            max-width: 500px;
-            border-bottom: 1px solid var(--border-color);
-            transition: border-color 0.3s ease;
+        }
+        .input-group button {
+            background: none; border: none; color: var(--text-primary);
+            font-family: var(--font-mono); cursor: pointer; font-size: 0.85rem;
         }
 
-        .newsletter-form:focus-within { border-color: var(--text-main); }
-        .newsletter-input {
-            background: none;
-            border: none;
-            outline: none;
-            color: var(--text-main);
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            padding: 12px 0;
-            flex-grow: 1;
-        }
-        .newsletter-input::placeholder { color: #444; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1.5px; }
-
-        .newsletter-submit {
-            background: none;
-            border: none;
-            color: var(--text-main);
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            cursor: pointer;
-            padding-left: 20px;
-        }
-
-        /* --- FOOTER LAYOUT --- */
+        /* --- SYSTEM FOOTER --- */
         footer {
-            border-top: 1px solid var(--border-color);
-            padding: 40px 6%;
-            text-align: center;
+            padding: 60px 4% 120px 4%;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-family: var(--font-mono);
             font-size: 0.7rem;
-            color: var(--text-muted);
-            letter-spacing: 1px;
+            color: var(--text-secondary);
             text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            margin-bottom: 0;
         }
 
-        /* --- SYSTEM RESPONSIVENESS REFACTOR --- */
-        @media (max-width: 960px) {
-            .tour-header-row { display: none; }
-            .tour-data-row {
-                grid-template-columns: 1fr;
-                gap: 10px;
-                padding: 30px 24px;
-            }
-            .td-action { margin-top: 10px; }
-            .tour-status { max-width: 180px; }
+        .footer-sig { height: 18px; opacity: 0.4; }
+
+        /* --- RESPONSIVE ADAPTABILITY --- */
+        @media (max-width: 900px) {
+            .tour-row { grid-template-columns: 1fr; gap: 15px; padding: 25px; }
+            .t-btn { justify-self: start; width: 100%; text-align: center; }
         }
 
         @media (max-width: 768px) {
-            header { display: none; } /* Handled by persistent design context/gestures on modern interfaces */
+            header { display: none; }
+            section { margin-bottom: 100px; }
+            .store-vault { padding: 50px 20px; }
+            footer { flex-direction: column; gap: 20px; text-align: center; }
             
-            /* Persistent Bottom Dynamic Navigation Bar for Mobile Display UI */
-            body { padding-bottom: 70px; }
-            .mobile-nav {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 64px;
-                background: rgba(5, 5, 5, 0.85);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                border-top: 1px solid var(--border-color);
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                z-index: 999;
-                padding: 0 10px;
+            /* Compact Mobile Nav Bottom Stick */
+            .mobile-tray {
+                position: fixed; bottom: 0; left: 0; width: 100%; height: 60px;
+                background: #030303; border-top: 1px solid var(--border);
+                display: flex; justify-content: space-around; align-items: center; z-index: 1000;
             }
-            .mobile-nav a {
-                font-family: var(--font-mono);
-                font-size: 0.65rem;
-                color: var(--text-muted);
-                letter-spacing: 1px;
-                text-transform: uppercase;
-            }
-            .mobile-nav a:hover { color: var(--text-main); }
-
-            .hero { min-height: 75vh; }
-            .container { padding: 0 4% 80px 4%; }
-            section { margin-bottom: 90px; }
-            .store-banner, .newsletter-section { padding: 35px 24px; }
+            .mobile-tray a { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; }
         }
 
-        @media (min-width: 769px) {
-            .mobile-nav { display: none; }
-        }
+        @media (min-width: 769px) { .mobile-tray { display: none; } }
     </style>
 </head>
 <body>
 
-    <canvas id="space-canvas"></canvas>
+    <!-- INTERACTIVE AUDIO WAVE CANVAS -->
+    <canvas id="visualizer-canvas"></canvas>
 
+    <!-- DESKTOP DYNAMIC OVERLAY NAVIGATION -->
     <header>
         <div class="logo-wrapper custom-signature-container">
-            <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
                 <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
                 <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.6" />
             </svg>
         </div>
         <nav>
-            <a href="#albums">Albums</a>
-            <a href="#tour">Tour</a>
-            <a href="#connect">Connect</a>
-            <a href="#store">Store</a>
-            <a href="#newsletter">Newsletter</a>
+            <a href="#albums">Discography</a>
+            <a href="#tour">Live Grid</a>
+            <a href="#connect">Portals</a>
+            <a href="#store">Supply</a>
+            <a href="#newsletter">Ledger</a>
         </nav>
     </header>
 
-    <div class="mobile-nav">
-        <a href="#albums">Albums</a>
-        <a href="#tour">Tour</a>
-        <a href="#connect">Connect</a>
-        <a href="#store">Store</a>
-        <a href="#newsletter">Join</a>
+    <!-- MOBILE SYSTEM TRAY -->
+    <div class="mobile-tray">
+        <a href="#albums">Audio</a>
+        <a href="#tour">Live</a>
+        <a href="#connect">Links</a>
+        <a href="#store">Shop</a>
     </div>
 
+    <!-- MAIN HERO ARCHIVE SCENE -->
     <section class="hero">
+        <h1>PARALLAX AUDIO SYSTEM</h1>
         <div class="hero-title-wrapper custom-signature-container">
-            <svg class="signature-svg" viewBox="0 0 240 70" width="100%" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 240 70" width="100%" xmlns="http://www.w3.org/2000/svg">
                 <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" stroke-width="2.5px" />
                 <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" stroke-width="2.5px" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.5px" opacity="0.7" />
+                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1px" opacity="0.4" />
             </svg>
         </div>
     </section>
 
     <main class="container">
 
+        <!-- INDEX 01: DISCOGRAPHY -->
         <section id="albums">
             <div class="section-header">
-                <h2>Discography</h2>
+                <div class="index">01 //</div>
+                <h2>DISCOGRAPHY</h2>
             </div>
-            
             <div class="albums-grid">
                 <div class="album-card">
-                    <div class="album-art-wrapper">
-                        <img src="Album 8.png" alt="Project I Cover Art" class="album-art">
-                    </div>
-                    <div class="album-details">
+                    <img src="Album 8.png" alt="Cover" class="album-art">
+                    <div class="album-info">
                         <h4>Project I</h4>
-                        <p>Coming soon</p>
+                        <span>COMING SOON</span>
                     </div>
                 </div>
-
                 <div class="album-card">
-                    <div class="album-art-wrapper">
-                        <img src="Album 11.jpeg" alt="Project II Cover Art" class="album-art">
-                    </div>
-                    <div class="album-details">
+                    <img src="Album 11.jpeg" alt="Cover" class="album-art">
+                    <div class="album-info">
                         <h4>Project II</h4>
-                        <p>Coming soon</p>
+                        <span>COMING SOON</span>
                     </div>
                 </div>
-
                 <div class="album-card">
-                    <div class="album-art-wrapper">
-                        <img src="Album 10.jpeg" alt="Project III Cover Art" class="album-art">
-                    </div>
-                    <div class="album-details">
+                    <img src="Album 10.jpeg" alt="Cover" class="album-art">
+                    <div class="album-info">
                         <h4>Project III</h4>
-                        <p>Coming soon</p>
+                        <span>COMING SOON</span>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- INDEX 02: LIVE COORDINATES -->
         <section id="tour">
             <div class="section-header">
-                <h2>Live Performances</h2>
+                <div class="index">02 //</div>
+                <h2>LIVE COORDINATES</h2>
             </div>
-            
-            <div class="tour-table">
-                <div class="tour-header-row">
-                    <div>Date</div>
-                    <div>Venue</div>
-                    <div>Location</div>
-                    <div>Lineup / Support</div>
-                    <div style="text-align: right;">Status</div>
+            <div class="tour-list">
+                <div class="tour-row">
+                    <div class="t-date">TBA // 2026</div>
+                    <div class="t-venue">VENUE ARCHIVE A</div>
+                    <div class="t-location">CITY, STATE</div>
+                    <a href="#" target="_blank" class="t-btn">ACQUIRE ↗</a>
                 </div>
-
-                <div class="tour-data-row">
-                    <div class="td-date">OCT 14, 2026</div>
-                    <div class="td-venue">THE ECHO SPHERE</div>
-                    <div class="td-location">LOS ANGELES, CA</div>
-                    <div class="td-lineup">PARALLAX + SPECIAL GUESTS</div>
-                    <div class="td-action">
-                        <a href="#" target="_blank" class="tour-status status-onsale">Tickets Available</a>
-                    </div>
+                <div class="tour-row">
+                    <div class="t-date">TBA // 2026</div>
+                    <div class="t-venue">VENUE ARCHIVE B</div>
+                    <div class="t-location">CITY, STATE</div>
+                    <a href="#" target="_blank" class="t-btn">ACQUIRE ↗</a>
                 </div>
-
-                <div class="tour-data-row">
-                    <div class="td-date">NOV 02, 2026</div>
-                    <div class="td-venue">BRUTALIST HALL</div>
-                    <div class="td-location">NEW YORK, NY</div>
-                    <div class="td-lineup">PARALLAX SOLO ARCHIVE LABS</div>
-                    <div class="td-action">
-                        <a href="#" target="_blank" class="tour-status status-lowtickets">Low Tickets</a>
-                    </div>
-                </div>
-
-                <div class="tour-data-row">
-                    <div class="td-date">DEC 18, 2026</div>
-                    <div class="td-venue">THE BASEMENT PORTAL</div>
-                    <div class="td-location">LONDON, UK</div>
-                    <div class="td-lineup">CURATED SESSIONS LABS EXCLUSIVE</div>
-                    <div class="td-action">
-                        <span class="tour-status status-soldout">Sold Out</span>
-                    </div>
+                <div class="tour-row">
+                    <div class="t-date">TBA // 2026</div>
+                    <div class="t-venue">VENUE ARCHIVE C</div>
+                    <div class="t-location">CITY, COUNTRY</div>
+                    <a href="#" class="t-btn t-sold">DEPLETED</a>
                 </div>
             </div>
         </section>
 
+        <!-- INDEX 03: PORTAL NETWORK -->
         <section id="connect">
             <div class="section-header">
-                <h2>Network Portals</h2>
+                <div class="index">03 //</div>
+                <h2>NETWORK PORTALS</h2>
             </div>
-
-            <div class="links-grid">
-                <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="link-card">
-                    <div class="platform-name">Instagram</div>
-                    <div class="action-text">View Profile ↗</div>
+            <div class="connect-matrix">
+                <a href="https://www.instagram.com/parallax.x.x" target="_blank" class="matrix-cell">
+                    <span>[ PORTAL 01 ]</span>
+                    <h3>INSTAGRAM</h3>
                 </a>
-
-                <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="link-card">
-                    <div class="platform-name">YouTube</div>
-                    <div class="action-text">Subscribe ↗</div>
+                <a href="https://m.youtube.com/@parallax.x.x" target="_blank" class="matrix-cell">
+                    <span>[ PORTAL 02 ]</span>
+                    <h3>YOUTUBE</h3>
                 </a>
-
-                <a href="https://x.com/Parallax_x_x" target="_blank" class="link-card">
-                    <div class="platform-name">X.com</div>
-                    <div class="action-text">Follow Feed ↗</div>
+                <a href="https://x.com/Parallax_x_x" target="_blank" class="matrix-cell">
+                    <span>[ PORTAL 03 ]</span>
+                    <h3>X.COM</h3>
                 </a>
-
-                <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="link-card">
-                    <div class="platform-name">TikTok</div>
-                    <div class="action-text">Watch Content ↗</div>
+                <a href="https://www.tiktok.com/@parallax.x.x" target="_blank" class="matrix-cell">
+                    <span>[ PORTAL 04 ]</span>
+                    <h3>TIKTOK</h3>
                 </a>
-
-                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="link-card">
-                    <div class="platform-name">Facebook</div>
-                    <div class="action-text">Join Space ↗</div>
+                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="matrix-cell">
+                    <span>[ PORTAL 05 ]</span>
+                    <h3>FACEBOOK</h3>
                 </a>
-
-                <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="link-card">
-                    <div class="platform-name">The Network</div>
-                    <div class="action-text">Enter Portal ↗</div>
+                <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="matrix-cell">
+                    <span>[ PORTAL 06 ]</span>
+                    <h3>THE NETWORK</h3>
                 </a>
             </div>
         </section>
 
-        <section id="store" class="store-banner">
-            <h3>Curated Store</h3>
-            <p>
-                Access premium garments, unique capsule releases, and official high-concept physical items sourced directly from the custom Parallax collection lines.
-            </p>
-            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop Collection</a>
+        <!-- INDEX 04: APPAREL SUPPLY -->
+        <section id="store" class="store-vault">
+            <div class="store-content">
+                <h3>CURATED SUPPLY</h3>
+                <p>Limited batch design assets, physical garments, and concept merchandise catalog issues.</p>
+                <a href="https://home1x.github.io/Store/" target="_blank" class="t-btn" style="background:#fff; color:#000;">OPEN STOREFRONT →</a>
+            </div>
         </section>
 
-        <section id="newsletter" class="newsletter-section">
-            <div class="newsletter-info">
-                <h2>Mailing Ledger</h2>
-                <p>Register identity parameters to gain access to cryptographic drops, project files, and advanced private pre-sale keys.</p>
+        <!-- INDEX 05: CENTRAL LEDGER -->
+        <section id="newsletter" class="vault-form-box">
+            <h3>05 // DISPATCH LEDGER</h3>
+            <div style="max-width: 500px;">
+                <form action="#" method="POST" class="input-group" onsubmit="event.preventDefault();">
+                    <input type="email" placeholder="INPUT EMAIL COORDINATE" required autocomplete="off">
+                    <button type="submit">REGISTER ↗</button>
+                </form>
             </div>
-            <form action="#" method="POST" class="newsletter-form" onsubmit="event.preventDefault(); alert('Identity Registered.');">
-                <input type="email" name="email" class="newsletter-input" placeholder="Enter identification email" required autocomplete="off">
-                <button type="submit" class="newsletter-submit">SUBMIT ↗</button>
-            </form>
         </section>
 
     </main>
 
+    <!-- GLOBAL INDUSTRIAL FOOTER -->
     <footer>
-        &copy; 
-        <span class="custom-signature-container" style="height: 18px; vertical-align: middle; margin: 0 4px;">
-            <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <div>&copy; 2026 PARALLAX AUDIO SYSTEM</div>
+        <div class="footer-sig">
+            <svg viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
                 <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" stroke-width="4px" />
                 <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" stroke-width="4px" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="2.5px" opacity="0.6" />
             </svg>
-        </span> All Rights Reserved.
+        </div>
+        <div>ALL RIGHTS RESERVED</div>
     </footer>
 
+    <!-- GENERATIVE AUDIO WAVE MICRO ENGINE -->
     <script>
-        const canvas = document.getElementById('space-canvas');
+        const canvas = document.getElementById('visualizer-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
-            let stars = [];
-            const numStars = 65;
-
-            function initStars() {
-                stars = [];
-                for (let i = 0; i < numStars; i++) {
-                    stars.push({
-                        x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height,
-                        size: Math.random() * 1.2,
-                        velocity: Math.random() * 0.12 + 0.03
-                    });
-                }
-            }
-
+            let mouseX = 0;
+            
             function resize() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
-                initStars();
             }
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Elegant radial atmosphere structure
-                let gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, Math.max(canvas.width, canvas.height));
-                gradient.addColorStop(0, '#0e0e10');
-                gradient.addColorStop(1, '#050505');
-                ctx.fillStyle = gradient;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
-                for (let i = 0; i < numStars; i++) {
-                    let s = stars[i];
-                    ctx.beginPath();
-                    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Linear cosmic vector drift 
-                    s.y -= s.velocity;
-                    if (s.y < 0) {
-                        s.y = canvas.height;
-                        s.x = Math.random() * canvas.width;
-                    }
-                }
-                requestAnimationFrame(animate);
-            }
-
             window.addEventListener('resize', resize);
+            window.addEventListener('mousemove', (e) => { mouseX = e.clientX; });
             resize();
-            animate();
+
+            let tick = 0;
+            function draw() {
+                tick += 0.015;
+                ctx.clearRect(0,0, canvas.width, canvas.height);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+                ctx.lineWidth = 1.5;
+
+                // Render simulated frequency layers
+                for (let i = 0; i < 4; i++) {
+                    ctx.beginPath();
+                    let offset = i * 40;
+                    for (let x = 0; x < canvas.width; x += 10) {
+                        let dynamicAmp = 30 + (mouseX / canvas.width) * 50;
+                        let y = (canvas.height / 2) + Math.sin(x * 0.003 + tick + i) * Math.cos(x * 0.001 + tick) * dynamicAmp;
+                        if (x === 0) ctx.moveTo(x, y + offset - 60);
+                        else ctx.lineTo(x, y + offset - 60);
+                    }
+                    ctx.stroke();
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
         }
     </script>
 </body>
