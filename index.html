@@ -380,7 +380,9 @@
             letter-spacing: 1px;
         }
 
-        .link-card .action-text {
+        .link-card .action-text,
+        .store-banner .action-btn,
+        .newsletter-form .newsletter-submit {
             font-family: var(--font-mono);
             font-size: 0.72rem;
             letter-spacing: 0.1em;
@@ -389,7 +391,10 @@
             transition: all 0.3s ease;
         }
 
-        .link-card:hover .action-text {
+        .link-card:hover .action-text,
+        .store-banner .action-btn:hover,
+        .newsletter-form:focus-within .newsletter-submit:hover,
+        .newsletter-submit:hover {
             color: var(--text-main);
             padding-left: 4px;
         }
@@ -422,25 +427,12 @@
             margin-bottom: 18px;
         }
 
-        .action-btn {
+        .store-banner .action-btn {
             background: none;
-            border: 1px solid var(--text-main);
-            color: var(--text-main);
-            padding: 12px 30px;
-            font-size: 0.78rem;
-            font-family: var(--font-mono);
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            display: inline-block;
-            transition: all 0.3s ease;
-            text-transform: capitalize;
+            border: none;
+            padding: 0;
             cursor: pointer;
-        }
-
-        .action-btn:hover {
-            background: var(--text-main);
-            color: var(--bg-deep);
-            transform: translateY(-2px);
+            display: inline-block;
         }
 
         /* --- EMAIL SIGNUP SECTION --- */
@@ -499,22 +491,13 @@
             letter-spacing: 2px;
         }
 
-        .newsletter-submit {
+        .newsletter-form .newsletter-submit {
             background: none;
             border: none;
-            color: var(--text-main);
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-weight: normal;
             cursor: pointer;
             padding: 0 5px 0 15px;
-            transition: opacity 0.3s ease;
-        }
-
-        .newsletter-submit:hover {
-            opacity: 0.7;
+            text-transform: uppercase;
         }
 
         /* --- FOOTER --- */
@@ -725,7 +708,7 @@
             <p>
                 Access premium garments, unique drops, and official merchandise direct from the curated Parallax collection line.
             </p>
-            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop collection →</a>
+            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop collection ↗</a>
         </section>
 
         <section id="newsletter" class="newsletter-section">
