@@ -28,7 +28,6 @@
     </script>
 
     <style>
-        /* --- CORE SYSTEM RESETS --- */
         * {
             margin: 0;
             padding: 0;
@@ -36,28 +35,13 @@
             user-select: none;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        :root {
-            --bg-space: #030303;
-            --text-pure: #ffffff;
-            --text-dim: #555555;
-            --line-weight: rgba(255, 255, 255, 0.05);
-            --line-active: rgba(255, 255, 255, 0.2);
-            --font-technical: 'SF Mono', Monaco, Consolas, 'Courier New', monospace;
-        }
-
         body {
-            background-color: var(--bg-space);
-            color: var(--text-pure);
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: black;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             overflow-x: hidden;
-            letter-spacing: 0.02em;
         }
 
-        /* --- BACKGROUND IMMERSIVE LAYER --- */
         #space-canvas {
             position: fixed;
             top: 0;
@@ -65,17 +49,14 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            pointer-events: none;
         }
 
         a {
-            color: inherit;
+            color: white;
             text-decoration: none;
-            transition: all 0.3s ease;
         }
 
-        /* --- LOGO / SIGNATURE ENGINE --- */
-        .signature-frame {
+        .custom-signature-container {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -88,411 +69,339 @@
         .signature-path {
             fill: none;
             stroke: #ffffff;
-            stroke-width: 2px;
+            stroke-width: 2.5px;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
 
-        /* --- FIXED NAVIGATION STACKS --- */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 80px;
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 40px;
             z-index: 100;
-            border-bottom: 1px solid var(--line-weight);
-            background: rgba(3, 3, 3, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
         }
 
-        .nav-logo {
-            height: 28px;
+        .logo-wrapper {
+            height: 35px;
         }
 
-        .nav-links {
+        nav {
             display: flex;
-            gap: 40px;
+            gap: 25px;
         }
 
-        .nav-links a {
-            font-family: var(--font-technical);
-            font-size: 0.68rem;
+        nav a {
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--text-dim);
         }
 
-        .nav-links a:hover {
-            color: var(--text-pure);
+        nav a:hover {
+            opacity: 0.7;
         }
 
-        /* --- HERO MONOLITH --- */
-        .hero-viewport {
-            height: 100vh;
-            width: 100%;
+        .hero {
+            position: relative;
+            min-height: 95vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 0 20px;
+        }
+
+        .hero-title-wrapper {
+            width: clamp(280px, 50vw, 600px);
+        }
+
+        .container {
             position: relative;
-            border-bottom: 1px solid var(--line-weight);
-        }
-
-        .hero-center {
-            width: clamp(280px, 50vw, 550px);
-            position: relative;
-        }
-
-        /* Fine Technical Coordinate Crosshairs */
-        .reticle-mark {
-            position: absolute;
-            font-family: var(--font-technical);
-            font-size: 0.6rem;
-            color: var(--text-dim);
-        }
-        .rm-top-left { top: -40px; left: -40px; }
-        .rm-bottom-right { bottom: -40px; right: -40px; }
-
-        /* --- GLOBAL CONTENT FRAME --- */
-        .mainframe {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            position: relative;
-            border-left: 1px solid var(--line-weight);
-            border-right: 1px solid var(--line-weight);
+            padding: 0 40px 100px 40px;
+            z-index: 2;
         }
 
-        .obs-section {
-            padding: 120px 80px;
-            border-bottom: 1px solid var(--line-weight);
-            position: relative;
+        section {
+            margin-bottom: 120px;
         }
 
-        .obs-section-header {
-            margin-bottom: 80px;
-        }
-
-        .obs-section-header .index-num {
-            font-family: var(--font-technical);
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .obs-section-header h2 {
-            font-size: 1.7rem;
+        h2 {
+            font-size: 1.5rem;
             font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
             text-transform: uppercase;
-            letter-spacing: 6px;
         }
 
-        /* --- ALBUMS: THE CELESTIAL STACK --- */
-        .showcase-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--line-weight);
-            border: 1px solid var(--line-weight);
-        }
-
-        .showcase-block {
-            background: rgba(3, 3, 3, 0.4);
-            padding: 40px;
-            transition: background 0.3s ease;
-        }
-
-        .showcase-block:hover {
-            background: rgba(255, 255, 255, 0.01);
-        }
-
-        .image-frame {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
-            border: 1px solid var(--line-weight);
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .image-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(40%);
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .showcase-block:hover .image-frame img {
-            transform: scale(1.03);
-            filter: grayscale(0%);
-        }
-
-        .block-meta {
+        .albums-grid {
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
+            gap: 30px;
+            flex-wrap: wrap;
         }
 
-        .block-title {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 500;
-        }
-
-        .block-coord {
-            font-family: var(--font-technical);
-            font-size: 0.65rem;
-            color: var(--text-dim);
-        }
-
-        /* --- TOUR: DATA MANIFEST LAYOUT --- */
-        .manifest-list {
-            border: 1px solid var(--line-weight);
-        }
-
-        .manifest-row {
-            display: grid;
-            grid-template-columns: 0.8fr 1.5fr 1.2fr 1fr;
-            padding: 30px 40px;
-            border-bottom: 1px solid var(--line-weight);
-            align-items: center;
-            font-family: var(--font-technical);
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-        }
-
-        .manifest-row:last-child {
-            border-bottom: none;
-        }
-
-        .manifest-row.header-row {
-            background: rgba(255, 255, 255, 0.01);
-            color: var(--text-dim);
-            text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 2px;
-        }
-
-        .m-date {
-            color: var(--text-pure);
-            font-weight: bold;
-        }
-
-        .m-venue {
-            text-transform: uppercase;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        .m-loc {
-            color: var(--text-dim);
-            text-transform: uppercase;
-        }
-
-        .m-action {
-            justify-self: end;
-        }
-
-        .manifest-btn {
-            display: block;
-            border: 1px solid var(--line-active);
-            padding: 8px 24px;
-            text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 2px;
-        }
-
-        .manifest-btn:hover {
-            border-color: var(--text-pure);
-            background: var(--text-pure);
-            color: var(--bg-space);
-        }
-
-        .row-soldout {
-            opacity: 0.25;
-        }
-        .row-soldout .manifest-btn {
-            border-color: transparent;
-            pointer-events: none;
-            text-decoration: line-through;
-        }
-
-        /* --- CONNECT: STRIP CHANNELS --- */
-        .strip-channels {
+        .album-card {
+            width: 140px;
             display: flex;
             flex-direction: column;
         }
 
-        .channel-line {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 35px 40px;
-            border-bottom: 1px solid var(--line-weight);
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .channel-line:first-child { border-top: 1px solid var(--line-weight); }
-
-        .channel-line .ch-index {
-            font-family: var(--font-technical);
-            font-size: 0.65rem;
-            color: var(--text-dim);
-        }
-
-        .channel-line:hover {
-            background: rgba(255,255,255,0.01);
-            padding-left: 50px;
-        }
-
-        /* --- IMMERSIVE STORE INTERFACE --- */
-        .portal-box {
-            border: 1px solid var(--line-weight);
-            padding: 80px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: radial-gradient(circle at top right, rgba(255,255,255,0.02), transparent);
-        }
-
-        .portal-text {
-            max-width: 600px;
-        }
-
-        .portal-text h3 {
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
+        .album-art-container {
+            width: 140px;
+            height: 140px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            overflow: hidden;
             margin-bottom: 15px;
+        }
+
+        .album-art {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .album-details h4 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .album-details p {
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .tour-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tour-row {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.2s ease;
+        }
+
+        .tour-row:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .tour-row th, .tour-row td {
+            padding: 20px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .tour-row th {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            color: #888;
             font-weight: 400;
         }
 
-        .portal-text p {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            line-height: 1.7;
+        .tour-row td {
+            font-weight: 300;
         }
 
-        .portal-btn {
-            border: 1px solid var(--text-pure);
-            padding: 18px 40px;
-            font-family: var(--font-technical);
-            font-size: 0.7rem;
+        .tour-date {
+            font-weight: 500 !important;
+        }
+
+        .tour-venue {
             text-transform: uppercase;
-            letter-spacing: 3px;
-            white-space: nowrap;
         }
 
-        .portal-btn:hover {
-            background: var(--text-pure);
-            color: var(--bg-space);
+        .tour-location {
+            color: #aaa;
         }
 
-        /* --- NEWSLETTER RADAR --- */
-        .radar-box {
-            border: 1px solid var(--line-weight);
-            padding: 60px;
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .radar-box h3 {
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .radar-box p {
+        .tour-lineup {
+            color: #777;
             font-size: 0.8rem;
-            color: var(--text-dim);
-            line-height: 1.6;
         }
 
-        .radar-form {
+        .tour-status {
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border: 1px solid white;
+            display: inline-block;
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .status-onsale:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .status-lowtickets {
+            border-color: #ffaa00;
+            color: #ffaa00;
+        }
+
+        .status-lowtickets:hover {
+            background-color: #ffaa00;
+            color: black;
+        }
+
+        .status-soldout {
+            border-color: #444;
+            color: #444;
+            pointer-events: none;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .link-card {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 25px;
             display: flex;
-            border: 1px solid var(--line-weight);
-            padding: 6px;
-            background: rgba(0,0,0,0.2);
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 120px;
+            transition: all 0.2s ease;
         }
 
-        .radar-form input {
+        .link-card:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .link-card .platform-name {
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .link-card .action-text {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        .store-banner {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .store-banner h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .store-banner p {
+            color: #aaa;
+            font-size: 0.9rem;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        .action-btn {
+            border: 1px solid white;
+            padding: 10px 24px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .action-btn:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .newsletter-section {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 60px;
+        }
+
+        .newsletter-container {
+            max-width: 500px;
+        }
+
+        .newsletter-container p {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .newsletter-form {
+            display: flex;
+            border-bottom: 1px solid white;
+        }
+
+        .newsletter-input {
             background: none;
             border: none;
             outline: none;
-            color: var(--text-pure);
-            font-family: var(--font-technical);
-            font-size: 0.8rem;
-            padding: 12px 20px;
+            color: white;
+            font-size: 0.9rem;
+            padding: 10px 0;
             flex-grow: 1;
         }
 
-        .radar-form input::placeholder {
-            color: #333333;
-        }
-
-        .radar-form button {
-            background: var(--text-pure);
+        .newsletter-submit {
+            background: none;
             border: none;
-            color: var(--bg-space);
-            font-family: var(--font-technical);
-            font-size: 0.65rem;
-            font-weight: bold;
-            letter-spacing: 2px;
+            color: white;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            padding: 0 30px;
             cursor: pointer;
+            padding: 10px 0 10px 20px;
         }
 
-        /* --- FOOTER SPECIFICATIONS --- */
         footer {
-            border-top: 1px solid var(--line-weight);
-            padding: 50px 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666;
+            letter-spacing: 1px;
+            z-index: 2;
+            position: relative;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            font-family: var(--font-technical);
-            font-size: 0.6rem;
-            color: var(--text-dim);
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            justify-content: center;
+            gap: 5px;
         }
 
-        /* --- SCREEN SIZE CORRECTIONS --- */
-        @media (max-width: 1200px) {
-            .mainframe { border-left: none; border-right: none; }
-            .showcase-container { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 900px) {
-            header { padding: 0 24px; }
-            .nav-links { display: none; }
-            .obs-section { padding: 80px 24px; }
-            .manifest-row.header-row { display: none; }
-            .manifest-row { grid-template-columns: 1fr; gap: 12px; padding: 30px 24px; }
-            .m-action { justify-self: start; width: 100%; }
-            .manifest-btn { text-align: center; width: 100%; }
-            .portal-box { flex-direction: column; align-items: flex-start; gap: 40px; padding: 50px 30px; }
-            .portal-btn { width: 100%; text-align: center; }
-            .radar-box { grid-template-columns: 1fr; gap: 30px; padding: 40px 24px; }
-            footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 24px; }
-        }
-
-        @media (max-width: 600px) {
-            .showcase-container { grid-template-columns: 1fr; }
+        @media (max-width: 768px) {
+            header {
+                padding: 20px;
+            }
+            nav {
+                display: none;
+            }
+            .container {
+                padding: 0 20px 60px 20px;
+            }
+            .tour-row th:nth-child(4),
+            .tour-row td:nth-child(4) {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -501,170 +410,162 @@
     <canvas id="space-canvas"></canvas>
 
     <header>
-        <div class="nav-logo signature-frame">
+        <div class="logo-wrapper custom-signature-container">
             <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
                 <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
                 <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.85" />
+                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1px" opacity="0.7" />
             </svg>
         </div>
-        <nav class="nav-links">
-            <a href="#catalogue">Index</a>
-            <a href="#live">Live</a>
-            <a href="#network">Network</a>
-            <a href="#supply">Supply</a>
+        <nav>
+            <a href="#albums">Albums</a>
+            <a href="#tour">Tour</a>
+            <a href="#connect">Connect</a>
+            <a href="#store">Store</a>
+            <a href="#newsletter">Newsletter</a>
         </nav>
     </header>
 
-    <div class="hero-viewport">
-        <div class="hero-center signature-frame">
-            <div class="reticle-mark rm-top-left">[SYS_PRLX_01]</div>
+    <section class="hero">
+        <div class="hero-title-wrapper custom-signature-container">
             <svg class="signature-svg" viewBox="0 0 240 70" width="100%" xmlns="http://www.w3.org/2000/svg">
                 <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" />
                 <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" />
-                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1.2px" opacity="0.85" />
+                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="1px" opacity="0.7" />
             </svg>
-            <div class="reticle-mark rm-bottom-right">RA_0.53_ALT</div>
         </div>
-    </div>
+    </section>
 
-    <main class="mainframe">
+    <main class="container">
 
-        <section id="catalogue" class="obs-section">
-            <div class="obs-section-header">
-                <span class="index-num">001 / DATA_PROJECTS</span>
-                <h2>Catalogue</h2>
-            </div>
-
-            <div class="showcase-container">
-                <div class="showcase-block">
-                    <div class="image-frame">
-                        <img src="Album 8.png" alt="Project I">
+        <section id="albums">
+            <h2>Albums</h2>
+            <div class="albums-grid">
+                
+                <div class="album-card">
+                    <div class="album-art-container">
+                        <img src="Album 8.png" alt="Project I" class="album-art">
                     </div>
-                    <div class="block-meta">
-                        <span class="block-title">Project I</span>
-                        <span class="block-coord">C_LN_01</span>
+                    <div class="album-details">
+                        <h4>Project I</h4>
+                        <p>Coming soon</p>
                     </div>
                 </div>
 
-                <div class="showcase-block">
-                    <div class="image-frame">
-                        <img src="Album 11.jpeg" alt="Project II">
+                <div class="album-card">
+                    <div class="album-art-container">
+                        <img src="Album 11.jpeg" alt="Project II" class="album-art">
                     </div>
-                    <div class="block-meta">
-                        <span class="block-title">Project II</span>
-                        <span class="block-coord">C_LN_02</span>
+                    <div class="album-details">
+                        <h4>Project II</h4>
+                        <p>Coming soon</p>
                     </div>
                 </div>
 
-                <div class="showcase-block">
-                    <div class="image-frame">
-                        <img src="Album 10.jpeg" alt="Project III">
+                <div class="album-card">
+                    <div class="album-art-container">
+                        <img src="Album 10.jpeg" alt="Project III" class="album-art">
                     </div>
-                    <div class="block-meta">
-                        <span class="block-title">Project III</span>
-                        <span class="block-coord">C_LN_03</span>
+                    <div class="album-details">
+                        <h4>Project III</h4>
+                        <p>Coming soon</p>
                     </div>
                 </div>
+
             </div>
         </section>
 
-        <section id="live" class="obs-section">
-            <div class="obs-section-header">
-                <span class="index-num">002 / COORD_LIVE</span>
-                <h2>Manifest</h2>
-            </div>
+        <section id="tour">
+            <h2>Tour Dates</h2>
+            <table class="tour-table">
+                <thead>
+                    <tr class="tour-row">
+                        <th>Date</th>
+                        <th>Venue</th>
+                        <th>Location</th>
+                        <th>Lineup / Support</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="tour-row">
+                        <td class="tour-date">Oct 14, 2026</td>
+                        <td class="tour-venue">The Roxy</td>
+                        <td class="tour-location">Los Angeles, CA</td>
+                        <td class="tour-lineup">with Special Guests</td>
+                        <td><a href="#" target="_blank" class="tour-status status-onsale">Tickets</a></td>
+                    </tr>
+                    <tr class="tour-row">
+                        <td class="tour-date">Oct 18, 2026</td>
+                        <td class="tour-venue">Bowery Ballroom</td>
+                        <td class="tour-location">New York, NY</td>
+                        <td class="tour-lineup">with Special Guests</td>
+                        <td><a href="#" target="_blank" class="tour-status status-lowtickets">Low Tickets</a></td>
+                    </tr>
+                    <tr class="tour-row">
+                        <td class="tour-date">Oct 22, 2026</td>
+                        <td class="tour-venue">The Lighthouse</td>
+                        <td class="tour-location">London, UK</td>
+                        <td class="tour-lineup">with Special Guests</td>
+                        <td><span class="tour-status status-soldout">Sold Out</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
-            <div class="manifest-list">
-                <div class="manifest-row header-row">
-                    <div>Timeline</div>
-                    <div>Location Core</div>
-                    <div>Sector</div>
-                    <div style="text-align: right;">Status</div>
-                </div>
+        <section id="connect">
+            <h2>Connect</h2>
+            <div class="links-grid">
+                
+                <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="link-card">
+                    <span class="platform-name">Instagram</span>
+                    <span class="action-text">Follow</span>
+                </a>
 
-                <div class="manifest-row">
-                    <div class="m-date">10.14.2026</div>
-                    <div class="m-venue">The Roxy</div>
-                    <div class="m-loc">Los Angeles, CA</div>
-                    <div class="m-action">
-                        <a href="#" target="_blank" class="manifest-btn">Access</a>
-                    </div>
-                </div>
+                <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="link-card">
+                    <span class="platform-name">YouTube</span>
+                    <span class="action-text">Subscribe</span>
+                </a>
 
-                <div class="manifest-row">
-                    <div class="m-date">10.18.2026</div>
-                    <div class="m-venue">Bowery Ballroom</div>
-                    <div class="m-loc">New York, NY</div>
-                    <div class="m-action">
-                        <a href="#" target="_blank" class="manifest-btn">Access</a>
-                    </div>
-                </div>
+                <a href="https://x.com/Parallax_x_x" target="_blank" class="link-card">
+                    <span class="platform-name">X.com</span>
+                    <span class="action-text">Follow</span>
+                </a>
 
-                <div class="manifest-row row-soldout">
-                    <div class="m-date">10.22.2026</div>
-                    <div class="m-venue">The Lighthouse</div>
-                    <div class="m-loc">London, UK</div>
-                    <div class="m-action">
-                        <a href="#" class="manifest-btn">Locked</a>
-                    </div>
-                </div>
+                <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="link-card">
+                    <span class="platform-name">TikTok</span>
+                    <span class="action-text">Watch</span>
+                </a>
+
+                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="link-card">
+                    <span class="platform-name">Facebook</span>
+                    <span class="action-text">Like</span>
+                </a>
+
+                <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="link-card">
+                    <span class="platform-name">Discord</span>
+                    <span class="action-text">Join</span>
+                </a>
+
             </div>
         </section>
 
-        <section id="network" class="obs-section">
-            <div class="obs-section-header">
-                <span class="index-num">003 / LINK_CHANNELS</span>
-                <h2>Network</h2>
-            </div>
-
-            <div class="strip-channels">
-                <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="channel-line">
-                    <span>Instagram</span>
-                    <span class="ch-index">[ CH_01 ]</span>
-                </a>
-                <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="channel-line">
-                    <span>YouTube</span>
-                    <span class="ch-index">[ CH_02 ]</span>
-                </a>
-                <a href="https://x.com/Parallax_x_x" target="_blank" class="channel-line">
-                    <span>X.com</span>
-                    <span class="ch-index">[ CH_03 ]</span>
-                </a>
-                <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="channel-line">
-                    <span>TikTok</span>
-                    <span class="ch-index">[ CH_04 ]</span>
-                </a>
-                <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="channel-line">
-                    <span>Facebook</span>
-                    <span class="ch-index">[ CH_05 ]</span>
-                </a>
-                <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="channel-line">
-                    <span>Discord Network</span>
-                    <span class="ch-index">[ CH_06 ]</span>
-                </a>
+        <section id="store">
+            <h2>Store</h2>
+            <div class="store-banner">
+                <h3>Official Merchandise</h3>
+                <p>Explore exclusive apparel, physical music release copies, and special products direct from the Parallax collection store line.</p>
+                <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Enter Store</a>
             </div>
         </section>
 
-        <section id="supply" class="obs-section">
-            <div class="portal-box">
-                <div class="portal-text">
-                    <h3>Supply Vault</h3>
-                    <p>Direct portal access to physical pressing layers, garments, and custom text capsules managed directly by the artist.</p>
-                </div>
-                <a href="https://home1x.github.io/Store/" target="_blank" class="portal-btn">Enter Vault →</a>
-            </div>
-        </section>
-
-        <section id="transmission" class="obs-section">
-            <div class="radar-box">
-                <div>
-                    <h3>Transmissions</h3>
-                    <p>Authorize data syncing to receive structural drop matrices and performance keys directly.</p>
-                </div>
-                <form action="#" method="POST" class="radar-form">
-                    <input type="email" placeholder="INPUT EMAIL MATRIX" required autocomplete="off">
-                    <button type="submit">Sync</button>
+        <section id="newsletter" class="newsletter-section">
+            <h2>Newsletter</h2>
+            <div class="newsletter-container">
+                <p>Subscribe to receive news, project timeline drop updates, and exclusive access details for upcoming live schedules.</p>
+                <form action="#" method="POST" class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                    <button type="submit" class="newsletter-submit">Subscribe</button>
                 </form>
             </div>
         </section>
@@ -672,56 +573,21 @@
     </main>
 
     <footer>
-        <div>System Model: Parallax // 2026</div>
-        <div>All Specifications Protected.</div>
+        &copy; 2026 
+        <span class="custom-signature-container" style="height: 15px; vertical-align: middle;">
+            <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" stroke-width="4px"/>
+                <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" stroke-width="4px"/>
+                <path class="signature-path" d="M 45 56 L 210 50" stroke-width="2px" opacity="0.7" />
+            </svg>
+        </span>. All Rights Reserved.
     </footer>
 
     <script>
         const canvas = document.getElementById('space-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
-            let stars = [];
-            
-            function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                initStars();
-            }
-
-            function initStars() {
-                stars = [];
-                const count = Math.floor((canvas.width * canvas.height) / 9000);
-                for(let i = 0; i < count; i++) {
-                    stars.push({
-                        x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height,
-                        radius: Math.random() * 1.1,
-                        alpha: Math.random(),
-                        speed: 0.005 + Math.random() * 0.012
-                    });
-                }
-            }
-
-            function draw() {
-                ctx.fillStyle = '#030303';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                for(let i = 0; i < stars.length; i++) {
-                    let s = stars[i];
-                    s.alpha += s.speed;
-                    if(s.alpha > 1 || s.alpha < 0) s.speed = -s.speed;
-                    
-                    ctx.beginPath();
-                    ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.08, s.alpha)})`;
-                    ctx.fill();
-                }
-                requestAnimationFrame(draw);
-            }
-
-            window.addEventListener('resize', resize);
-            resize();
-            draw();
+            // Background initialization scripts placeholder logic inside layout
         }
     </script>
 </body>
