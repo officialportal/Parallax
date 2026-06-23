@@ -39,6 +39,8 @@
 
         html {
             scroll-behavior: smooth;
+            /* Prevents horizontal scrollbars that scaling might trigger */
+            overflow-x: hidden; 
         }
 
         :root {
@@ -48,14 +50,23 @@
             --text-main: #ffffff;
             --text-muted: #777777;
             --font-mono: 'Courier New', Courier, monospace;
+            
+            /* --- GLOBAL ZOOM FACTOR --- */
+            /* 0.85 means 85% zoom. Lower it to zoom out more (e.g., 0.8), raise it to zoom in (e.g., 0.9) */
+            --zoom-level: 0.85; 
         }
 
         body {
             background-color: var(--bg-deep);
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            overflow-x: hidden;
             letter-spacing: -0.02em;
+            
+            /* --- ZOOM OUT SIMULATION ENGINE --- */
+            transform: scale(var(--zoom-level));
+            transform-origin: top center; /* Keeps the page locked at the top center while shrinking */
+            width: calc(100% / var(--zoom-level)); /* Adjusts the width so it still stretches edge-to-edge */
+            min-height: calc(100vh / var(--zoom-level)); /* Ensures background/sections fill full height */
         }
 
         /* --- BACKGROUND LAYER --- */
@@ -63,8 +74,9 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            /* Injects inverse math so the background canvas ignores the body zoom and stays full screen */
+            width: calc(100vw / var(--zoom-level));
+            height: calc(100vh / var(--zoom-level));
             z-index: -1;
             pointer-events: none;
             background: radial-gradient(circle at center, #111111 0%, #050505 100%);
@@ -732,8 +744,10 @@
         if (canvas) {
             const ctx = canvas.getContext('2d');
             function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+                /* Dynamically calculates full screen metrics adjusted to the zoom level variable */
+                const zoomFactor = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--zoom-level')) || 1;
+                canvas.width = window.innerWidth / zoomFactor;
+                canvas.height = window.innerHeight / zoomFactor;
             }
             window.addEventListener('resize', resize);
             resize();
