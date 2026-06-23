@@ -58,7 +58,7 @@
             letter-spacing: -0.02em;
         }
 
-        /* --- BACKGROUND LAYER --- */
+        /* --- BACKGROUND LAYER (BLACK, GREY & WHITE GALAXY) --- */
         #space-canvas {
             position: fixed;
             top: 0;
@@ -67,7 +67,8 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            background: #000000;
+            /* Hard backup colors in case script rendering is interrupted */
+            background: radial-gradient(circle at 30% 40%, #222222 0%, #0c0c0c 45%, #000000 100%);
         }
 
         /* --- TYPOGRAPHY --- */
@@ -761,40 +762,45 @@
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
                 initStars();
+                draw(); // Force a draw update instantly on sizing updates
             }
 
             function initStars() {
                 stars = [];
-                // Create random black, grey, and white galaxy layers
-                const count = Math.floor((canvas.width * canvas.height) / 3000);
+                // Dynamic population based on actual visible space area
+                const count = Math.floor((canvas.width * canvas.height) / 2500);
                 for (let i = 0; i < count; i++) {
-                    // Random brightness values ranging from grey to pure white
-                    const brightness = Math.floor(Math.random() * 155) + 100; 
+                    // Strictly variations of soft grey to pure white
+                    const brightness = Math.floor(Math.random() * 135) + 120; 
                     stars.push({
                         x: Math.random() * canvas.width,
                         y: Math.random() * canvas.height,
-                        radius: Math.random() * 1.5,
-                        color: `rgba(${brightness}, ${brightness}, ${brightness}, ${Math.random()})`
+                        radius: Math.random() * 1.6,
+                        color: `rgba(${brightness}, ${brightness}, ${brightness}, ${Math.random() * 0.8 + 0.2})`
                     });
                 }
             }
 
             function draw() {
-                // Base solid black space backdrop
+                // Clear and render base pitch black canvas framework
                 ctx.fillStyle = '#000000';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                // Soft grey nebula cloud dust structures
-                const centerX = canvas.width / 2;
-                const centerY = canvas.height / 2;
-                const gradient = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, Math.max(canvas.width, canvas.height) * 0.8);
-                gradient.addColorStop(0, 'rgba(40, 40, 40, 0.4)');
-                gradient.addColorStop(0.5, 'rgba(20, 20, 20, 0.2)');
+                // Deep ambient grey cluster dust cloud structure
+                const centerX = canvas.width * 0.35;
+                const centerY = canvas.height * 0.45;
+                const cloudRadius = Math.max(canvas.width, canvas.height) * 0.7;
+                
+                const gradient = ctx.createRadialGradient(centerX, centerY, 50, centerX, centerY, cloudRadius);
+                gradient.addColorStop(0, 'rgba(45, 45, 45, 0.45)');
+                gradient.addColorStop(0.3, 'rgba(24, 24, 24, 0.3)');
+                gradient.addColorStop(0.7, 'rgba(8, 8, 8, 0.15)');
                 gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                
                 ctx.fillStyle = gradient;
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                // Render the monochromatic star field
+                // Paint the grey and white star systems
                 stars.forEach(star => {
                     ctx.beginPath();
                     ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
@@ -803,9 +809,9 @@
                 });
             }
 
+            // Bind framework events and execute sequence immediately
             window.addEventListener('resize', resize);
             resize();
-            draw();
         }
     </script>
 </body>
