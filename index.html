@@ -37,7 +37,6 @@
             user-select: none;
         }
 
-        /* Smooth scrolling behavior for a premium feel */
         html {
             scroll-behavior: smooth;
         }
@@ -166,7 +165,7 @@
 
         section {
             margin-bottom: 140px;
-            scroll-margin-top: 120px; /* Prevents fixed header from covering sections on click */
+            scroll-margin-top: 120px;
         }
 
         .section-header {
@@ -182,7 +181,7 @@
             text-transform: capitalize;
         }
 
-        /* --- SECTION 1: ALBUMS GRID (High Content Density) --- */
+        /* --- SECTION 1: ALBUMS GRID --- */
         .albums-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -192,7 +191,6 @@
         .album-card {
             display: flex;
             flex-direction: column;
-            group: hover;
         }
 
         .album-art {
@@ -342,7 +340,7 @@
             pointer-events: none;
         }
 
-        /* --- SECTION 2: CONNECT GRID (Medium Content Density) --- */
+        /* --- SECTION 2: CONNECT GRID --- */
         .links-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -385,7 +383,7 @@
             padding-left: 5px;
         }
 
-        /* --- SECTION 3: STORE BANNER (Minimal Density Rest-point) --- */
+        /* --- SECTION 3: STORE BANNER --- */
         .store-banner {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
