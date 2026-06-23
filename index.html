@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <meta name="google-site-verification" content="google990317cbb4fca942" />
 
     <title>Parallax</title>
@@ -29,7 +28,7 @@
     </script>
 
     <style>
-        /* --- RESET & ROOT VARIABLES --- */
+        /* --- CORE SYSTEM & PROPERTIES --- */
         * {
             margin: 0;
             padding: 0;
@@ -42,20 +41,24 @@
         }
 
         :root {
-            --bg-deep: #0a0a0a;
-            --card-bg: rgba(18, 18, 18, 0.7);
-            --border-color: rgba(255, 255, 255, 0.12);
+            --bg-deep: #050505;
+            --card-bg: rgba(12, 12, 12, 0.45);
+            --card-hover: rgba(20, 20, 20, 0.7);
+            --border-color: rgba(255, 255, 255, 0.07);
+            --border-hover: rgba(255, 255, 255, 0.2);
             --text-main: #ffffff;
-            --text-muted: #777777;
+            --text-muted: #8e8e93;
             --font-mono: 'Courier New', Courier, monospace;
+            --glow-color: rgba(255, 255, 255, 0.8);
         }
 
         body {
             background-color: var(--bg-deep);
             color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
             overflow-x: hidden;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
+            line-height: 1.5;
         }
 
         /* --- BACKGROUND LAYER --- */
@@ -67,21 +70,16 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            background: radial-gradient(circle at center, #111111 0%, #050505 100%);
         }
 
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3 {
-            font-weight: 900;
-        }
-
+        /* --- TYPOGRAPHY & LINKS --- */
         a {
             color: var(--text-main);
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* --- SIGNATURE ENGINE LAYOUT --- */
+        /* --- SIGNATURE ELEMENT --- */
         .custom-signature-container {
             display: inline-flex;
             align-items: center;
@@ -90,8 +88,8 @@
 
         .signature-svg {
             overflow: visible;
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9))
-                    drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+            transition: filter 0.3s ease;
         }
 
         .signature-path {
@@ -102,154 +100,169 @@
             stroke-linejoin: round;
         }
 
-        /* --- FIXED HEADER --- */
+        /* --- NAVIGATION --- */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 1rem 4%;
+            padding: 1.5rem 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
             border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(5, 5, 5, 0.6);
         }
 
         .logo-wrapper {
-            height: 30px;
+            height: 32px;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
         }
 
         nav a {
             font-family: var(--font-mono);
-            font-size: 0.72rem;
-            margin-left: 20px;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             color: var(--text-muted);
-            text-transform: capitalize;
+            text-transform: uppercase;
         }
 
         nav a:hover {
             color: var(--text-main);
+            text-shadow: 0 0 8px #ffffff;
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
             position: relative;
-            min-height: 85vh;
+            min-height: 90vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 0 4%;
             z-index: 2;
-            text-align: center;
         }
 
         .hero-title-wrapper {
-            width: clamp(200px, 35vw, 380px);
-            transform: rotate(-1deg);
+            width: clamp(250px, 45vw, 500px);
+            animation: subtleFloat 6s ease-in-out infinite;
         }
 
-        /* --- LAYOUT CONTAINER --- */
+        .hero-title-wrapper .signature-svg {
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+        }
+
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-8px) rotate(0.5deg); }
+        }
+
+        /* --- STRUCTURE LAYOUT --- */
         .container {
             position: relative;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px 4% 80px 4%;
+            padding: 0 6% 120px 6%;
             z-index: 2;
         }
 
         section {
-            margin-bottom: 100px;
-            scroll-margin-top: 100px;
+            margin-bottom: 140px;
+            scroll-margin-top: 120px;
         }
 
         .section-header {
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-            margin-bottom: 35px;
+            padding-bottom: 14px;
+            margin-bottom: 45px;
         }
 
         .section-header h2 {
-            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
-            line-height: 1;
-            letter-spacing: 1px;
-            text-transform: capitalize;
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-main);
         }
 
-        /* --- SECTION 1: ALBUMS GRID (DAFT PUNK STYLE) --- */
-        .albums-wrapper {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-
+        /* --- ALBUMS SECTION (MINIMALIST GRID) --- */
         .albums-grid {
             display: grid;
-            grid-template-columns: repeat(3, 140px); /* Small, uniform block size */
-            gap: 1.5rem;
-            justify-content: center;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
         }
 
         .album-card {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
+            group-setProperty: relative;
+        }
+
+        .album-art-container {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+            overflow: hidden;
+            margin-bottom: 18px;
+            position: relative;
+            transition: border-color 0.4s ease;
         }
 
         .album-art {
-            width: 140px;
-            height: 140px;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(5px);
-            margin-bottom: 10px;
-            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .album-card:hover .album-art-container {
+            border-color: var(--border-hover);
         }
 
         .album-card:hover .album-art {
-            border-color: #ffffff;
-            transform: scale(1.03);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+            transform: scale(1.04);
         }
 
         .album-details h4 {
-            font-size: 0.85rem;
-            font-weight: 700;
+            font-size: 0.95rem;
+            font-weight: 600;
             letter-spacing: 0.05em;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
             text-transform: uppercase;
         }
 
         .album-details p {
             font-family: var(--font-mono);
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* --- TOUR DESIGN --- */
         .tour-table {
-            display: flex;
-            flex-direction: column;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            border-radius: 2px;
+            overflow: hidden;
         }
 
         .tour-header-row {
             display: grid;
-            grid-template-columns: 1.2fr 2fr 1.8fr 1.5fr 0.8fr;
-            padding: 15px 25px;
+            grid-template-columns: 1.2fr 2fr 1.8fr 1.5fr 1fr;
+            padding: 18px 30px;
             border-bottom: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.01);
             font-family: var(--font-mono);
             font-size: 0.7rem;
             letter-spacing: 2px;
@@ -259,11 +272,10 @@
 
         .tour-data-row {
             display: grid;
-            grid-template-columns: 1.2fr 2fr 1.8fr 1.5fr 0.8fr;
-            padding: 22px 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            grid-template-columns: 1.2fr 2fr 1.8fr 1.5fr 1fr;
+            padding: 26px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             align-items: center;
-            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .tour-data-row:last-child {
@@ -272,32 +284,30 @@
 
         .tour-data-row:hover {
             background: rgba(255, 255, 255, 0.02);
-            transform: scale(1.002);
         }
 
         .td-date {
             font-family: var(--font-mono);
             font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
+            font-weight: bold;
+            color: #ffffff;
         }
 
         .td-venue {
-            font-size: 1rem;
-            font-weight: 800;
-            letter-spacing: -0.01em;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
         }
 
         .td-location {
-            font-size: 0.88rem;
-            color: var(--text-main);
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
         .td-lineup {
             font-family: var(--font-mono);
             font-size: 0.75rem;
             color: var(--text-muted);
-            line-height: 1.4;
         }
 
         .tour-data-row:hover .td-lineup {
@@ -307,20 +317,20 @@
         .td-action {
             justify-self: end;
             width: 100%;
-            text-align: right;
+            max-width: 120px;
         }
 
         .tour-status {
-            display: inline-block;
+            display: block;
             font-family: var(--font-mono);
-            font-size: 0.65rem;
-            letter-spacing: 1px;
+            font-size: 0.68rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 8px 16px;
+            padding: 10px 0;
             width: 100%;
             text-align: center;
             border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.2);
         }
 
         .status-onsale {
@@ -331,152 +341,170 @@
         .status-onsale:hover {
             background: var(--text-main);
             color: var(--bg-deep);
+            box-shadow: 0 0 12px rgba(255,255,255,0.25);
         }
 
         .status-lowtickets {
-            border-color: #ffaa00;
-            color: #ffaa00;
+            border-color: #e6a100;
+            color: #e6a100;
         }
 
         .status-lowtickets:hover {
-            background: #ffaa00;
+            background: #e6a100;
             color: var(--bg-deep);
+            box-shadow: 0 0 12px rgba(230,161,0,0.3);
         }
 
         .status-soldout {
-            border-color: rgba(255, 255, 255, 0.03);
-            color: var(--text-muted);
-            opacity: 0.3;
+            border-color: transparent;
+            color: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.02);
             pointer-events: none;
+            text-decoration: line-through;
         }
 
-        /* --- SECTION 2: CONNECT GRID --- */
+        /* --- CONNECT LINK GRID --- */
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
         }
 
         .link-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 25px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 140px;
-            transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            min-height: 150px;
         }
 
         .link-card:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+            border-color: var(--border-hover);
+            background: var(--card-hover);
         }
 
         .link-card .platform-name {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.1rem;
+            font-weight: 500;
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .link-card .action-text {
             font-family: var(--font-mono);
-            font-size: 0.72rem;
-            letter-spacing: 0.1em;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
             color: var(--text-muted);
-            text-transform: capitalize;
-            transition: all 0.3s ease;
+            text-transform: uppercase;
         }
 
         .link-card:hover .action-text {
             color: var(--text-main);
-            padding-left: 4px;
         }
 
-        /* --- SECTION 3: STORE BANNER --- */
+        /* --- IMMERSIVE BANNER (STORE) --- */
         .store-banner {
-            background: var(--card-bg);
+            background: linear-gradient(135deg, rgba(15,15,15,0.6) 0%, rgba(5,5,5,0.8) 100%), var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 50px 40px;
+            padding: 60px 50px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            justify-content: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .store-banner::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; width: 150px; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.01));
+            pointer-events: none;
         }
 
         .store-banner h3 {
-            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+            font-size: 1.8rem;
+            font-weight: 400;
             margin-bottom: 15px;
-            letter-spacing: 2px;
-            line-height: 0.95;
-            text-transform: capitalize;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
         .store-banner p {
             color: var(--text-muted);
-            font-size: 0.88rem;
-            max-width: 500px;
-            line-height: 1.6;
-            margin-bottom: 18px;
+            font-size: 0.9rem;
+            max-width: 550px;
+            line-height: 1.7;
+            margin-bottom: 30px;
         }
 
         .action-btn {
             background: none;
             border: 1px solid var(--text-main);
             color: var(--text-main);
-            padding: 12px 30px;
-            font-size: 0.78rem;
+            padding: 14px 35px;
+            font-size: 0.75rem;
             font-family: var(--font-mono);
-            font-weight: 700;
-            letter-spacing: 0.1em;
+            letter-spacing: 2px;
             display: inline-block;
-            transition: all 0.3s ease;
-            text-transform: capitalize;
+            text-transform: uppercase;
             cursor: pointer;
         }
 
         .action-btn:hover {
             background: var(--text-main);
             color: var(--bg-deep);
-            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
         }
 
-        /* --- EMAIL SIGNUP SECTION --- */
+        /* --- NEWSLETTER OVERHAUL --- */
         .newsletter-section {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 40px 30px;
-            backdrop-filter: blur(5px);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            padding: 50px;
+            backdrop-filter: blur(10px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 40px;
         }
 
         .newsletter-info h3 {
             font-size: 1.5rem;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            text-transform: capitalize;
+            font-weight: 400;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
         .newsletter-info p {
             color: var(--text-muted);
-            font-size: 0.85rem;
-            max-width: 450px;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         .newsletter-form {
             display: flex;
-            width: 100%;
-            max-width: 450px;
+            align-items: center;
             border-bottom: 1px solid var(--border-color);
-            transition: border-color 0.3s ease;
+            position: relative;
         }
 
-        .newsletter-form:focus-within {
-            border-color: var(--text-main);
+        .newsletter-form::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; width: 100%; height: 1px;
+            background: #ffffff;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .newsletter-form:focus-within::after {
+            transform: scaleX(1);
         }
 
         .newsletter-input {
@@ -485,16 +513,17 @@
             outline: none;
             color: var(--text-main);
             font-family: var(--font-mono);
-            font-size: 0.88rem;
-            padding: 10px 0;
+            font-size: 0.85rem;
+            padding: 15px 0;
             flex-grow: 1;
+            letter-spacing: 1px;
             user-select: text;
         }
 
         .newsletter-input::placeholder {
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.2);
             text-transform: uppercase;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             letter-spacing: 2px;
         }
 
@@ -503,68 +532,60 @@
             border: none;
             color: var(--text-main);
             font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 700;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             cursor: pointer;
-            padding: 0 5px 0 15px;
-            transition: opacity 0.3s ease;
-        }
-
-        .newsletter-submit:hover {
-            opacity: 0.7;
+            padding: 10px 0 10px 20px;
         }
 
         /* --- FOOTER --- */
         footer {
             border-top: 1px solid var(--border-color);
-            padding: 30px 4%;
+            padding: 40px 6%;
             text-align: center;
             font-family: var(--font-mono);
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             color: var(--text-muted);
-            letter-spacing: 0.05em;
+            letter-spacing: 1px;
             z-index: 2;
             position: relative;
-            opacity: 0.6;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 4px;
+            text-transform: uppercase;
         }
 
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 992px) {
+        /* --- ULTRALIGHT RESPONSIVE DESIGN --- */
+        @media (max-width: 1024px) {
+            .albums-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+            .links-grid { grid-template-columns: repeat(2, 1fr); }
+            .newsletter-section { grid-template-columns: 1fr; gap: 30px; }
+        }
+
+        @media (max-width: 900px) {
             .tour-header-row { display: none; }
             .tour-data-row {
                 grid-template-columns: 1fr;
-                gap: 8px;
-                padding: 22px 20px;
-                justify-items: start;
+                gap: 6px;
+                padding: 24px 20px;
             }
-            .td-action { justify-self: start; text-align: left; margin-top: 6px; width: 100%; }
-            .tour-status { max-width: 100%; }
+            .td-action { justify-self: stretch; max-width: 100%; margin-top: 10px; }
         }
 
         @media (max-width: 768px) {
+            header { padding: 1.2rem 6%; }
             nav { display: none; }
-            .store-banner { padding: 30px 20px; }
-            .newsletter-section { padding: 30px 20px; }
-            header { padding: 1rem 4%; }
-            .logo-wrapper { height: 24px; }
-            section { margin-bottom: 70px; }
+            .container { padding-bottom: 80px; }
+            section { margin-bottom: 90px; }
+            .store-banner { padding: 40px 25px; }
+            .newsletter-section { padding: 40px 25px; }
         }
         
-        @media (max-width: 520px) {
-            .albums-grid {
-                grid-template-columns: repeat(2, 130px); /* Tidy stack on ultra mobile screens */
-                gap: 1rem;
-            }
-            .album-art {
-                width: 130px;
-                height: 130px;
-            }
+        @media (max-width: 480px) {
+            .albums-grid { grid-template-columns: 1fr; }
+            .links-grid { grid-template-columns: 1fr; gap: 1rem; }
         }
     </style>
 </head>
@@ -606,30 +627,34 @@
                 <h2>Albums</h2>
             </div>
             
-            <div class="albums-wrapper">
-                <div class="albums-grid">
-                    <div class="album-card">
+            <div class="albums-grid">
+                <div class="album-card">
+                    <div class="album-art-container">
                         <img src="Album 8.png" alt="Project I Cover Art" class="album-art">
-                        <div class="album-details">
-                            <h4>Project I</h4>
-                            <p>Coming soon</p>
-                        </div>
                     </div>
+                    <div class="album-details">
+                        <h4>Project I</h4>
+                        <p>Coming soon</p>
+                    </div>
+                </div>
 
-                    <div class="album-card">
+                <div class="album-card">
+                    <div class="album-art-container">
                         <img src="Album 11.jpeg" alt="Project II Cover Art" class="album-art">
-                        <div class="album-details">
-                            <h4>Project II</h4>
-                            <p>Coming soon</p>
-                        </div>
                     </div>
+                    <div class="album-details">
+                        <h4>Project II</h4>
+                        <p>Coming soon</p>
+                    </div>
+                </div>
 
-                    <div class="album-card">
+                <div class="album-card">
+                    <div class="album-art-container">
                         <img src="Album 10.jpeg" alt="Project III Cover Art" class="album-art">
-                        <div class="album-details">
-                            <h4>Project III</h4>
-                            <p>Coming soon</p>
-                        </div>
+                    </div>
+                    <div class="album-details">
+                        <h4>Project III</h4>
+                        <p>Coming soon</p>
                     </div>
                 </div>
             </div>
@@ -637,7 +662,7 @@
 
         <section id="tour">
             <div class="section-header">
-                <h2>Tour</h2>
+                <h2>Tour Dates</h2>
             </div>
             
             <div class="tour-table">
@@ -650,30 +675,30 @@
                 </div>
 
                 <div class="tour-data-row">
-                    <div class="td-date">DATE HERE</div>
-                    <div class="td-venue">VENUE NAME</div>
-                    <div class="td-location">CITY, STATE</div>
-                    <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
+                    <div class="td-date">OCT 14, 2026</div>
+                    <div class="td-venue">THE ROXY</div>
+                    <div class="td-location">LOS ANGELES, CA</div>
+                    <div class="td-lineup">SPECIAL GUESTS</div>
                     <div class="td-action">
                         <a href="#" target="_blank" class="tour-status status-onsale">Tickets</a>
                     </div>
                 </div>
 
                 <div class="tour-data-row">
-                    <div class="td-date">DATE HERE</div>
-                    <div class="td-venue">VENUE NAME</div>
-                    <div class="td-location">CITY, STATE</div>
-                    <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
+                    <div class="td-date">OCT 18, 2026</div>
+                    <div class="td-venue">BOWERY BALLROOM</div>
+                    <div class="td-location">NEW YORK, NY</div>
+                    <div class="td-lineup">SPECIAL GUESTS</div>
                     <div class="td-action">
                         <a href="#" target="_blank" class="tour-status status-lowtickets">Low Tickets</a>
                     </div>
                 </div>
 
                 <div class="tour-data-row">
-                    <div class="td-date">DATE HERE</div>
-                    <div class="td-venue">VENUE NAME</div>
-                    <div class="td-location">CITY, COUNTRY</div>
-                    <div class="td-lineup">LINEUP / SUPPORT DETAILS</div>
+                    <div class="td-date">OCT 22, 2026</div>
+                    <div class="td-venue">THE LIGHTHOUSE</div>
+                    <div class="td-location">LONDON, UK</div>
+                    <div class="td-lineup">SPECIAL GUESTS</div>
                     <div class="td-action">
                         <span class="tour-status status-soldout">Sold Out</span>
                     </div>
@@ -689,7 +714,7 @@
             <div class="links-grid">
                 <a href="https://www.instagram.com/parallax.x.x?igsh=eTlnM20xZW5lcDUx&utm_source=qr" target="_blank" class="link-card">
                     <div class="platform-name">Instagram</div>
-                    <div class="action-text">View profile ↗</div>
+                    <div class="action-text">View Profile ↗</div>
                 </a>
 
                 <a href="https://m.youtube.com/@parallax.x.x?ra=m" target="_blank" class="link-card">
@@ -699,68 +724,109 @@
 
                 <a href="https://x.com/Parallax_x_x" target="_blank" class="link-card">
                     <div class="platform-name">X.com</div>
-                    <div class="action-text">Follow feed ↗</div>
+                    <div class="action-text">Follow Feed ↗</div>
                 </a>
 
                 <a href="https://www.tiktok.com/@parallax.x.x?_r=1&_t=ZT-94UGGvXVNug" target="_blank" class="link-card">
                     <div class="platform-name">TikTok</div>
-                    <div class="action-text">Watch content ↗</div>
+                    <div class="action-text">Watch Content ↗</div>
                 </a>
 
                 <a href="https://www.facebook.com/Parallax.x.x.x.x/" target="_blank" class="link-card">
                     <div class="platform-name">Facebook</div>
-                    <div class="action-text">Join community ↗</div>
+                    <div class="action-text">Join Space ↗</div>
                 </a>
 
                 <a href="https://discord.com/invite/rhXuzGvM6" target="_blank" class="link-card">
                     <div class="platform-name">The Network</div>
-                    <div class="action-text">Enter portal ↗</div>
+                    <div class="action-text">Enter Portal ↗</div>
                 </a>
             </div>
         </section>
 
         <section id="store" class="store-banner">
-            <h3>Store</h3>
+            <h3>Curated Store</h3>
             <p>
-                Access premium garments, unique drops, and official merchandise direct from the curated Parallax collection line.
+                Access premium garments, unique physical music pressings, and official capsule merchandise direct from the curated Parallax line.
             </p>
-            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop collection →</a>
+            <a href="https://home1x.github.io/Store/" target="_blank" class="action-btn">Shop Collection →</a>
         </section>
 
         <section id="newsletter" class="newsletter-section">
             <div class="newsletter-info">
                 <h3>Newsletter</h3>
-                <p>Subscribe to receive exclusive drops, project updates, and early ticket access directly from Parallax.</p>
+                <p>Subscribe to receive deep updates, exclusive priority product drops, and early tour ticket access options.</p>
             </div>
             <form action="#" method="POST" class="newsletter-form">
-                <input type="email" name="email" class="newsletter-input" placeholder="ENTER YOUR EMAIL" required autocomplete="off">
-                <button type="submit" class="newsletter-submit">SUBMIT ↗</button>
+                <input type="email" name="email" class="newsletter-input" placeholder="Enter your email address" required autocomplete="off">
+                <button type="submit" class="newsletter-submit">Submit ↗</button>
             </form>
         </section>
 
     </main>
 
     <footer>
-        &copy; 
-        <span class="custom-signature-container" style="height: 16px; vertical-align: middle; margin: 0 4px;">
+        &copy; 2026 
+        <span class="custom-signature-container" style="height: 14px; vertical-align: middle; margin: 0 6px;">
             <svg class="signature-svg" viewBox="0 0 240 70" height="100%" xmlns="http://www.w3.org/2000/svg">
                 <path class="signature-path" d="M 30 54 L 30 16 M 30 18 C 48 10, 68 18, 52 34 C 40 44, 30 40, 30 40" stroke-width="3.5px" />
                 <path class="signature-path" d="M 66 38 C 74 34, 76 46, 84 46 C 92 46, 96 34, 100 34 C 104 34, 106 46, 114 46 C 122 46, 128 22, 134 22 L 128 46 C 132 46, 136 22, 142 22 L 136 46 C 144 46, 146 34, 154 34 C 158 34, 160 46, 168 46 C 174 46, 184 34, 190 40" stroke-width="3.5px" />
                 <path class="signature-path" d="M 45 56 L 210 50" stroke-width="2px" opacity="0.85" />
             </svg>
-        </span>. all rights reserved.
+        </span>. All Rights Reserved.
     </footer>
 
     <script>
         const canvas = document.getElementById('space-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
+            let stars = [];
+            
             function resize() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
+                initStars();
             }
+
+            function initStars() {
+                stars = [];
+                const count = Math.floor((canvas.width * canvas.height) / 9000);
+                for(let i = 0; i < count; i++) {
+                    stars.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        radius: Math.random() * 1.2,
+                        alpha: Math.random(),
+                        speed: 0.01 + Math.random() * 0.02
+                    });
+                }
+            }
+
+            function draw() {
+                // Clear and build the precise radial dark background context layer
+                let gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, Math.max(canvas.width, canvas.height));
+                gradient.addColorStop(0, '#111111');
+                gradient.addColorStop(1, '#050505');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Animate fine twinkling stars
+                for(let i = 0; i < stars.length; i++) {
+                    let s = stars[i];
+                    s.alpha += s.speed;
+                    if(s.alpha > 1 || s.alpha < 0) s.speed = -s.speed;
+                    
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.1, s.alpha)})`;
+                    ctx.fill();
+                }
+                requestAnimationFrame(draw);
+            }
+
             window.addEventListener('resize', resize);
             resize();
+            draw();
         }
     </script>
 </body>
