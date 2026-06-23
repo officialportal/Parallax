@@ -181,46 +181,57 @@
             text-transform: capitalize;
         }
 
-        /* --- SECTION 1: ALBUMS GRID --- */
+        /* --- SECTION 1: ALBUMS GRID (DAFT PUNK STYLE) --- */
+        .albums-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
         .albums-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(3, 140px); /* Small, uniform block size */
+            gap: 1.5rem;
+            justify-content: center;
         }
 
         .album-card {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         .album-art {
-            width: 100%;
-            aspect-ratio: 1 / 1;
+            width: 140px;
+            height: 140px;
             border: 1px solid var(--border-color);
             backdrop-filter: blur(5px);
-            margin-bottom: 15px;
-            transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             object-fit: cover;
             display: block;
         }
 
         .album-card:hover .album-art {
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-4px);
+            border-color: #ffffff;
+            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
         }
 
         .album-details h4 {
-            font-size: 1.05rem;
+            font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: 0.05em;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
+            text-transform: uppercase;
         }
 
         .album-details p {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
-            text-transform: capitalize;
+            text-transform: uppercase;
         }
 
         /* --- TOUR DESIGN --- */
@@ -544,6 +555,17 @@
             .logo-wrapper { height: 24px; }
             section { margin-bottom: 70px; }
         }
+        
+        @media (max-width: 520px) {
+            .albums-grid {
+                grid-template-columns: repeat(2, 130px); /* Tidy stack on ultra mobile screens */
+                gap: 1rem;
+            }
+            .album-art {
+                width: 130px;
+                height: 130px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -584,28 +606,30 @@
                 <h2>Albums</h2>
             </div>
             
-            <div class="albums-grid">
-                <div class="album-card">
-                    <img src="Album 8.png" alt="Project I Cover Art" class="album-art">
-                    <div class="album-details">
-                        <h4>Project I</h4>
-                        <p>Coming soon</p>
+            <div class="albums-wrapper">
+                <div class="albums-grid">
+                    <div class="album-card">
+                        <img src="Album 8.png" alt="Project I Cover Art" class="album-art">
+                        <div class="album-details">
+                            <h4>Project I</h4>
+                            <p>Coming soon</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="album-card">
-                    <img src="Album 11.jpeg" alt="Project II Cover Art" class="album-art">
-                    <div class="album-details">
-                        <h4>Project II</h4>
-                        <p>Coming soon</p>
+                    <div class="album-card">
+                        <img src="Album 11.jpeg" alt="Project II Cover Art" class="album-art">
+                        <div class="album-details">
+                            <h4>Project II</h4>
+                            <p>Coming soon</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="album-card">
-                    <img src="Album 10.jpeg" alt="Project III Cover Art" class="album-art">
-                    <div class="album-details">
-                        <h4>Project III</h4>
-                        <p>Coming soon</p>
+                    <div class="album-card">
+                        <img src="Album 10.jpeg" alt="Project III Cover Art" class="album-art">
+                        <div class="album-details">
+                            <h4>Project III</h4>
+                            <p>Coming soon</p>
+                        </div>
                     </div>
                 </div>
             </div>
